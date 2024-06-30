@@ -62,10 +62,12 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama User</th>
+                                <th>Nama Pengguna</th>
+                                <th>User</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th width="5%">Gambar</th>
+                                <th>Status</th>
+                                <th width="5%">Avatar</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
@@ -77,11 +79,20 @@
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td>{{ $p->name }}</td>
+                                    <td>{{ $p->user }}</td>
                                     <td>{{ $p->email }}</td>
                                     <td>{{ $p->role }}</td>
-                                    <td><a href="/upload/user/{{ $p->picture }}" target="_blank"><img
+                                    <td>
+                                        @if ($p->status == 'Aktif')
+                                            <span class="badge bg-success">{{ $p->status }}</span>
+                                        @else
+                                            <span class="badge bg-danger">{{ $p->status }}</span>
+                                        @endif
+                                    </td>
+                                    
+                                    <td><a href="/upload/user/{{ $p->avatar }}" target="_blank"><img
                                                 style="max-width:100px; max-height:100px"
-                                                src="/upload/user/{{ $p->picture }}" alt=""></a></td>
+                                                src="/upload/user/{{ $p->avatar }}" alt=""></a></td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-warning btn-edit" data-toggle="modal"
                                             data-target="#modal-edit" data-id="{{ $p->id }}" style="color: black">
@@ -290,6 +301,14 @@
                                         });
                                     </script>
                                     <div class="col-3">
+                                        <div class="form-group" id="youtube_container">
+                                            <label for="youtube">Youtube</label>
+                                            <input type="text" class="form-control" name="youtube" id="youtube"
+                                                placeholder="Youtube">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
                                         <div class="form-group" id="status_container">
                                             <label for="status">Status</label>
                                             <select class="form-control" name="status" id="status">
@@ -439,7 +458,7 @@
 
     {{-- Modal Edit Data --}}
     <div class="modal fade" id="modal-edit">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Form {{ $subtitle }}</h4>
@@ -614,7 +633,14 @@
                                             });
                                         });
                                     </script>
-                                    <div class="col-3">
+                                     <div class="col-3">
+                                        <div class="form-group" id="youtube_edit_container">
+                                            <label for="youtube_edit">Youtube</label>
+                                            <input type="text" class="form-control" name="youtube"
+                                                id="youtube_edit" placeholder="Youtube">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
                                         <div class="form-group" id="status_edit_container">
                                             <label for="status_edit">Status</label>
                                             <select class="form-control" name="status" id="status_edit">
@@ -845,6 +871,7 @@
                         $('#tiktok_edit').val(data.tiktok);
                         $('#instagram_edit').val(data.instagram);
                         $('#facebook_edit').val(data.facebook);
+                        $('#youtube_edit').val(data.youtube);
                         $('#color_edit').val(data.color);
                         $('#status_edit').val(data.status);
                         $('#password_edit').val(data.password);

@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class ProfilPengguna extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
     /**
@@ -17,13 +17,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
     protected $guarded = [];
 
     public function produk()
     {
         return $this->hasMany(Produk::class);
     }
+
  
+
     /**
      * The attributes that should be hidden for serialization.
      *

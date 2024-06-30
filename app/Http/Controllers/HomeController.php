@@ -33,18 +33,18 @@ class HomeController extends Controller
         $title = "Halaman Utama";
         $subtitle = "Menu Utama";
         $agent = new Agent(); // Buat instance untuk mengurai user-agent
-
+    
         // Simpan visitor
         $ip_address = $_SERVER['REMOTE_ADDR'];
         $visit_time = date('Y-m-d H:i:s');
         $session_id = session_id(); // Ambil ID sesi
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
-
+    
         // Ambil informasi tentang perangkat dan OS
         $device = $agent->device(); // Nama perangkat (misalnya, iPhone, Android)
         $platform = $agent->platform(); // Nama OS (misalnya, Windows, iOS)
         $browser = $agent->browser(); // Nama browser (misalnya, Chrome, Safari)
-
+    
         Visitor::create([
             'ip_address' => $ip_address,
             'visit_time' => $visit_time,
@@ -54,8 +54,10 @@ class HomeController extends Controller
             'platform' => $platform,
             'browser' => $browser,
         ]);
-
-        $produk = Produk::where('status', 'Aktif')
+    
+        // Gunakan eager loading untuk produk dan produk_diskon
+        $produk = Produk::with(['kategoriProduk'])
+            ->where('status', 'Aktif')
             ->where(function ($query) {
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
@@ -63,20 +65,21 @@ class HomeController extends Controller
             ->orderBy('urutan')
             ->take(10)
             ->get();
-
-
-
-        $produk_diskon = Produk::where('status_diskon', 'Aktif') ->orderBy('urutan')
-        ->take(6)
-        ->get();
+    
+        $produk_diskon = Produk::with(['kategoriProduk'])
+            ->where('status_diskon', 'Aktif')
+            ->orderBy('urutan')
+            ->take(6)
+            ->get();
+    
         $alasan = Alasan::all();
         $testimoni = Testimoni::all();
         $slider = Slider::all();
         $kategori_produk = KategoriProduk::all();
-
-
+    
         return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon'));
     }
+    
 
 
 
@@ -115,26 +118,33 @@ class HomeController extends Controller
         $title = "Halaman Produk";
         $subtitle = "Menu Produk";
         $kategori_produk = KategoriProduk::all();
-
-        // Ambil query awal produk aktif
-        $query = Produk::where('produk.status', 'Aktif')
-            ->join('kategori_produk', 'produk.kategori_produk_id', '=', 'kategori_produk.id')
-            ->select('produk.*', 'kategori_produk.nama_kategori_produk');
-
+        
+        // Ambil query awal produk aktif dengan eager loading
+        $query = Produk::with('kategoriProduk')
+            ->where('produk.status', 'Aktif');
+        
         // Proses pencarian berdasarkan keyword
         if ($request->has('keyword')) {
             $keyword = $request->keyword;
             $query->where(function ($query) use ($keyword) {
                 $query->where('produk.nama_produk', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('produk.deskripsi', 'LIKE', '%' . $keyword . '%')
-                    ->orWhere('kategori_produk.nama_kategori_produk', 'LIKE', '%' . $keyword . '%'); // Pencarian berdasarkan nama kategori
+                    ->orWhereHas('kategoriProduk', function ($query) use ($keyword) { // Pencarian berdasarkan nama kategori
+                        $query->where('nama_kategori_produk', 'LIKE', '%' . $keyword . '%');
+                    });
             });
         }
-
+        
+        // Filter berdasarkan kategori
+        if ($request->has('kategori_id')) {
+            $kategoriId = $request->kategori_id;
+            $query->where('produk.kategori_produk_id', $kategoriId);
+        }
+        
         // Proses pengurutan berdasarkan pilihan pengguna
         if ($request->has('sortSelect')) {
             $sortSelect = $request->sortSelect;
-
+        
             switch ($sortSelect) {
                 case 'termurah':
                     $query->orderByRaw('CAST(produk.harga_jual AS UNSIGNED) ASC');
@@ -151,7 +161,7 @@ class HomeController extends Controller
                     break;
             }
         }
-
+        
         // Proses pengacakan produk
         if ($request->has('random')) {
             $produk = $query->inRandomOrder()->paginate(10);
@@ -159,14 +169,11 @@ class HomeController extends Controller
             // Lakukan paginasi dengan 10 item per halaman
             $produk = $query->paginate(10);
         }
-
+        
         return view('front.produk', compact('title', 'subtitle', 'kategori_produk', 'produk'));
     }
-
-
-
-
-
+    
+    
 
 
     public function produk_sale_detail($slug)
@@ -183,10 +190,10 @@ class HomeController extends Controller
     {
         $title = "Halaman Toko";
         $subtitle = "Menu Toko";
-
-        // Ambil query awal untuk pengguna dengan role "pengguna"
-        $query = User::where('role', 'pengguna');
-
+    
+        // Ambil query awal untuk pengguna dengan role "pengguna" dan status "Aktif"
+        $query = User::where('role', 'pengguna')->where('status', 'Aktif');
+    
         // Proses pencarian berdasarkan keyword
         if ($request->has('keyword')) {
             $keyword = $request->keyword;
@@ -195,11 +202,11 @@ class HomeController extends Controller
                     ->orWhere('description', 'LIKE', '%' . $keyword . '%');
             });
         }
-
+    
         // Proses pengurutan berdasarkan pilihan pengguna
         if ($request->has('sortSelect')) {
             $sortSelect = $request->sortSelect;
-
+    
             switch ($sortSelect) {
                 case 'newest':
                     $query->orderBy('id', 'desc'); // Urutkan berdasarkan ID terbaru
@@ -220,17 +227,18 @@ class HomeController extends Controller
                     break;
             }
         }
-
+    
         // Proses pengacakan pengguna
         if ($request->has('random')) {
             $users = $query->inRandomOrder()->paginate(10);
         } else {
-            // Lakukan paginasi dengan 2 item per halaman
+            // Lakukan paginasi dengan 10 item per halaman
             $users = $query->paginate(10);
         }
-
+    
         return view('front.toko', compact('title', 'subtitle', 'users'));
     }
+    
 
     // HomeController.php
     public function toko_detail($user)
@@ -241,4 +249,6 @@ class HomeController extends Controller
         $related_products = $users->produk()->paginate(8); // 8 produk per halaman
         return view('front.toko_detail', compact('users', 'related_products', 'title', 'subtitle'));
     }
+
+ 
 }

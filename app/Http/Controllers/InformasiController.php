@@ -3,44 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\LogHistori;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Berita;
-use App\Models\KategoriBerita;
+use App\Models\Informasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
- 
+  
 
-class BeritaController extends Controller
+class InformasiController extends Controller
 {
-
-
-
-
     public function index()
     {
-        $title = "Halaman Berita";
-        $subtitle = "Menu Berita";
-        $kategoriBerita = KategoriBerita::all();
-        $berita = Cache::remember('berita', 10, function () {
-            return Berita::with('kategoriBerita')->orderBy('id', 'desc')->get();
+        $title = "Halaman Informasi";
+        $subtitle = "Menu Informasi";
+        
+        $informasi = Cache::remember('informasi', 10, function () {
+            return Informasi::all();
         });
-
-        return view('back.berita.index', compact('title', 'subtitle', 'berita','kategoriBerita'));
+        return view('back.informasi.index', compact('title', 'subtitle', 'informasi'));
     }
-
-    public function getKategoriBeritaData(Request $request)
-    {
-        $term = $request->term;
-        $data = KategoriBerita::where('nama_kategori_berita', 'LIKE', '%' . $term . '%')->get();
-    
-        return response()->json($data);
-    }
- 
-
-
-
-
+  
     /**
      * Show the form for creating a new resource.
      *
@@ -56,25 +37,21 @@ class BeritaController extends Controller
     {
 
         $request->validate([
-            'kategori_berita_id' => 'required',
-            'judul_berita' => 'required|unique:berita,judul_berita',
-            'tanggal_posting' => 'required',
+            'nama_informasi' => 'required|unique:informasi,nama_informasi',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
         ], [
-            'kategori_berita_id.required' => 'Kategori berita wajib diisi.',
-            'judul_berita.required' => 'Judul berita wajib diisi.',
-            'judul_berita.unique' => 'Judul berita sudah ada.',
-            'tanggal_posting.required' => 'Tanggal Posting wajib diisi.',
+            'nama_informasi.required' => 'Judul informasi wajib diisi.',
+            'nama_informasi.unique' => 'Judul informasi sudah ada.',
             'gambar.required' => 'Gambar wajib diisi.',
             'gambar.image' => 'Gambar harus dalam format jpeg, jpg, atau png',
             'gambar.mimes' => 'Format gambar harus jpeg, jpg, atau png',
-            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB',
+            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
         ]);
 
         $input = $request->all();
 
         if ($image = $request->file('gambar')) {
-            $destinationPath = 'upload/berita/';
+            $destinationPath = 'upload/informasi/';
 
             // Mengambil nama file asli dan ekstensinya
             $originalFileName = $image->getClientOriginalName();
@@ -135,16 +112,19 @@ class BeritaController extends Controller
             $input['gambar'] = '';
         }
 
-        // Membuat berita baru dan mendapatkan data pengguna yang baru dibuat
-        $berita = Berita::create($input);
+
+
+
+        // Membuat informasi baru dan mendapatkan data pengguna yang baru dibuat
+        $informasi = Informasi::create($input);
 
         // Mendapatkan ID pengguna yang sedang login
-        $loggedInBeritaId = Auth::id();
+        $loggedInInformasiId = Auth::id();
 
-        // Simpan log histori untuk operasi Create dengan berita_id yang sedang login
-        $this->simpanLogHistori('Create', 'Berita', $berita->id, $loggedInBeritaId, null, json_encode($berita));
+        // Simpan log histori untuk operasi Create dengan informasi_id yang sedang login
+        $this->simpanLogHistori('Create', 'Informasi', $informasi->id, $loggedInInformasiId, null, json_encode($informasi));
 
-        return redirect('/berita')->with('message', 'Data berhasil ditambahkan');
+        return redirect('/informasi')->with('message', 'Data berhasil ditambahkan');
     }
 
 
@@ -169,9 +149,9 @@ class BeritaController extends Controller
      */
     public function edit($id)
     {
-        $berita = Berita::findOrFail($id);
-
-        return response()->json($berita);
+        $informasi = Informasi::findOrFail($id);
+        
+        return response()->json($informasi);
     }
 
     /**
@@ -186,21 +166,17 @@ class BeritaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'kategori_berita_id' => 'required',
-            'judul_berita' => 'required',
-            'tanggal_posting' => 'required',
+            'nama_informasi' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
         ], [
-            'kategori_berita_id.required' => 'Kategori berita wajib diisi.',
-            'judul_berita.required' => 'Judul berita wajib diisi.',
-            'tanggal_posting.required' => 'Tanggal Posting wajib diisi.',
+            'nama_informasi.required' => 'Judul informasi wajib diisi.',
             'gambar.image' => 'Gambar harus dalam format jpeg, jpg, atau png',
             'gambar.mimes' => 'Format gambar harus jpeg, jpg, atau png',
-            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB',
+            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
         ]);
 
-        // Ambil data berita yang akan diupdate
-        $berita = Berita::findOrFail($id);
+        // Ambil data informasi yang akan diupdate
+        $informasi = Informasi::findOrFail($id);
 
         // Setel data yang akan diupdate
         $input = $request->all();
@@ -209,16 +185,16 @@ class BeritaController extends Controller
         // Cek apakah gambar diupload
         if ($request->hasFile('gambar')) {
             // Hapus gambar sebelumnya jika ada
-            $oldPictureFileName = $berita->gambar;
+            $oldPictureFileName = $informasi->gambar;
             if ($oldPictureFileName) {
-                $oldFilePath = public_path('upload/berita/' . $oldPictureFileName);
+                $oldFilePath = public_path('upload/informasi/' . $oldPictureFileName);
                 if (file_exists($oldFilePath)) {
                     unlink($oldFilePath);
                 }
             }
 
             $image = $request->file('gambar');
-            $destinationPath = 'upload/berita/';
+            $destinationPath = 'upload/informasi/';
 
             // Mengambil nama file asli dan ekstensinya
             $originalFileName = $image->getClientOriginalName();
@@ -266,7 +242,7 @@ class BeritaController extends Controller
                     // Hapus file asli setelah konversi selesai
                     @unlink($sourceImagePath);
 
-                    // Simpan hanya nama file gambar ke dalam atribut berita
+                    // Simpan hanya nama file gambar ke dalam atribut informasi
                     $input['gambar'] = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
                 } else {
                     // Gagal membaca gambar asli, tangani kasus ini sesuai kebutuhan Anda
@@ -276,16 +252,16 @@ class BeritaController extends Controller
             }
         }
 
-        // Membuat berita baru dan mendapatkan data pengguna yang baru dibuat
-        $berita = Berita::findOrFail($id);
+        // Membuat informasi baru dan mendapatkan data pengguna yang baru dibuat
+        $informasi = Informasi::findOrFail($id);
 
         // Mendapatkan ID pengguna yang sedang login
-        $loggedInBeritaId = Auth::id();
+        $loggedInInformasiId = Auth::id();
 
-        // Simpan log histori untuk operasi Update dengan berita_id yang sedang login
-        $this->simpanLogHistori('Update', 'Berita', $berita->id, $loggedInBeritaId, json_encode($berita), json_encode($input));
+        // Simpan log histori untuk operasi Update dengan informasi_id yang sedang login
+        $this->simpanLogHistori('Update', 'Informasi', $informasi->id, $loggedInInformasiId, json_encode($informasi), json_encode($input));
 
-        $berita->update($input);
+        $informasi->update($input);
         return response()->json(['message' => 'Data berhasil diupdate']);
     }
 
@@ -298,24 +274,24 @@ class BeritaController extends Controller
      */
     public function destroy($id)
     {
-        $berita = Berita::find($id);
+        $informasi = Informasi::find($id);
 
-        if (!$berita) {
-            return response()->json(['message' => 'Data berita not found'], 404);
+        if (!$informasi) {
+            return response()->json(['message' => 'Data informasi not found'], 404);
         }
 
-        $oldgambarFileName = $berita->file; // Nama file saja
-        $oldfilePath = public_path('upload/berita/' . $oldgambarFileName);
+        $oldgambarFileName = $informasi->file; // Nama file saja
+        $oldfilePath = public_path('upload/informasi/' . $oldgambarFileName);
 
         if ($oldgambarFileName && file_exists($oldfilePath)) {
             unlink($oldfilePath);
         }
 
-        $berita->delete();
-        $loggedInBeritaId = Auth::id();
+        $informasi->delete();
+        $loggedInInformasiId = Auth::id();
 
-        // Simpan log histori untuk operasi Delete dengan berita_id yang sedang login dan informasi data yang dihapus
-        $this->simpanLogHistori('Delete', 'berita', $id, $loggedInBeritaId, json_encode($berita), null);
+        // Simpan log histori untuk operasi Delete dengan informasi_id yang sedang login dan informasi data yang dihapus
+        $this->simpanLogHistori('Delete', 'informasi', $id, $loggedInInformasiId, json_encode($informasi), null);
 
         return response()->json(['message' => 'Data Berhasil Dihapus']);
     }

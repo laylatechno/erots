@@ -24,7 +24,7 @@ class GaleriController extends Controller
         $title = "Halaman Galeri";
         $subtitle = "Menu Galeri";
         $kategoriGaleri = KategoriGaleri::all();
-        $galeri = Cache::remember('galeri', 60, function () {
+        $galeri = Cache::remember('galeri', 10, function () {
             return Galeri::with('kategoriGaleri')->orderBy('id', 'desc')->get();
         });
 

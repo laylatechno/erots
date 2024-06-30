@@ -46,21 +46,21 @@
                             <!-- Search and Sort Form -->
                             <form action="{{ route('toko') }}" method="GET" class="d-flex align-items-center">
                                 <input type="text" name="keyword" class="form-control form-control-sm me-2"
-                                    placeholder="Cari toko..." aria-label="Search">
+                                    placeholder="Cari toko ..." aria-label="Search">
                                 <select class="pe-4 form-select form-select-sm" id="sortSelect" name="sortSelect"
                                     aria-label="Default select example">
                                     <option value="" selected>Urutkan</option>
                                     <option value="newest">Paling Baru</option>
                                     <option value="oldest">Paling Lama</option>
-                                    {{-- <option value="ratings">Sort by Ratings</option>
-                                <option value="sales">Sort by Sales</option> --}}
+
                                 </select>
                                 <button class="btn btn-outline-success btn-sm ms-2 w-100" type="submit"><i
                                         class="bi bi-search"></i> Cari</button>
                             </form>
                             <!-- Tombol acak produk -->
                             <button id="btnRefresh" class="btn btn-outline-danger btn-sm ms-2" type="button">
-                                <i class="bi bi-arrow-clockwise"></i> Acak
+                                Acak
+                                {{-- <i class="bi bi-arrow-clockwise"></i> Acak --}}
                             </button>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
 
 
 
-        <div class="page-content-wrapper py-3">
+        <div class="top-products-area">
             <div class="container">
                 <div class="row g-3 justify-content-center">
                     @foreach ($users as $p)
@@ -92,21 +92,24 @@
                                     <!-- Member Image-->
                                     <div class="team-member-img shadow-sm">
                                         <a href="{{ route('toko.toko_detail', $p->user) }}">
-                                            <img src="/upload/user/{{ $p->picture }}" alt="">
+                                            <img src="/upload/user/{{ $p->avatar }}" alt="">
                                         </a>
                                     </div>
                                     <!-- Team Info-->
                                     <div class="team-info">
                                         <a href="{{ route('toko.toko_detail', $p->user) }}">
                                             <h6 class="mb-1 fz-14">{{ $p->name }}</h6>
-                                            <p class="mb-0 fz-12">{{ $p->description }}</p>
+                                            <p class="mb-0 fz-12">
+                                                {{ $p->description ? $p->description : 'Deskripsi atas nama ' . $p->email }}
+                                            </p>
+                                            
                                         </a>
                                     </div>
                                 </div>
                                 <!-- Contact Info-->
                                 <div class="contact-info bg-{{ $p->color }}">
                                     <a href="{{ route('toko.toko_detail', $p->user) }}">
-                                        <p class="mb-0 text-truncate">{{ $p->about }}</p>
+                                        <p class="mb-0 text-truncate">  {{ $p->about ? $p->about : 'Tentang atas nama @'. $p->user }}</p>
                                     </a>
                                 </div>
                             </div>
@@ -127,7 +130,33 @@
                 </div>
             </div>
         </div>
+
+
     </div>
+
+    <div class="custom-container">
+        <!-- Register Form -->
+        <div class="register-form">
+            <div class="row">
+                <div class="col-6">
+
+
+                    <a class="btn btn-creative btn-primary mb-3 w-100" href="/auth"><i class="bi bi-box-arrow-left"></i>
+                        Login</a>
+
+                </div>
+                <div class="col-6">
+
+
+                    <a class="btn btn-creative btn-warning mb-3 w-100" href="/daftar"><i class="bi bi-window"></i> Daftar
+                        Toko</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use App\Models\HasilHitung;
+use App\Models\Informasi;
+use App\Models\KategoriProduk;
 use App\Models\Produk;
 use App\Models\Slider;
 use App\Models\User;
@@ -13,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -74,10 +77,15 @@ class DashboardController extends Controller
         });
 
         $totalProduk = Produk::count();
+        $totalKategoriProduk = KategoriProduk::count();
         $totalBerita = Berita::count();
         $totalUser = User::count();
+
+        $userId = Auth::id();
+        $totalProdukPengguna = Produk::where('user_id', $userId)->count();
+        $informasiData = Informasi::where('status', 'Aktif')->orderBy('urutan')->get();
     
-        return view('back.dashboard', compact('title', 'subtitle', 'chartData', 'visits','totalProduk','totalBerita','totalUser'));
+        return view('back.dashboard', compact('title', 'subtitle', 'chartData', 'visits','totalProduk','totalBerita','totalUser','totalProdukPengguna','totalKategoriProduk','informasiData'));
     }
     
 

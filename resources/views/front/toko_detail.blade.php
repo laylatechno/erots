@@ -51,6 +51,10 @@
                 <div class="card-body">
                     <div class="product-gallery-wrapper">
                         <div class="product-gallery gallery-img">
+                            <a href="/upload/user/{{ $users->avatar }}" class="image-zooming-in-out"
+                                title="{{ $users->name }}" data-gall="gallery2">
+                                <img class="rounded" src="/upload/user/{{ $users->avatar }}" alt="">
+                            </a>
                             <a href="/upload/user/{{ $users->picture }}" class="image-zooming-in-out"
                                 title="{{ $users->name }}" data-gall="gallery2">
                                 <img class="rounded" src="/upload/user/{{ $users->picture }}" alt="">

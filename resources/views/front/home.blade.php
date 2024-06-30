@@ -52,14 +52,18 @@
                         <div class="col-3">
                             <div class="feature-card mx-auto text-center">
                                 <div class="card mx-auto bg-gray">
-                                    <img src="/upload/kategori_produk/{{ $p->gambar }}" alt="">
+                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}">
+                                        <img src="/upload/kategori_produk/{{ $p->gambar }}" alt="">
+                                    </a>
                                 </div>
-                                <p class="mb-0">{{ $p->nama_kategori_produk }}</p>
+                                <p class="mb-0">
+                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}">
+                                        {{ $p->nama_kategori_produk }}
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     @endforeach
-
-
                 </div>
             </div>
         </div>

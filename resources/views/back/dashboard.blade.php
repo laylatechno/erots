@@ -4,114 +4,212 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">{{ $profil->nama_perusahaan }} - {{ $subtitle }}</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
+    @if (Auth::user()->role === 'administrator')
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ $profil->nama_perusahaan }} - {{ $subtitle }}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
 
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                        <div class="col-lg-4 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3>{{ $totalBerita }} </h3>
+                        <!-- Small boxes (Stat box) -->
+                        <div class="row">
+                            <div class="col-lg-4 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $totalBerita }} </h3>
 
-                                    <p>Berita</p>
+                                        <p>Berita</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion-ios-paper"></i>
+                                    </div>
+                                    <a href="/berita" class="small-box-footer">Selengkapnya <i
+                                            class="fas fa-arrow-circle-right"></i></a>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion-ios-paper"></i>   
-                                </div>
-                                <a href="/berita" class="small-box-footer">Selengkapnya <i
-                                        class="fas fa-arrow-circle-right"></i></a>
                             </div>
-                        </div>
-                        <!-- ./col -->
-                        
-                        <!-- ./col -->
-                        <div class="col-lg-4 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-success">
-                                <div class="inner">
-                                    <h3>{{ $totalProduk }} </h3>
+                            <!-- ./col -->
 
-                                    <p>Produk</p>
+                            <!-- ./col -->
+                            <div class="col-lg-4 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3>{{ $totalProduk }} </h3>
+
+                                        <p>Produk</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion-android-apps"></i>
+                                    </div>
+                                    <a href="/produk" class="small-box-footer">Selengkapnya <i
+                                            class="fas fa-arrow-circle-right"></i></a>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion-android-apps"></i>
-                                </div>
-                                <a href="/produk" class="small-box-footer">Selengkapnya <i
-                                        class="fas fa-arrow-circle-right"></i></a>
                             </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-lg-4 col-6">
-                            <!-- small box -->
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3>{{ $totalUser }}</h3>
+                            <!-- ./col -->
+                            <div class="col-lg-4 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3>{{ $totalUser }}</h3>
 
-                                    <p>User</p>
-                                </div>
-                                <div class="icon">
+                                        <p>User</p>
+                                    </div>
+                                    <div class="icon">
 
-                                    <i class="ion-android-contacts"></i>
+                                        <i class="ion-android-contacts"></i>
+                                    </div>
+                                    <a href="/user" class="small-box-footer">Selengkapnya <i
+                                            class="fas fa-arrow-circle-right"></i></a>
                                 </div>
-                                <a href="/user" class="small-box-footer">Selengkapnya <i
-                                        class="fas fa-arrow-circle-right"></i></a>
                             </div>
+                            <!-- ./col -->
+
                         </div>
-                        <!-- ./col -->
+                        <!-- /.row -->
+
+
+
+
+                        <!-- Section for the Gender-based Chart -->
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Grafik Data Produk Berdasarkan Pengguna
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="chartProduk"></canvas> <!-- Periksa apakah ID cocok -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Kunjungan Website
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="visitors"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
 
                     </div>
-                    <!-- /.row -->
-
-
-
-
-                    <!-- Section for the Gender-based Chart -->
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    Grafik Data Produk Berdasarkan Pengguna
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="chartProduk"></canvas> <!-- Periksa apakah ID cocok -->
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    Kunjungan Website
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="visitors"></canvas>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-
-
+                    <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
+                <!-- /.card -->
             </div>
-            <!-- /.card -->
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
-    </div>
+    @endif
+    @if (Auth::user()->role === 'pengguna')
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ $profil->nama_perusahaan }} - {{ $subtitle }}</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <!-- Small boxes (Stat box) -->
+                        <div class="row">
+                            <div class="col-lg-6 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-danger">
+                                    <div class="inner">
+                                        <h3>{{ $totalKategoriProduk }} </h3>
+
+                                        <p>Kategori Produk</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion-ios-paper"></i>
+                                    </div>
+                                    <a href="/kategori_produk" class="small-box-footer">Selengkapnya <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-6 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $totalProdukPengguna }} </h3>
+
+                                        <p>Produk</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion-android-apps"></i>
+                                    </div>
+                                    <a href="/produk" class="small-box-footer">Selengkapnya <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <!-- /.row -->
+
+
+
+
+                        <!-- Section for the Gender-based Chart -->
+                        <div class="row">
+
+
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Informasi Umum
+                                    </div>
+                                    <div class="card-body">
+                                        @foreach ($informasiData as $informasi)
+                                        <a href="{{ $informasi->link }}">
+                                            <h4><span class="badge badge-primary"> {{ $informasi->nama_informasi }}</span>
+                                        </a>
+                                          
+                                            </h4>
+                                            <a href="/upload/informasi/{{ $informasi->gambar }}">
+                                                <img style="max-width:300px; max-height:300px"
+                                                src="/upload/informasi/{{ $informasi->gambar }}" alt="">
+                                            </a>
+                                            
+                                            <p> {{ $informasi->deskripsi }}</p>
+                                        @endforeach
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+    @endif
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js library -->
@@ -150,49 +248,50 @@
     </script>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document.getElementById("chartProduk").getContext("2d");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById("chartProduk").getContext("2d");
 
-        // Data chart dari controller
-        var chartData = {!! json_encode($chartData) !!};
+            // Data chart dari controller
+            var chartData = {!! json_encode($chartData) !!};
 
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: chartData.labels,
-                datasets: [{
-                    label: chartData.datasets[0].label,
-                    backgroundColor: chartData.datasets[0].backgroundColor,
-                    data: chartData.datasets[0].data
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top', // Letakkan legenda di atas grafik
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                // Menampilkan label, nilai, dan persentase di tooltip
-                                var dataset = chartData.datasets[0];
-                                var total = dataset.data.reduce(function(previousValue, currentValue) {
-                                    return previousValue + currentValue;
-                                });
-                                var currentValue = dataset.data[tooltipItem.index];
-                                var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: chartData.datasets[0].label,
+                        backgroundColor: chartData.datasets[0].backgroundColor,
+                        data: chartData.datasets[0].data
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top', // Letakkan legenda di atas grafik
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    // Menampilkan label, nilai, dan persentase di tooltip
+                                    var dataset = chartData.datasets[0];
+                                    var total = dataset.data.reduce(function(previousValue,
+                                        currentValue) {
+                                        return previousValue + currentValue;
+                                    });
+                                    var currentValue = dataset.data[tooltipItem.index];
+                                    var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
 
-                                return `${dataset.labels[tooltipItem.index]}: ${currentValue} ( ${percentage}% )`;
+                                    return `${dataset.labels[tooltipItem.index]}: ${currentValue} ( ${percentage}% )`;
+                                }
                             }
                         }
                     }
                 }
-            }
+            });
         });
-    });
-</script>
+    </script>
 
 
 

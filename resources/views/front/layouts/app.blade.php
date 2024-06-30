@@ -127,8 +127,29 @@
                             </div>
                         </div>
                     </li>
+                    {{-- <li>
+                         
+                          
+                        <div class="night-mode-nav">
+                    
+                                        <a class="btn btn-creative btn-success mb-3 w-100" href="/login" style="color: aliceblue"><i class="bi bi-box-arrow-left"></i>
+                                            Login</a>
+                    
+                        </div>
+                    </li>
+                    <li>
+                         
+                          
+                        <div class="night-mode-nav">
+                    
+                                        <a class="btn btn-creative btn-success mb-3 w-100" href="/login" style="color: aliceblue"><i class="bi bi-box-arrow-left"></i>
+                                            Daftar</a>
+                    
+                        </div>
+                    </li> --}}
 
                 </ul>
+              
 
                 <!-- Social Info -->
                 <div class="social-info-wrap">
@@ -197,7 +218,7 @@
                                 $cart = Session::get('cart', []);
                                 $cartCount = count($cart);
                             @endphp
-                            <span>Keranjang ({{ $cartCount }}) </span>
+                            <span>Cart ({{ $cartCount }}) </span>
 
                         </a>
                     </li>

@@ -1,7 +1,24 @@
 @extends('back.layouts.app')
 @section('title', $title)
 @section('subtitle', $subtitle)
+<style>
+    /* Ensure images don't exceed the cell size */
+table.dataTable tbody td img {
+    max-width: 100%;
+    height: auto;
+}
 
+/* Adjust the table to fit within smaller screens */
+table.dataTable {
+    width: 100% !important;
+}
+
+/* Additional styling for table headers to avoid wrapping */
+table.dataTable thead th {
+    white-space: nowrap;
+}
+
+</style>
 @section('content')
 
     <div class="row">
@@ -15,21 +32,20 @@
                     <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal-tambah"><i
                             class="fas fa-plus-circle"></i> Tambah Data</a>
 
-                    <table id="produkTable" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Produk</th>
-                                <th>Kategori</th>
-                                <th>Status</th>
-                                <th>User</th>
-                                <th>Gambar</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-
+                            <table id="produkTable" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th data-priority="1">No</th>
+                                        <th data-priority="2">Nama Produk</th>
+                                        <th data-priority="4">Kategori</th>
+                                        <th data-priority="5">Status</th>
+                                        <th data-priority="3">User</th>
+                                        <th data-priority="6">Gambar</th>
+                                        <th data-priority="7">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -270,8 +286,8 @@
                                     <div class="col-12">
                                         <div class="form-group" id="urutan_container">
                                             <label for="urutan">Urutan</label>
-                                            <input type="number" class="form-control" name="urutan"
-                                                id="urutan" placeholder="Urutan">
+                                            <input type="number" class="form-control" name="urutan" id="urutan"
+                                                placeholder="Urutan">
                                         </div>
                                     </div>
 
@@ -501,11 +517,11 @@
                                         }
                                     });
                                 </script>
-                                 <div class="col-12">
+                                <div class="col-12">
                                     <div class="form-group" id="urutan_edit_container">
                                         <label for="urutan_edit">Urutan</label>
-                                        <input type="number" class="form-control" name="urutan"
-                                            id="urutan_edit" placeholder="Urutan">
+                                        <input type="number" class="form-control" name="urutan" id="urutan_edit"
+                                            placeholder="Urutan">
                                     </div>
                                 </div>
 
@@ -550,8 +566,30 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    
+
+    <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+<!-- DataTables Responsive CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- DataTables Responsive JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+
+
+
+
+
     <script>
         $(document).ready(function() {
             $('#user_id').select2();
@@ -561,14 +599,7 @@
         });
     </script>
 
-    {{-- <script>
-        $(document).ready(function() {
-            $('#user_id_edit').select2();
-        });
-        $(document).on('select2:open', () => {
-            document.querySelector('.select2-search__field').focus();
-        });
-    </script> --}}
+
 
     {{-- perintah slug tambah data --}}
     <script>
@@ -591,53 +622,48 @@
     </script>
 
     {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script> --}}
-
     <script>
         $(document).ready(function() {
             $('#produkTable').DataTable({
                 processing: true,
                 serverSide: true,
+                responsive: true,
                 ajax: '{{ route('datatables.produk') }}',
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'nama_produk', name: 'nama_produk' },
+                    { data: 'kategori', name: 'kategori' },
+                    { data: 'status', name: 'status' },
+                    { 
+                        data: 'user_name', 
+                        name: 'user_name', 
+                        visible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }} 
                     },
-                    {
-                        data: 'kategori',
-                        name: 'kategori'
-                    },
-                    {
-                        data: 'nama_produk',
-                        name: 'nama_produk'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'user_name',
-                        name: 'user_name',
-                        visible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
-                    },
-                    {
-                        data: 'gambar',
-                        name: 'gambar',
+                    { 
+                        data: 'gambar', 
+                        name: 'gambar', 
                         render: function(data, type, full, meta) {
-                            return '<a href="/upload/produk/' + data +
-                                '" target="_blank"><img style="max-width:100px; max-height:100px" src="/upload/produk/' +
-                                data + '" alt=""></a>';
-                        },
-                        orderable: false
+                            return '<a href="/upload/produk/' + data + '" target="_blank"><img style="max-width:100px; max-height:100px" src="/upload/produk/' + data + '" alt=""></a>';
+                        }, 
+                        orderable: false 
                     },
-                    {
-                        data: 'aksi',
-                        name: 'aksi',
-                        orderable: false,
-                        searchable: false
+                    { 
+                        data: 'aksi', 
+                        name: 'aksi', 
+                        orderable: false, 
+                        searchable: false 
                     },
+                ],
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 2, targets: 1 },
+                    { responsivePriority: 3, targets: 2 },
+                    { responsivePriority: 4, targets: 3 },
+                    { responsivePriority: 5, targets: 4 },
+                    { responsivePriority: 6, targets: 5 },
+                    { responsivePriority: 7, targets: 6 }
                 ]
             });
-
         });
     </script>
 

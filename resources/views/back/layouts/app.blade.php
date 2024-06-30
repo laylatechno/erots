@@ -36,8 +36,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/summernote/summernote-bs4.min.css">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="/upload/profil/{{ $profil->favicon }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="/upload/profil/{{ $profil->favicon }}">
     <link rel="icon" type="image/png" sizes="16x16" href="/upload/profil/{{ $profil->favicon }}">
 
 
@@ -72,8 +71,8 @@
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             {{-- <img class="animation__shake" src="" alt="Master" height="60" width="60" id="preloaderLogo"> --}}
-            <img class="animation__shake" src="/upload/profil/{{ $profil->logo }}" alt="Master"
-                height="100" width="100" id="preloaderLogo">
+            <img class="animation__shake" src="/upload/profil/{{ $profil->logo }}" alt="Master" height="100"
+                width="100" id="preloaderLogo">
         </div>
 
         <!-- Navbar -->
@@ -97,7 +96,7 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                
+
 
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
@@ -134,382 +133,283 @@
 
 
         {{-- Sidebar --}}
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="/dashboard" class="brand-link">
 
-                <img src="/upload/profil/{{ $profil->logo }}" alt=""
-                    class="brand-image img-circle elevation-3" {{-- <img src="/upload/profil/{{ $profil->logo }}" alt="" class="brand-image img-circle elevation-3" --}} style="opacity: .8">
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a href="/dashboard" class="brand-link">
+                <img src="/upload/profil/{{ $profil->logo }}" alt="" class="brand-image img-circle elevation-3"
+                    style="opacity: .8">
                 <span class="brand-text font-weight-light">{{ $profil->nama_perusahaan }}</span>
             </a>
-
-            <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-
-                        <img src="{{ asset('themplete/back') }}/dist/img/avatar.png" class="img-circle elevation-2"
+                        <img src="/upload/user/{{ Auth::user()->avatar }}" class="img-circle elevation-2"
                             alt="User Image">
-
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
+                <?php $currentPath = $_SERVER['REQUEST_URI']; ?>
 
-
-
-                <?php
-                // Dapatkan path URL saat ini
-                $currentPath = $_SERVER['REQUEST_URI'];
-                ?>
-
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
+                        @if (Auth::user()->role === 'administrator')
+                            <li class="nav-item">
+                                <a href="/dashboard" class="nav-link <?php echo $currentPath == '/dashboard' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a href="/dashboard" class="nav-link <?php echo $currentPath == '/dashboard' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-
-
-
-
-                        <li class="nav-header">Master</li>
-                        <li class="nav-item 
+                            <li class="nav-header">Master</li>
+                            <li class="nav-item 
                         <?php echo strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : ''; ?> ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>
-                                    Data Produk
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>
+                                        Data Produk
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
-                                <li class="nav-item">
-                                    <a href="/kategori_produk" class="nav-link <?php echo $currentPath == '/kategori_produk' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Kategori Produk</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/produk" class="nav-link <?php echo $currentPath == '/produk' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Produk</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="/kategori_produk" class="nav-link <?php echo $currentPath == '/kategori_produk' ? 'active' : ''; ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Kategori Produk</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/produk" class="nav-link <?php echo $currentPath == '/produk' ? 'active' : ''; ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Produk</p>
+                                        </a>
+                                    </li>
 
 
-                            </ul>
-                        </li>
-                        <li class="nav-item 
+                                </ul>
+                            </li>
+                            <li class="nav-item 
                         <?php echo strpos($currentPath, '/kategori_berita') !== false || strpos($currentPath, '/berita') !== false ? 'menu-open active' : ''; ?> ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-blog"></i>
-                                <p>
-                                    Data Berita
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-blog"></i>
+                                    <p>
+                                        Data Berita
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
-                                <li class="nav-item">
-                                    <a href="/kategori_berita" class="nav-link <?php echo $currentPath == '/kategori_berita' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Kategori Berita</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/berita" class="nav-link <?php echo $currentPath == '/berita' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Berita</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="/kategori_berita" class="nav-link <?php echo $currentPath == '/kategori_berita' ? 'active' : ''; ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Kategori Berita</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/berita" class="nav-link <?php echo $currentPath == '/berita' ? 'active' : ''; ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Berita</p>
+                                        </a>
+                                    </li>
 
 
-                            </ul>
-                        </li>
-                        <li class="nav-item 
+                                </ul>
+                            </li>
+                            <li class="nav-item 
                         <?php echo strpos($currentPath, '/kategori_galeri') !== false || strpos($currentPath, '/galeri') !== false ? 'menu-open active' : ''; ?> ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-film"></i>
-                                <p>
-                                    Data Galeri
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-film"></i>
+                                    <p>
+                                        Data Galeri
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
-                                <li class="nav-item">
-                                    <a href="/kategori_galeri" class="nav-link <?php echo $currentPath == '/kategori_galeri' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Kategori Galeri</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/galeri" class="nav-link <?php echo $currentPath == '/galeri' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Galeri</p>
-                                    </a>
-                                </li>
-
-
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/slider" class="nav-link <?php echo $currentPath == '/slider' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-images"></i>
-
-                                <p>
-                                    Slider
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/layanan" class="nav-link <?php echo $currentPath == '/layanan' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-list"></i>
-
-                                <p>
-                                    Layanan
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/alasan" class="nav-link <?php echo $currentPath == '/alasan' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-feather"></i>
-
-                                <p>
-                                    Alasan
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/testimoni" class="nav-link <?php echo $currentPath == '/testimoni' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-paper-plane"></i>
-
-                                <p>
-                                    Testimoni
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/konsumen" class="nav-link <?php echo $currentPath == '/konsumen' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-users"></i>
-
-                                <p>
-                                    Konsumen
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/pembelian" class="nav-link <?php echo $currentPath == '/pembelian' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-shopping-bag"></i>
-
-                                <p>
-                                    Transaksi Pembelian
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/penjualan" class="nav-link <?php echo $currentPath == '/penjualan' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-shopping-cart"></i>
-
-                                <p>
-                                    Transaksi Penjualan
-                                </p>
-                            </a>
-                        </li>
+                                    <li class="nav-item">
+                                        <a href="/kategori_galeri" class="nav-link <?php echo $currentPath == '/kategori_galeri' ? 'active' : ''; ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Kategori Galeri</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/galeri" class="nav-link <?php echo $currentPath == '/galeri' ? 'active' : ''; ?>">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Galeri</p>
+                                        </a>
+                                    </li>
 
 
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/slider" class="nav-link <?php echo $currentPath == '/slider' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-images"></i>
+
+                                    <p>
+                                        Slider
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/info" class="nav-link <?php echo $currentPath == '/info' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-info"></i>
+
+                                    <p>
+                                        Informasi
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/layanan" class="nav-link <?php echo $currentPath == '/layanan' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-list"></i>
+
+                                    <p>
+                                        Layanan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/alasan" class="nav-link <?php echo $currentPath == '/alasan' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-feather"></i>
+
+                                    <p>
+                                        Alasan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/testimoni" class="nav-link <?php echo $currentPath == '/testimoni' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-paper-plane"></i>
+
+                                    <p>
+                                        Testimoni
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/konsumen" class="nav-link <?php echo $currentPath == '/konsumen' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-users"></i>
+
+                                    <p>
+                                        Konsumen
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/pembelian" class="nav-link <?php echo $currentPath == '/pembelian' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-shopping-bag"></i>
+
+                                    <p>
+                                        Transaksi Pembelian
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/penjualan" class="nav-link <?php echo $currentPath == '/penjualan' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
+
+                                    <p>
+                                        Transaksi Penjualan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-header">Pengaturan</li>
+                            <li class="nav-item">
+                                <a href="/profil/1/edit" class="nav-link <?php echo $currentPath == '/profil/1/edit' ? 'active' : ''; ?>">
+                                    <i class="nav-icon far fa-plus-square"></i>
+                                    <p>
+                                        Profil Umum
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link <?php echo $currentPath == '/users' ? 'active' : ''; ?>">
+                                    <i class="nav-icon far fa-user"></i>
+                                    <p>
+                                        User
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/profil_pengguna/{{ Auth::user()->id }}/edit" class="nav-link">
+                                    <i class="nav-icon far fa-edit"></i>
+                                    <p>
+                                        Edit Profil
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/backup_database" class="nav-link <?php echo $currentPath == '/backup_database' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-database"></i>
+                                    <p>
+                                        Back Up Database
+                                    </p>
+                                </a>
+                            </li>
 
 
+                            <li class="nav-item">
+                                <a href="{{ route('log_histori.index') }}" class="nav-link <?php echo $currentPath == '/log_histori' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-history"></i>
+                                    <p>
+                                        Log Histori
+                                    </p>
+                                </a>
+                            </li>
+                        @endif
 
-
-                        <li class="nav-header">Pengaturan</li>
-                        <li class="nav-item">
-                            <a href="/profil/1/edit" class="nav-link <?php echo $currentPath == '/profil/1/edit' ? 'active' : ''; ?>">
-                                <i class="nav-icon far fa-plus-square"></i>
-                                <p>
-                                    Profil Umum
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link <?php echo $currentPath == '/users' ? 'active' : ''; ?>">
-                                <i class="nav-icon far fa-user"></i>
-                                <p>
-                                    User
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/backup_database" class="nav-link <?php echo $currentPath == '/backup_database' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-database"></i>
-                                <p>
-                                    Back Up Database
-                                </p>
-                            </a>
-                        </li>
-
-                           
-
-
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('backup.run') }}" class="nav-link">
-                                <i class="nav-icon fas fa-database"></i>
-                                <p>Run Backup</p>
-                            </a>
-                        </li> --}}
-
-                        <li class="nav-item">
-                            <a href="{{ route('log_histori.index') }}" class="nav-link <?php echo $currentPath == '/log_histori' ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-history"></i>
-                                <p>
-                                    Log Histori
-                                </p>
-                            </a>
-                        </li>
-
-
-
-                        <li class="nav-header">Laporan</li>
-
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/laporan/guru') !== false || strpos($currentPath, '/laporan/siswa') !== false || strpos($currentPath, '/laporan/kelas') !== false ? 'menu-open active' : ''; ?> ">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>
-                                    Master
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link <?php echo $currentPath == '/laporan/guru' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Guru</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href=" " class="nav-link <?php echo $currentPath == '/laporan/siswa' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Siswa</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href=" " class="nav-link <?php echo $currentPath == '/laporan/kelas' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Kelas</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/laporan/nilai_siswa') !== false || strpos($currentPath, '/tampilkan-jadwal') !== false || strpos($currentPath, '/laporan/absensi') !== false ? 'menu-open active' : ''; ?> ">
-
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>
-                                    Akademik
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href=" " class="nav-link <?php echo $currentPath == '/laporan/nilai_siswa' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Nilai Siswa</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-
-                                    <a href="/tampilkan-jadwal" class="nav-link <?php echo $currentPath == '/tampilkan-jadwal' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Jadwal Pelajaran</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href=" " class="nav-link <?php echo $currentPath == '/laporan/absensi' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Absensi</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li class="nav-item 
-                        <?php echo strpos($currentPath, '/laporan/keuangan') !== false || strpos($currentPath, '/laporan/surat') !== false || strpos($currentPath, '/laporan/barang') !== false || strpos($currentPath, '/laporan/mutasi_barang') !== false ? 'menu-open active' : ''; ?> ">
-
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>
-                                    Transaksi
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href=" " class="nav-link <?php echo $currentPath == '/laporan/keuangan' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Keuangan</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href=" " class="nav-link <?php echo $currentPath == '/laporan/surat' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Administrasi Surat</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href=" " class="nav-link <?php echo $currentPath == '/laporan/barang' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Aset Barang</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href=" " class="nav-link <?php echo $currentPath == '/laporan/mutasi_barang' ? 'active' : ''; ?>">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Mutasi Aset Barang</p>
-                                    </a>
-                                </li>
-
-
-                            </ul>
-                        </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        @if (Auth::user()->role === 'pengguna')
+                            <li class="nav-item">
+                                <a href="/dashboard" class="nav-link <?php echo $currentPath == '/dashboard' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Dashboard
+                                    </p>
+                                </a>
+                            </li>
+                            <li
+                                class="nav-item {{ strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : '' }}">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Data Produk<i class="right fas fa-angle-left"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/kategori_produk"
+                                            class="nav-link {{ $currentPath == '/kategori_produk' ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Kategori Produk</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/produk"
+                                            class="nav-link {{ $currentPath == '/produk' ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Produk</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/profil_pengguna/{{ Auth::user()->id }}/edit" class="nav-link">
+                                    <i class="nav-icon far fa-edit"></i>
+                                    <p>Edit Profil</p>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
-                <!-- /.sidebar-menu -->
             </div>
-            <!-- /.sidebar -->
         </aside>
 
-        {{-- Akhir Sidebar --}}
 
 
         <!-- Content Wrapper. Contains page content -->
@@ -554,6 +454,10 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
+
+
+
 
     <footer class="main-footer" id="unhide">
         All Rights Reserved by Layla Techno &copy; {{ date('Y') }}. Designed and Developed by <a
@@ -656,6 +560,8 @@
             }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
         });
     </script>
+
+
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login - SIAKAD</title>
+    <title>Login - {{ $profil->nama_perusahaan }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -35,34 +35,33 @@
                     {{-- <img src="{{ asset('themplete_login') }}/images/img-01.png" alt="IMG"> --}}
                 </div>
 
-               
-                <form class="login100-form validate-form" action="" method="post">
+
+
+                <form class="login100-form validate-form" action="{{ route('auth.login') }}" method="post">
                     @csrf
                     @if ($errors->any())
-                    <div style="background-color: brown; text-align:center; color:white;">
-
-                        @foreach ($errors->all() as $item)
-                            <li>{{ $item }}</li>
-                        @endforeach
-
-                    </div>
-                    <br>
-
-                @endif
+                        <div style="background-color: brown; text-align:center; color:white;">
+                            @foreach ($errors->all() as $item)
+                                <li>{{ $item }}</li>
+                            @endforeach
+                        </div>
+                        <br>
+                    @endif
 
                     <span class="login100-form-title">
                         Halaman Login
                     </span>
 
-                    <div class="wrap-input100 " data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email" value="{{ old('email') }}">
+                    <div class="wrap-input100" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="email" placeholder="Email"
+                            value="{{ old('email') }}">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                     </div>
 
-                    <div class="wrap-input100 " data-validate="Password is required">
+                    <div class="wrap-input100" data-validate="Password is required">
                         <input class="input100" type="password" name="password" id="password" placeholder="Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
@@ -90,7 +89,6 @@
                         }
                     </script>
 
-
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn" name="submit" type="submit">
                             Login
@@ -105,6 +103,7 @@
 
                     </div>
                 </form>
+
 
 
             </div>
