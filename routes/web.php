@@ -69,9 +69,6 @@ Route::resource('kategori_produk', KategoriProdukController::class);
 Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
 Route::resource('produk', ProdukController::class);
 
-
-
-
  
 Route::get('/auth/redirect', [SocialiteController::class,'redirect']);
 Route::get('/auth/google/callback', [SocialiteController::class,'callback']);
@@ -131,3 +128,5 @@ Route::middleware(['auth', 'checkRole:pengguna'])->group(function () {
 Route::get('/auth', [AuthController::class, 'index'])->name('auth');
 Route::post('/auth', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+// tes
