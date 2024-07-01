@@ -149,7 +149,7 @@
                     </li> --}}
 
                 </ul>
-              
+
 
                 <!-- Social Info -->
                 <div class="social-info-wrap">
@@ -205,9 +205,9 @@
                     </li>
 
                     <li>
-                        <a href="/informasi">
+                        <a href="/toko">
                             <i class="bi bi-bookmark-star"></i>
-                            <span>Informasi</span>
+                            <span>Toko</span>
                         </a>
                     </li>
 
@@ -223,13 +223,28 @@
                         </a>
                     </li>
 
+                    @php
+                        use Illuminate\Support\Facades\Auth;
+                    @endphp
 
-                    <li>
-                        <a href="/toko">
-                            <i class="bi bi-people"></i>
-                            <span>Toko</span>
-                        </a>
-                    </li>
+                    
+                        @if (Auth::check() && Auth::user()->role == 'member')
+                            <li>
+                                <a href="/dashboard">
+                                    <i class="bi bi-people"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="/auth">
+                                    <i class="bi bi-people"></i>
+                                    <span>Login</span>
+                                </a>
+                            </li>
+                        @endif
+                  
+
                 </ul>
             </div>
         </div>

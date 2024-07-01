@@ -13,32 +13,24 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BackupController;
-use App\Http\Controllers\BbptuController;
-use App\Http\Controllers\BbuController;
-use App\Http\Controllers\GiziController;
-use App\Http\Controllers\HasilHitungController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ImtController;
 use App\Http\Controllers\LayananController;
-use App\Http\Controllers\PtbuController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\VideoController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\ProfilPenggunaController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RegisterMemberController;
+use App\Http\Controllers\SocialiteController;
 
-// Redirect Home jika dia Guest
-// Route::get('/home', function () {
-//     return redirect('/dashboard');
-// });
-
+ 
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/informasi', [HomeController::class, 'informasi']);
 Route::get('/informasi/{slug}', [HomeController::class, 'informasi_detail'])->name('informasi.informasi_detail');
 Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('produk_sale');
@@ -52,12 +44,23 @@ Route::get('/cart/delete/{id}', [CartController::class, 'delete'])->name('cart.d
 Route::get('/cart/reset', [CartController::class, 'reset'])->name('cart.reset');
 Route::get('/daftar', [RegisterController::class, 'showRegistrationForm'])->name('daftar.index');
 Route::post('/daftar', [RegisterController::class, 'register'])->name('daftar.register');
+Route::get('/daftar_member', [RegisterMemberController::class, 'showRegistrationForm'])->name('daftar_member.index');
+Route::post('/daftar_member', [RegisterMemberController::class, 'register'])->name('daftar_member.register');
 Route::resource('log_histori', LogHistoriController::class);
 
 
 // Route::resource('/dashboard', DashboardController::class);
 // Route::resource('users', UserController::class);
-Route::resource('/dashboard', DashboardController::class);
+Route::resource('/dashboard', DashboardController::class)->names([
+    'index' => 'dashboard.index',
+    'create' => 'dashboard.create',
+    'store' => 'dashboard.store',
+    'show' => 'dashboard.show',
+    'edit' => 'dashboard.edit',
+    'update' => 'dashboard.update',
+    'destroy' => 'dashboard.destroy',
+]);
+
 Route::resource('profil_pengguna', ProfilPenggunaController::class)->middleware('auth');
 Route::put('/profil_pengguna/update_pengguna/{id}', [ProfilPenggunaController::class, 'update_pengguna'])->name('profil.update_pengguna');
 // Produk
@@ -65,6 +68,16 @@ Route::resource('kategori_produk', KategoriProdukController::class);
 // Route::get('produk/datatables', [ProdukController::class, 'index'])->name('produk.datatables');
 Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
 Route::resource('produk', ProdukController::class);
+
+
+
+
+ 
+Route::get('/auth/redirect', [SocialiteController::class,'redirect']);
+Route::get('/auth/google/callback', [SocialiteController::class,'callback']);
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('auth');
 
 
 

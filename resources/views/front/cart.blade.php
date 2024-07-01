@@ -190,9 +190,11 @@
                                 <div class="coupon-form">
                                     <a href="{{ $waUrl }}" class="btn btn-success w-100 mt-3" target="_blank"><i class="bi bi-whatsapp"></i> Checkout Via WhatsApp</a>
                                     <a href="{{ route('cart.reset') }}" class="btn btn-danger w-100 mt-3" onclick="return confirm('Apakah Anda yakin ingin mengosongkan keranjang?')"><i class="bi bi-cart"></i> Reset Keranjang</a>
+                                    <a href="{{ route('checkout') }}" class="btn btn-primary w-100 mt-3"><i class="bi bi-credit-card"></i> Checkout</a>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             @else

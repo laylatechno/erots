@@ -41,8 +41,8 @@ class CartController extends Controller
             $cart[$productId]['quantity'] += $quantity;
         } else {
             $cart[$productId] = [
-                'product_id' => $product->id,
-                'user_id' => $product->user_id,  // Tambahkan user_id dari produk
+                'product_id' => $product->id, // Pastikan menggunakan 'product_id' bukan 'produk_id'
+                'user_id' => $product->user_id,
                 'nama_produk' => $product->nama_produk,
                 'harga_jual' => $product->harga_jual,
                 'harga_jual_diskon' => $product->harga_jual_diskon,
@@ -56,6 +56,7 @@ class CartController extends Controller
     
         return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang!']);
     }
+    
     
 
     public function delete($id)
