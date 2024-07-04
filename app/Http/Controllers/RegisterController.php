@@ -57,7 +57,6 @@ class RegisterController extends Controller
             $input['status'] = 'Non Aktif';
             $input['name'] = 'Pengguna Baru';
             $input['color'] = 'dark';
-            $input['avatar'] = 'avatar_default.png';
 
             // Simpan nama pengguna dan email dari inputan pendaftar
         $namaPengguna = $input['user'];

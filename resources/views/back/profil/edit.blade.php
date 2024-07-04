@@ -96,6 +96,7 @@
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#umum" data-toggle="tab">Umum</a></li>
                         <li class="nav-item"><a class="nav-link" href="#display" data-toggle="tab">Display</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#syarat_ketentuan" data-toggle="tab">Syarat Ketentuan & Map</a></li>
                     </ul>
                 </div><!-- /.card-header -->
                 <div class="card-body">
@@ -289,6 +290,46 @@
                         </div>
                         <!-- /.tab-pane -->
 
+                        <div class="tab-pane" id="syarat_ketentuan">
+                            <form action="{{ route('profil.update_syarat', $data->id) }}" method="post">
+                                @csrf
+                                @method('put')
+
+
+                               
+                                
+                                <div class="form-group row">
+                                    <label for="map" class="col-sm-2 col-form-label">Map</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="map" class="form-control" id="map" cols="30" rows="6">{{ $data->map }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="syarat" class="col-sm-2 col-form-label">Syarat</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="syarat" class="form-control" id="syarat" cols="30" rows="6">{{ $data->syarat }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="ketentuan" class="col-sm-2 col-form-label">Ketentuan</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="ketentuan" class="form-control" id="ketentuan" cols="30" rows="6">{{ $data->ketentuan }}</textarea>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <div class="offset-sm-2 col-sm-10">
+                                        <button type="submit" class="btn btn-success" style="color:white;"><i
+                                                class="fas fa-save"></i> Update Data Syarat Ketentuan & Map</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.tab-pane -->
+
 
                     </div>
                     <!-- /.tab-content -->
@@ -303,3 +344,5 @@
 
 
 @endsection
+
+ 

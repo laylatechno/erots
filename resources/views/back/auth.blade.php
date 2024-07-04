@@ -103,6 +103,11 @@
 
                     </div>
                 </form>
+                <br><br>
+                <a href="https://wa.me/{{ $profil->no_wa }}">
+                    <span>Informasi lebih lanjut : {{ $profil->no_wa }}</span>
+                </a>
+              
 
 
 

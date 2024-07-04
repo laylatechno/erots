@@ -96,11 +96,19 @@
 
                     <div class="form-check mb-3">
                         <input class="form-check-input" id="checkedCheckbox" type="checkbox" value="">
-                        <label class="form-check-label text-muted fw-normal" for="checkedCheckbox">Setuju dengan ketentuan & kebijakan.</label>
+                        <label class="form-check-label text-muted fw-normal" for="checkedCheckbox">Setuju dengan
+                            ketentuan & kebijakan.</label>
+                        <a href="#" data-bs-toggle="modal"
+                        data-bs-target="#fullscreenModal">
+                            <p class="form-check-label fw-normal">lihat</p>
+                        </a>
+                        
+
                     </div>
-                    
-                    <button class="btn btn-danger w-100" type="submit" id="btn-save-tambah" disabled>Checklist untuk Daftar</button>
-                    
+
+                    <button class="btn btn-danger w-100" type="submit" id="btn-save-tambah" disabled>Checklist untuk
+                        Daftar</button>
+
                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                     <script>
                         $(document).ready(function() {
@@ -117,7 +125,7 @@
                             });
                         });
                     </script>
-                    
+
 
 
                 </form>
@@ -128,6 +136,36 @@
             </div>
         </div>
     </div>
+
+
+ 
+    <!-- Fullscreen Modal -->
+    <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-labelledby="fullscreenModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-md-down modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="fullscreenModalLabel">Syarat & Ketentuan</h6>
+                    <button class="btn btn-close p-1 ms-auto" type="button" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span>Syarat :</span>
+                    <p> {{ $profil->syarat }}</p>
+                    <span>Ketentuan :</span>
+                    <p> {{ $profil->ketentuan }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
     <script src="{{ asset('themplete/front') }}/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('themplete/front') }}/js/internet-status.js"></script>

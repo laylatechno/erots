@@ -160,6 +160,41 @@ class ProfilController extends Controller
         return redirect('/profil/1/edit')->with('message', 'Data Umum berhasil diperbarui');
     }
 
+    public function syarat(Request $request, $id)
+    {
+        
+        $request->validate([
+            'syarat' => 'required',
+            'ketentuan' => 'required',
+            'map' => 'required',
+
+        ], [
+            'syarat.required' => 'Nama Perusahaan Wajib diisi',
+            'ketentuan.required' => 'No Telp Perusahaan Wajib diisi',
+            'map.required' => 'Alamat Perusahaan Wajib diisi',
+
+        ]);
+
+        $profil = Profil::find($id); // Dapatkan data profil yang akan diupdate
+
+        if (!$profil) {
+            return redirect('/profil/1/edit')->with('error', 'Profil tidak ditemukan');
+        }
+
+        $profil->syarat = $request->input('syarat');
+        $profil->ketentuan = $request->input('ketentuan');
+        $profil->map = $request->input('map');
+
+
+        $profil->save();
+
+        // Mendapatkan ID pengguna yang sedang login
+        $loggedInUserId = Auth::id();
+        // Simpan log histori untuk operasi Update dengan user_id yang sedang login
+        $this->simpanLogHistori('Update', 'Profil Syarat Ketentuan', $profil->id, $loggedInUserId, json_encode($profil->getOriginal()), json_encode($profil));
+        return redirect('/profil/1/edit')->with('message', 'Data Syarat Ketentuan berhasil diperbarui');
+    }
+
 
 
 

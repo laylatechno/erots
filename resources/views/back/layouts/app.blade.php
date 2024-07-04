@@ -87,7 +87,7 @@
                     <a href="/dashboard" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="https://wa.me/628971033234" class="nav-link">Kontak Person</a>
+                    <a href="https://wa.me/{{ $profil->no_wa }}" class="nav-link">Kontak Person</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/" target="_blank" class="nav-link">Lihat Website</a>
@@ -375,28 +375,12 @@
                                     </p>
                                 </a>
                             </li>
-                            <li
-                                class="nav-item {{ strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : '' }}">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item {{ strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : '' }}">
+                                <a href="/produk"
+                                    class="nav-link {{ $currentPath == '/produk' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-list"></i>
-                                    <p>Data Produk<i class="right fas fa-angle-left"></i></p>
+                                    <p>Produk</p>
                                 </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="/kategori_produk"
-                                            class="nav-link {{ $currentPath == '/kategori_produk' ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Kategori Produk</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/produk"
-                                            class="nav-link {{ $currentPath == '/produk' ? 'active' : '' }}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Produk</p>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a href="/profil_pengguna/{{ Auth::user()->id }}/edit" class="nav-link">
@@ -496,7 +480,7 @@
 
     </script>
     <!-- Summernote -->
-    <script src="{{ asset('themplete/back') }}/plugins/summernote/summernote-bs4.min.js"></script>
+    {{-- <script src="{{ asset('themplete/back') }}/plugins/summernote/summernote-bs4.min.js"></script> --}}
     <!-- overlayScrollbars -->
     <script src="{{ asset('themplete/back') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
@@ -519,7 +503,7 @@
     <script src="{{ asset('themplete/back') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{ asset('themplete/back') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
- 
+
     <script>
         $(function() {
             $("#example1").DataTable({

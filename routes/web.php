@@ -64,7 +64,7 @@ Route::resource('/dashboard', DashboardController::class)->names([
 Route::resource('profil_pengguna', ProfilPenggunaController::class)->middleware('auth');
 Route::put('/profil_pengguna/update_pengguna/{id}', [ProfilPenggunaController::class, 'update_pengguna'])->name('profil.update_pengguna');
 // Produk
-Route::resource('kategori_produk', KategoriProdukController::class);
+
 // Route::get('produk/datatables', [ProdukController::class, 'index'])->name('produk.datatables');
 Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
 Route::resource('produk', ProdukController::class);
@@ -80,7 +80,7 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.s
 
 Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     Route::resource('users', UserController::class);
-
+    Route::resource('kategori_produk', KategoriProdukController::class);
     // Log History
     Route::get('/log-histori/delete-all', [LogHistoriController::class, 'deleteAll'])->name('log-histori.delete-all');
     Route::get('/backup', [BackupController::class, 'createBackup'])->name('backup.create');
@@ -91,6 +91,7 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     Route::put('/profil/update_umum/{id}', [ProfilController::class, 'update_umum'])->name('profil.update_umum');
     Route::put('/profil/update_sdm/{id}', [ProfilController::class, 'update_sdm'])->name('profil.update_sdm');
     Route::put('/profil/update_display/{id}', [ProfilController::class, 'update_display'])->name('profil.update_display');
+    Route::put('/profil/update_syarat/{id}', [ProfilController::class, 'syarat'])->name('profil.update_syarat');
 
     // Berita
     Route::resource('kategori_berita', KategoriBeritaController::class);
@@ -121,6 +122,7 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
 
 // Route untuk pengguna biasa
 Route::middleware(['auth', 'checkRole:pengguna'])->group(function () {
+
 });
 
 

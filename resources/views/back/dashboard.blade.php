@@ -126,7 +126,7 @@
 
                         <!-- Small boxes (Stat box) -->
                         <div class="row">
-                            <div class="col-lg-6 col-6">
+                            <div class="col-lg-3 col-12">
                                 <!-- small box -->
                                 <div class="small-box bg-danger">
                                     <div class="inner">
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-lg-6 col-6">
+                            <div class="col-lg-3 col-12">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
@@ -154,6 +154,36 @@
                                         <i class="ion-android-apps"></i>
                                     </div>
                                     <a href="/produk" class="small-box-footer">Selengkapnya <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-12">
+                                <!-- small box -->
+                                <div class="small-box bg-warning">
+                                    <div class="inner">
+                                        <h3>Lihat </h3>
+
+                                        <p>Halaman Depan</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion-android-apps"></i>
+                                    </div>
+                                    <a href="/" class="small-box-footer">Selengkapnya <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-12">
+                                <!-- small box -->
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3>Edit Profil</h3>
+
+                                        <p>Pengguna</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion-android-apps"></i>
+                                    </div>
+                                    <a href="/profil_pengguna/{{ Auth::user()->id }}/edit" class="small-box-footer">Selengkapnya <i
                                             class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>

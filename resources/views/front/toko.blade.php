@@ -92,7 +92,7 @@
                                     <!-- Member Image-->
                                     <div class="team-member-img shadow-sm">
                                         <a href="{{ route('toko.toko_detail', $p->user) }}">
-                                            <img src="/upload/user/{{ $p->avatar }}" alt="">
+                                            <img src="{{ $p->avatar ? '/upload/user/' . $p->avatar : '/upload/avatar.png' }}" alt="">
                                         </a>
                                     </div>
                                     <!-- Team Info-->
