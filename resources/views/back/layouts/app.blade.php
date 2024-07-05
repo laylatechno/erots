@@ -4,61 +4,39 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $profil->nama_perusahaan }} | @yield('title')</title>
+    <title>{{ $profil->nama_perusahaan }} | @yield('title') @if(request()->route()->getName() === 'toko.toko_detail') | {{ $users->name }} @endif</title>
 
 
 
-    <!-- Ionicons -->
+    <!-- Include all your CSS files here -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
-        href="{{ asset('themplete/back') }}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/jqvmap/jqvmap.min.css">
-
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/daterangepicker/daterangepicker.css">
-
-    <!-- Google Font: Source Sans Pro -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        href="{{ asset('themplete/back/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themplete/back/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themplete/back/plugins/jqvmap/jqvmap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themplete/back/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/fontawesome-free/css/all.min.css">
-
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('themplete/back') }}/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('themplete/back') }}/plugins/summernote/summernote-bs4.min.css">
-    <!-- Favicon icon -->
+    <link rel="stylesheet" href="{{ asset('themplete/back/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themplete/back/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themplete/back/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themplete/back/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="/upload/profil/{{ $profil->favicon }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="/upload/profil/{{ $profil->favicon }}">
-
-
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-    <!-- DataTables -->
     <link rel="stylesheet"
-        href="{{ asset('themplete/back') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        href="{{ asset('themplete/back/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet"
-        href="{{ asset('themplete/back') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+        href="{{ asset('themplete/back/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet"
-        href="{{ asset('themplete/back') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+        href="{{ asset('themplete/back/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
     <style>
-        /* CSS untuk menyembunyikan div saat mencetak */
         @media print {
             #unhide {
                 display: none;
             }
         }
     </style>
-
 
     @stack('css')
 
@@ -144,9 +122,12 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="/upload/user/{{ Auth::user()->avatar }}" class="img-circle elevation-2"
-                            alt="User Image">
+                        <img src="/upload/user/{{ Auth::user()->avatar ?: 'avatar.png' }}"
+                             class="img-circle elevation-2"
+                             alt="User Image"
+                             onerror="this.onerror=null;this.src='/upload/avatar.png';">
                     </div>
+                    
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
@@ -375,9 +356,9 @@
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item {{ strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : '' }}">
-                                <a href="/produk"
-                                    class="nav-link {{ $currentPath == '/produk' ? 'active' : '' }}">
+                            <li
+                                class="nav-item {{ strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : '' }}">
+                                <a href="/produk" class="nav-link {{ $currentPath == '/produk' ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-list"></i>
                                     <p>Produk</p>
                                 </a>
@@ -439,10 +420,6 @@
     </div>
     <!-- ./wrapper -->
 
-
-
-
-
     <footer class="main-footer" id="unhide">
         All Rights Reserved by Layla Techno &copy; {{ date('Y') }}. Designed and Developed by <a
             href="https://www.ltpresent.com">Layla Techno</a>.
@@ -451,57 +428,36 @@
         </div>
     </footer>
 
+<!-- Include all your JS files here -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{ asset('themplete/back/plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<script> $.widget.bridge('uibutton', $.ui.button); </script>
+<script src="{{ asset('themplete/back/plugins/sparklines/sparkline.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+<script src="{{ asset('themplete/back/dist/js/adminlte.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="{{ asset('themplete/back') }}/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('themplete/back') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
+@stack('scripts')
 
-
-    <!-- Sparkline -->
-    <script src="{{ asset('themplete/back') }}/plugins/sparklines/sparkline.js"></script>
-
-    <!-- jQuery Knob Chart -->
-    <script src="{{ asset('themplete/back') }}/plugins/jquery-knob/jquery.knob.min.js"></script>
-    <!-- daterangepicker -->
-
-    <script src="{{ asset('themplete/back') }}/plugins/daterangepicker/daterangepicker.js"></script>
-
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('themplete/back') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-
-    <script src="{{ asset('themplete/back') }}/plugins/moment/moment.min.js"></script>
-
-
-    </script>
-    <!-- Summernote -->
-    {{-- <script src="{{ asset('themplete/back') }}/plugins/summernote/summernote-bs4.min.js"></script> --}}
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('themplete/back') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('themplete/back') }}/dist/js/adminlte.js"></script>
-
-
-    <script src="{{ asset('themplete/back') }}/plugins/chart.js/Chart.min.js"></script>
-
-    <!-- DataTables  & Plugins -->
-    <script src="{{ asset('themplete/back') }}/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/jszip/jszip.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/pdfmake/pdfmake.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/pdfmake/vfs_fonts.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="{{ asset('themplete/back') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 
     <script>
@@ -548,7 +504,7 @@
 
 
 
-    @stack('scripts')
+ 
 
 </body>
 

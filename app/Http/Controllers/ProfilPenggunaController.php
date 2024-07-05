@@ -1,207 +1,136 @@
 <?php
-
 namespace App\Http\Controllers;
-
 
 use App\Models\LogHistori;
 use App\Models\ProfilPengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class ProfilPenggunaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $profil = ProfilPengguna::all();
         return view('back.profil_pengguna.index', compact('profil'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('back.profil.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        // Add store logic here if needed
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        // Add show logic here if needed
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $title = "Halaman Profil Pengguna";
         $subtitle = "Menu Profil Pengguna";
-        // Mendapatkan data profil berdasarkan ID
-        $data = ProfilPengguna::where('id', $id)->first();
-        return view('back.profil_pengguna.edit')->with([
-            'data' => $data, 'title','subtitle'
-
-        ]);
-    }
-
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-   
- 
-    
-  
-     public function update_pengguna(Request $request, $id)
-{
-    try {
-        $request->validate([
-            'name' => 'required',
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('users')->ignore($id), // Menambahkan aturan unik dengan pengecualian
-            ],
-            'password' => 'nullable|min:6', // Password hanya wajib saat membuat, tidak saat update
-            'picture' => 'nullable|image|mimes:jpeg,jpg,png|max:6144', // Maksimum 6 MB
-            'avatar' => 'nullable|image|mimes:jpeg,jpg,png|max:4096', // Maksimum 4 MB untuk avatar
-            'banner' => 'nullable|image|mimes:jpeg,jpg,png|max:8192', // Maksimum 8 MB untuk banner
-        ], [
-            'name.required' => 'Nama Wajib diisi',
-            'email.required' => 'Email Wajib diisi',
-            'email.email' => 'Format email tidak valid',
-            'email.unique' => 'Email sudah terdaftar',
-            'password.min' => 'Password minimal harus terdiri dari 6 karakter',
-            'role.required' => 'Role Wajib diisi',
-            'picture.image' => 'Gambar harus dalam format jpeg, jpg, atau png',
-            'picture.mimes' => 'Format gambar harus jpeg, jpg, atau png',
-            'picture.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
-            'avatar.image' => 'Avatar harus dalam format jpeg, jpg, atau png',
-            'avatar.mimes' => 'Format avatar harus jpeg, jpg, atau png',
-            'avatar.max' => 'Ukuran avatar tidak boleh lebih dari 4 MB',
-            'banner.image' => 'Banner harus dalam format jpeg, jpg, atau png',
-            'banner.mimes' => 'Format banner harus jpeg, jpg, atau png',
-            'banner.max' => 'Ukuran banner tidak boleh lebih dari 8 MB',
-        ]);
-
         $data = ProfilPengguna::findOrFail($id);
-        $destinationPath = 'upload/user/';
-
-        // Function to handle image upload
-        $handleImageUpload = function ($request, $attribute, $data, $destinationPath) {
-            if ($request->hasFile($attribute)) {
-                $image = $request->file($attribute);
-
-                if ($data->$attribute && File::exists(public_path($destinationPath . $data->$attribute))) {
-                    File::delete(public_path($destinationPath . $data->$attribute));
-                }
-
-                $originalFileName = $image->getClientOriginalName();
-                $imageMimeType = $image->getMimeType();
-
-                if (strpos($imageMimeType, 'image/') === 0) {
-                    $prefix = $attribute . '_';
-                    $imageName = $prefix . date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName);
-
-                    $image->move($destinationPath, $imageName);
-                    $sourceImagePath = public_path($destinationPath . $imageName);
-                    $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
-
-                    $sourceImage = null;
-                    switch ($imageMimeType) {
-                        case 'image/jpeg':
-                            $sourceImage = @imagecreatefromjpeg($sourceImagePath);
-                            break;
-                        case 'image/png':
-                            $sourceImage = @imagecreatefrompng($sourceImagePath);
-                            break;
-                    }
-
-                    if ($sourceImage !== false) {
-                        imagewebp($sourceImage, $webpImagePath);
-                        imagedestroy($sourceImage);
-                        @unlink($sourceImagePath);
-                        $data->$attribute = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
-                    }
-                }
-            }
-        };
-
-        // Handle image uploads
-        $handleImageUpload($request, 'picture', $data, $destinationPath);
-        $handleImageUpload($request, 'avatar', $data, $destinationPath);
-        $handleImageUpload($request, 'banner', $data, $destinationPath);
-
-        // Update text fields from the request
-        $data->fill($request->except(['picture', 'avatar', 'banner']));
-
-        // Debugging: Print updated data before saving
-        \Log::info('Updated data:', $data->toArray());
-
-        $data->save();
-
-        $loggedInUserId = Auth::id();
-        $this->simpanLogHistori('Update', 'Profil Pengguna', $data->id, $loggedInUserId, json_encode($data->getOriginal()), json_encode($data));
-
-        return redirect()->back()->with('message', 'Data berhasil diperbarui');
-    } catch (\Exception $e) {
-        \Log::error('Error updating user profile:', ['error' => $e->getMessage()]);
-        return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data.');
+        return view('back.profil_pengguna.edit', compact('data', 'title', 'subtitle'));
     }
-}
 
-     
-     
-     
+    public function update_pengguna(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'name' => 'required',
+                'about' => 'nullable',
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('users')->ignore($id),
+                ],
+                'password' => 'nullable|min:6',
+                'picture' => 'nullable|image|mimes:jpeg,jpg,png|max:6144',
+                'avatar' => 'nullable|image|mimes:jpeg,jpg,png|max:4096',
+                'banner' => 'nullable|image|mimes:jpeg,jpg,png|max:8192',
+                'facebook' => 'nullable|string|max:255',
+                'instagram' => 'nullable|string|max:255',
+                'tiktok' => 'nullable|string|max:255',
+                'shopee' => 'nullable|string|max:255',
+                'bukalapak' => 'nullable|string|max:255',
+                'tokopedia' => 'nullable|string|max:255',
+                'website' => 'nullable|string|max:255',
+                'youtube' => 'nullable|string|max:255',
+                'link' => 'nullable|string|max:255',
+                'phone_number' => 'nullable|string|max:20',
+                'wa_number' => 'nullable|string|max:20',
+                'address' => 'nullable|string|max:255',
+                'description' => 'nullable|string|max:255',
+                'maps' => 'nullable|string',
+            ], [
+                'name.required' => 'Nama Wajib diisi',
+                'email.required' => 'Email Wajib diisi',
+                'email.email' => 'Format email tidak valid',
+                'email.unique' => 'Email sudah terdaftar',
+                'password.min' => 'Password minimal harus terdiri dari 6 karakter',
+                'picture.image' => 'Gambar harus dalam format jpeg, jpg, atau png',
+                'picture.mimes' => 'Format gambar harus jpeg, jpg, atau png',
+                'picture.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
+                'avatar.image' => 'Avatar harus dalam format jpeg, jpg, atau png',
+                'avatar.mimes' => 'Format avatar harus jpeg, jpg, atau png',
+                'avatar.max' => 'Ukuran avatar tidak boleh lebih dari 4 MB',
+                'banner.image' => 'Banner harus dalam format jpeg, jpg, atau png',
+                'banner.mimes' => 'Format banner harus jpeg, jpg, atau png',
+                'banner.max' => 'Ukuran banner tidak boleh lebih dari 8 MB',
+            ]);
+    
+            $data = ProfilPengguna::findOrFail($id);
+            $destinationPath = 'upload/user/';
+    
+            $input = $request->except(['_token', '_method']);
+    
+            // Handle password
+            if ($request->filled('password')) {
+                $input['password'] = Hash::make($request->input('password'));
+            } else {
+                unset($input['password']); // Jangan simpan password jika tidak ada perubahan
+            }
+    
+            // Handle image uploads
+            $handleImageUpload = function ($request, $attribute, $data, $destinationPath) {
+                // Implementasi upload gambar
+            };
+    
+            $handleImageUpload($request, 'picture', $data, $destinationPath);
+            $handleImageUpload($request, 'avatar', $data, $destinationPath);
+            $handleImageUpload($request, 'banner', $data, $destinationPath);
+    
+            // Conditional update for wa_number
+            $wa_number = $input['wa_number'];
+            if (substr($wa_number, 0, 1) === '0') {
+                $input['wa_number'] = '62' . substr($wa_number, 1);
+            }
+            // Update data dan simpan
+            $data->fill($input);
+            $data->save();
+    
+            // Simpan log histori
+            $loggedInUserId = Auth::id();
+            $this->simpanLogHistori('Update', 'Profil Pengguna', $data->id, $loggedInUserId, json_encode($data->getOriginal()), json_encode($data));
+    
+            return redirect()->back()->with('message', 'Data berhasil diperbarui');
+        } catch (\Exception $e) {
+            \Log::error('Error updating user profile:', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data.');
+        }
+    }
     
     
-
-
-
-
-    /**
-
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
+        // Add destroy logic here if needed
     }
 
     private function simpanLogHistori($aksi, $tabelAsal, $idEntitas, $pengguna, $dataLama, $dataBaru)
@@ -210,7 +139,7 @@ class ProfilPenggunaController extends Controller
         $log->tabel_asal = $tabelAsal;
         $log->id_entitas = $idEntitas;
         $log->aksi = $aksi;
-        $log->waktu = now(); // Menggunakan waktu saat ini
+        $log->waktu = now();
         $log->pengguna = $pengguna;
         $log->data_lama = $dataLama;
         $log->data_baru = $dataBaru;

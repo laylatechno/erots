@@ -70,21 +70,45 @@
                 <form id="form-tambah" action="" method="POST">
                     @csrf
                     <div class="form-group text-start mb-3">
-                        <input class="form-control" type="text" placeholder="Alamat Email" id="email"
-                            name="email" required>
+                        <input class="form-control" type="text" placeholder="Nama Usaha" id="name" name="name"
+                            required>
                     </div>
+                  
 
                     <div class="form-group text-start mb-3">
                         <input class="form-control" type="text" placeholder="Username" id="user" name="user"
                             required>
                     </div>
+                    <script>
+                        document.getElementById('user').addEventListener('input', function(e) {
+                            // Menghilangkan spasi
+                            this.value = this.value.replace(/\s/g, '');
+                
+                            // Mengubah huruf pertama menjadi huruf kecil
+                            if (this.value.length > 0) {
+                                this.value = this.value.charAt(0).toLowerCase() + this.value.slice(1);
+                            }
+                        });
+                    </script>
                     <div class="form-group text-start mb-3">
                         <input class="form-control" type="number" placeholder="No WhatsApp" id="wa_number"
                             name="wa_number" required>
                     </div>
+                    <div class="form-group text-start mb-3">
+                        <input class="form-control" type="text" placeholder="Bidang Usaha" id="about" name="about"
+                            required>
+                    </div>
+                    <div class="form-group text-start mb-3">
+                        <input class="form-control" type="text" placeholder="Deskripsi Toko" id="description" name="description"
+                            required>
+                    </div>
+                    <div class="form-group text-start mb-3">
+                        <input class="form-control" type="text" placeholder="Alamat Email" id="email"
+                            name="email" required>
+                    </div>
 
                     <div class="form-group text-start mb-3 position-relative">
-                        <input class="form-control" id="psw-input" type="password" placeholder="Password Baru"
+                        <input class="form-control" id="psw-input" type="password" placeholder="Password Baru minimal 8 karakter"
                             id="password" name="password" required>
                         <div class="position-absolute" id="password-visibility">
                             <i class="bi bi-eye"></i>
