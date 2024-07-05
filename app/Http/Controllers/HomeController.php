@@ -243,12 +243,16 @@ class HomeController extends Controller
     // HomeController.php
     public function toko_detail($user)
     {
-        $title = "Halaman Toko Detail";
-        $subtitle = "Menu Toko Detail";
         $users = User::where('user', $user)->firstOrFail();
         $related_products = $users->produk()->paginate(8); // 8 produk per halaman
+    
+        // Menggunakan nama pengguna untuk title dan subtitle
+        $title = $users->name . " | Halaman Toko Detail";
+        $subtitle = "Menu Toko " . $users->name;
+    
         return view('front.toko_detail', compact('users', 'related_products', 'title', 'subtitle'));
     }
+    
 
  
 }

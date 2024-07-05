@@ -47,6 +47,7 @@
             background-color: #343a40;
         }
     </style>
+
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -89,10 +90,17 @@
                                             <span class="badge bg-danger">{{ $p->status }}</span>
                                         @endif
                                     </td>
+
+                                    <td>
+                                        @if ($p->avatar && file_exists(public_path("/upload/user/$p->avatar")))
+                                            <a href="/upload/user/{{ $p->avatar }}" target="_blank">
+                                                <img style="max-width:100px; max-height:100px" src="/upload/user/{{ $p->avatar }}" alt="">
+                                            </a>
+                                        @else
+                                            <img style="max-width:100px; max-height:100px" src="/upload/avatar.png" alt="Default Avatar">
+                                        @endif
+                                    </td>
                                     
-                                    <td><a href="/upload/user/{{ $p->avatar }}" target="_blank"><img
-                                                style="max-width:100px; max-height:100px"
-                                                src="/upload/user/{{ $p->avatar }}" alt=""></a></td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-warning btn-edit" data-toggle="modal"
                                             data-target="#modal-edit" data-id="{{ $p->id }}" style="color: black">
@@ -281,25 +289,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <script>
-                                        $(document).ready(function() {
-                                            function formatState(state) {
-                                                if (!state.id) {
-                                                    return state.text;
-                                                }
-                                                var colorClass = state.element.className;
-                                                var $state = $(
-                                                    '<span><div class="color-sample ' + colorClass + '"></div>' + state.text + '</span>'
-                                                );
-                                                return $state;
-                                            }
 
-                                            $('#color').select2({
-                                                templateResult: formatState,
-                                                templateSelection: formatState
-                                            });
-                                        });
-                                    </script>
                                     <div class="col-3">
                                         <div class="form-group" id="youtube_container">
                                             <label for="youtube">Youtube</label>
@@ -614,30 +604,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <script>
-                                        $(document).ready(function() {
-                                            function formatState(state) {
-                                                if (!state.id) {
-                                                    return state.text;
-                                                }
-                                                var colorClass = state.element.className;
-                                                var $state = $(
-                                                    '<span><div class="color-sample ' + colorClass + '"></div>' + state.text + '</span>'
-                                                );
-                                                return $state;
-                                            }
 
-                                            $('#color_edit').select2({
-                                                templateResult: formatState,
-                                                templateSelection: formatState
-                                            });
-                                        });
-                                    </script>
-                                     <div class="col-3">
+                                    <div class="col-3">
                                         <div class="form-group" id="youtube_edit_container">
                                             <label for="youtube_edit">Youtube</label>
-                                            <input type="text" class="form-control" name="youtube"
-                                                id="youtube_edit" placeholder="Youtube">
+                                            <input type="text" class="form-control" name="youtube" id="youtube_edit"
+                                                placeholder="Youtube">
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -774,19 +746,57 @@
         <!-- /.modal-dialog -->
     </div>
 
-
-
-
-
-
 @endsection
 
 
-
-
+@push('css')
+    <link rel="stylesheet" href="{{ asset('themplete/back/plugins/select2/css/custom.css') }}">
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
+@endpush
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    {{-- PERINTAH SIMPAN DATA --}}
+    <script>
+        $(document).ready(function() {
+            function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var colorClass = state.element.className;
+                var $state = $(
+                    '<span><div class="color-sample ' + colorClass + '"></div>' + state.text + '</span>'
+                );
+                return $state;
+            }
+
+            $('#color').select2({
+                templateResult: formatState,
+                templateSelection: formatState
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var colorClass = state.element.className;
+                var $state = $(
+                    '<span><div class="color-sample ' + colorClass + '"></div>' + state.text + '</span>'
+                );
+                return $state;
+            }
+
+            $('#color_edit').select2({
+                templateResult: formatState,
+                templateSelection: formatState
+            });
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
             $('#form-tambah').submit(function(event) {
@@ -818,7 +828,6 @@
                             location.reload();
                         });
                     },
-
                     complete: function() {
                         tombolSimpan.prop('disabled', false);
                     },
@@ -842,14 +851,16 @@
             });
         });
     </script>
-    {{-- PERINTAH SIMPAN DATA --}}
-
-    {{-- PERINTAH EDIT DATA --}}
     <script>
-        $(document).ready(function() {
-            $('.btn-edit').click(function(e) {
+      
+
+            $(document).ready(function() {
+            $('#example1').on('click', '.btn-edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
+
+
+
                 $.ajax({
                     method: 'GET',
                     url: '/users/' + id + '/edit',
@@ -875,34 +886,41 @@
                         $('#color_edit').val(data.color);
                         $('#status_edit').val(data.status);
                         $('#password_edit').val(data.password);
-    
+
                         $('#picture_edit_container img').remove();
                         $('#picture_edit_container a').remove();
-    
+
                         if (data.picture) {
-                            var pictureImg = '<img src="/upload/user/' + data.picture + '" style="max-width: 200px; max-height: 200px;">';
-                            var pictureLink = '<a href="/upload/user/' + data.picture + '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
-                            $('#picture_edit_container').append(pictureImg + '<br>' + pictureLink);
+                            var pictureImg = '<img src="/upload/user/' + data.picture +
+                                '" style="max-width: 200px; max-height: 200px;">';
+                            var pictureLink = '<a href="/upload/user/' + data.picture +
+                                '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
+                            $('#picture_edit_container').append(pictureImg + '<br>' +
+                                pictureLink);
                         }
-    
+
                         $('#avatar_edit_container img').remove();
                         $('#avatar_edit_container a').remove();
-    
+
                         if (data.avatar) {
-                            var avatarImg = '<img src="/upload/user/' + data.avatar + '" style="max-width: 200px; max-height: 200px;">';
-                            var avatarLink = '<a href="/upload/user/' + data.avatar + '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
+                            var avatarImg = '<img src="/upload/user/' + data.avatar +
+                                '" style="max-width: 200px; max-height: 200px;">';
+                            var avatarLink = '<a href="/upload/user/' + data.avatar +
+                                '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
                             $('#avatar_edit_container').append(avatarImg + '<br>' + avatarLink);
                         }
-    
+
                         $('#banner_edit_container img').remove();
                         $('#banner_edit_container a').remove();
-    
+
                         if (data.banner) {
-                            var bannerImg = '<img src="/upload/user/' + data.banner + '" style="max-width: 200px; max-height: 200px;">';
-                            var bannerLink = '<a href="/upload/user/' + data.banner + '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
+                            var bannerImg = '<img src="/upload/user/' + data.banner +
+                                '" style="max-width: 200px; max-height: 200px;">';
+                            var bannerLink = '<a href="/upload/user/' + data.banner +
+                                '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
                             $('#banner_edit_container').append(bannerImg + '<br>' + bannerLink);
                         }
-    
+
                         $('#modal-edit').modal('show');
                         $('#id').val(id);
                     },
@@ -911,7 +929,7 @@
                     }
                 });
             });
-    
+
             $('#modal-edit').on('hidden.bs.modal', function() {
                 $('#picture_edit_container img').remove();
                 $('#picture_edit_container a').remove();
@@ -922,12 +940,6 @@
             });
         });
     </script>
-    
-    {{-- PERINTAH EDIT DATA --}}
-
-
-
-    {{-- PERINTAH UPDATE DATA --}}
     <script>
         $(document).ready(function() {
             $('#btn-save-edit').click(function(e) {
@@ -985,13 +997,9 @@
             });
         });
     </script>
-
-    {{-- PERINTAH UPDATE DATA --}}
-
-    {{-- PERINTAH DELETE DATA --}}
     <script>
         $(document).ready(function() {
-            $('.dataTable tbody').on('click', 'td .btn-hapus', function(e) {
+            $('#example1').on('click', '.btn-hapus', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
 
@@ -1064,5 +1072,4 @@
             });
         });
     </script>
-    {{-- PERINTAH DELETE DATA --}}
 @endpush

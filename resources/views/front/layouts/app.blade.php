@@ -11,6 +11,9 @@
     <meta name="theme-color" content="#0134d4">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Letakkan di bagian head -->
+    <meta property="og:url" content="{{ request()->fullUrl() }}">
+
 
     <!-- Title -->
     <title>{{ $title }} - {{ $profil->nama_perusahaan }}</title>
@@ -319,6 +322,12 @@
     <script src="{{ asset('themplete/front') }}/js/dark-rtl.js"></script>
     <script src="{{ asset('themplete/front') }}/js/active.js"></script>
     <script src="{{ asset('themplete/front') }}/js/pwa.js"></script>
+    <script>
+        $(document).ready(function() {
+            var currentUrl = window.location.href;
+            $('meta[property="og:url"]').attr('content', currentUrl);
+        });
+        </script>
 
     @stack('scripts')
 </body>

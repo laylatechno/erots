@@ -16,7 +16,7 @@
 
                         <!-- Small boxes (Stat box) -->
                         <div class="row">
-                            <div class="col-lg-4 col-6">
+                            <div class="col-lg-4 col-12">
                                 <!-- small box -->
                                 <div class="small-box bg-info">
                                     <div class="inner">
@@ -34,7 +34,7 @@
                             <!-- ./col -->
 
                             <!-- ./col -->
-                            <div class="col-lg-4 col-6">
+                            <div class="col-lg-4 col-12">
                                 <!-- small box -->
                                 <div class="small-box bg-success">
                                     <div class="inner">
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <!-- ./col -->
-                            <div class="col-lg-4 col-6">
+                            <div class="col-lg-4 col-12">
                                 <!-- small box -->
                                 <div class="small-box bg-warning">
                                     <div class="inner">
@@ -62,7 +62,7 @@
 
                                         <i class="ion-android-contacts"></i>
                                     </div>
-                                    <a href="/user" class="small-box-footer">Selengkapnya <i
+                                    <a href="/users" class="small-box-footer">Selengkapnya <i
                                             class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>

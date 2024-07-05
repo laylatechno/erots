@@ -31,10 +31,16 @@ class RegisterController extends Controller
                 'unique:users,user',
                 'regex:/^[a-zA-Z0-9._-]+$/',
             ],
+            'name' => 'required',
+            'about' => 'required',
+            'description' => 'required',
             'wa_number' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
         ], [
+            'name.required' => 'Nama Toko Wajib diisi',
+            'about.required' => 'Bidang Usaha Wajib diisi',
+            'description.required' => 'Deskripsi Usaha Wajib diisi',
             'user.required' => 'User Wajib diisi',
             'user.unique' => 'User Telah digunakan',
             'user.regex' => 'User hanya boleh berisi huruf, angka, titik (.), garis bawah (_), dan dash (-)',
@@ -55,18 +61,24 @@ class RegisterController extends Controller
             // Set default role
             $input['role'] = 'pengguna';
             $input['status'] = 'Non Aktif';
-            $input['name'] = 'Pengguna Baru';
             $input['color'] = 'dark';
 
             // Simpan nama pengguna dan email dari inputan pendaftar
-        $namaPengguna = $input['user'];
-        $emailPendaftar = $input['email'];
+            $namaPengguna = $input['user'];
+            $emailPendaftar = $input['email'];
 
-        // Membuat user baru dan mendapatkan data pengguna yang baru dibuat
-        $user = User::create($input);
+            // Validasi dan transformasi nomor WhatsApp
+            $wa_number = $input['wa_number'];
+            if (substr($wa_number, 0, 1) === '0') {
+                $input['wa_number'] = '62' . substr($wa_number, 1);
+            }
 
-        // Simpan log histori untuk operasi Create dengan nama pengguna dan email pendaftar
-        $this->simpanLogHistori('Create', 'users', $namaPengguna, $emailPendaftar, null, json_encode($input));
+
+            // Membuat user baru dan mendapatkan data pengguna yang baru dibuat
+            $user = User::create($input);
+
+            // Simpan log histori untuk operasi Create dengan nama pengguna dan email pendaftar
+            $this->simpanLogHistori('Create', 'users', $namaPengguna, $emailPendaftar, null, json_encode($input));
 
             return response()->json([
                 'success' => true,
