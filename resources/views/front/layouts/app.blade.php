@@ -21,7 +21,7 @@
  
     <title>{{ $title }} - {{ $profil->nama_perusahaan }}</title>
 
-     Favicon -->
+ 
     <link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
     <link rel="apple-touch-icon" href="{{ asset('upload/profil/' . $profil->logo) }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('upload/profil/' . $profil->logo) }}">
