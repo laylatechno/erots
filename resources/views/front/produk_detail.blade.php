@@ -1,6 +1,38 @@
 @extends('front.layouts.app')
 @section('title', $title)
 @section('subtitle', $subtitle)
+<style>
+    .price-wrapper {
+        min-height: 60px;
+        /* Adjust this value based on your layout */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .price-wrapper .original-price {
+        font-size: smaller;
+        text-decoration: line-through;
+    }
+
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        /* Rasio aspek 16:9 untuk video */
+        overflow: hidden;
+        max-width: 100%;
+    }
+
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
 
 @section('content')
     <!-- Header Area -->
@@ -55,6 +87,8 @@
                     <h3>{{ $produk->nama_produk }}</h3>
                     <h1>Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}</h1>
                     <p>{{ $produk->deskripsi }}</p>
+                    <hr>
+                  
                     <form class="add-to-cart-form" data-product-id="{{ $produk->id }}">
                         @csrf
                         <div class="input-group">
@@ -62,6 +96,17 @@
                             <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to Cart</button>
                         </div>
                     </form>
+                    <hr>
+                    @if (!empty($produk->youtube))
+                    <div class="video-container">
+                        <iframe class="embed-responsive-item"
+                            src="https://www.youtube.com/embed/{{ $produk->youtube }}?autoplay=1&rel=0&mute=1"
+                            allowfullscreen allow="autoplay; encrypted-media" frameborder="0" loading="lazy">
+                        </iframe>
+                    </div>
+                @else
+                    <p>Tidak ada video YouTube yang tersedia.</p>
+                @endif
                 </div>
             </div>
 

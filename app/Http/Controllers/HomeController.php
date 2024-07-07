@@ -178,8 +178,8 @@ class HomeController extends Controller
 
     public function produk_sale_detail($slug)
     {
-        $title = "Halaman Beranda";
-        $subtitle = "Menu Beranda";
+        $title = "Halaman Produk Detail";
+        $subtitle = "Menu Produk Detail";
         $produk = Produk::where('slug', $slug)->firstOrFail();
         $kategori_produk = KategoriProduk::all();
         return view('front.produk_detail', compact('produk', 'kategori_produk', 'title', 'subtitle'));
