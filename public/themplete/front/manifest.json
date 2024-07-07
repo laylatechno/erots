@@ -1,13 +1,13 @@
 {
-  "name": "Marketfillah",
-  "short_name": "Marketfillah",
+  "name": "Nyariapa.com",
+  "short_name": "Nyariapa.com",
   "start_url": "http://192.168.1.6:8080/",
   "display": "standalone",
   "background_color": "#0d5afd",
   "theme_color": "#0d5afd",
   "categories": ["mobile", "multipurpose", "blog", "ecommerce", "pwa"],
   "orientation": "portrait",
-  "description": "Marketfillah",
+  "description": "Nyariapa.com",
   "icons": [{
       "src": "img/icons/icon-72x72.png",
       "type": "image/png",
