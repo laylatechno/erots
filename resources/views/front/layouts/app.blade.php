@@ -16,7 +16,7 @@
     <meta property="og:url" content="{{ request()->fullUrl() }}">
     <meta property="og:type" content="website">
 
-    <!-- Title --
+   
 
  
     <title>{{ $title }} - {{ $profil->nama_perusahaan }}</title>
