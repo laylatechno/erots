@@ -19,7 +19,7 @@
         <button class="btn btn-close btn-close-white position-absolute p-1" type="button" data-bs-dismiss="toast"
             aria-label="Close"></button>
     </div>
-
+ 
     <!-- Tiny Slider One Wrapper -->
     <div class="tiny-slider-one-wrapper">
         <div class="tiny-slider-one">
@@ -78,13 +78,16 @@
                 @php
                     $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp); // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
                     $pesan =
-                        'Hallo.. !! Apakah berkenan saya bertanya terkait informasi sekolah ' .
+                        'Hallo.. !! Apakah berkenan saya bertanya terkait informasi tentang ' .
                         $profil->nama_perusahaan .
                         ' ?';
                     $encoded_pesan = urlencode($pesan); // Meng-encode pesan agar aman dalam URL
                     $whatsapp_url = "https://wa.me/{$no_telp}?text={$encoded_pesan}"; // Membuat URL lengkap
                 @endphp
                 <a target="_blank" class="btn btn-warning" href="{{ $whatsapp_url }}">Selengkapnya</a>
+
+                <button id="installAffan" class="btn btn-sm btn-warning">Install Now</button>
+
 
             </div>
         </div>

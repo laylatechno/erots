@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LogHistori;
 use Illuminate\Support\Facades\Hash;
 use App\Models\KategoriProduk;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -268,27 +269,41 @@ class KategoriProdukController extends Controller
      */
     public function destroy($id)
     {
+        // Cari kategori produk berdasarkan ID
         $kategori_produk = KategoriProduk::find($id);
-
+    
+        // Jika kategori produk tidak ditemukan, kembalikan respon error
         if (!$kategori_produk) {
             return response()->json(['message' => 'Data kategori produk not found'], 404);
         }
-
+    
+        // Periksa apakah ada produk yang berelasi dengan kategori produk ini
+        $relatedProducts = Produk::where('kategori_produk_id', $id)->exists();
+    
+        // Jika ada produk yang berelasi, kembalikan respon konfirmasi
+        if ($relatedProducts) {
+            return response()->json(['message' => 'Data kategori tidak bisa dihapus karena masih berelasi dengan produk'], 400);
+        }
+    
+        // Hapus file gambar lama jika ada
         $oldgambarFileName = $kategori_produk->file; // Nama file saja
         $oldfilePath = public_path('upload/kategori_produk/' . $oldgambarFileName);
-
+    
         if ($oldgambarFileName && file_exists($oldfilePath)) {
             unlink($oldfilePath);
         }
-
+    
+        // Hapus kategori produk
         $kategori_produk->delete();
         $loggedInSliderId = Auth::id();
-
+    
         // Simpan log histori untuk operasi Delete dengan kategori_produk_id yang sedang login dan informasi data yang dihapus
         $this->simpanLogHistori('Delete', 'Kategori Produk', $id, $loggedInSliderId, json_encode($kategori_produk), null);
-
+    
+        // Kembalikan respon sukses
         return response()->json(['message' => 'Data Berhasil Dihapus']);
     }
+    
 
     // Fungsi untuk menyimpan log histori
     private function simpanLogHistori($aksi, $tabelAsal, $idEntitas, $pengguna, $dataLama, $dataBaru)

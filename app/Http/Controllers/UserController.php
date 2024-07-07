@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LogHistori;
+use App\Models\Produk;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -304,27 +305,41 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        // Cari pengguna berdasarkan ID
         $users = User::find($id);
-
+    
+        // Jika pengguna tidak ditemukan, kembalikan respon error
         if (!$users) {
             return response()->json(['message' => 'Data users not found'], 404);
         }
-
+    
+        // Periksa apakah ada produk yang berelasi dengan pengguna ini
+        $relatedProducts = Produk::where('user_id', $id)->exists();
+    
+        // Jika ada produk yang berelasi, kembalikan respon konfirmasi
+        if ($relatedProducts) {
+            return response()->json(['message' => 'Data pengguna tidak bisa dihapus karena masih berelasi dengan produk'], 400);
+        }
+    
+        // Hapus file gambar lama jika ada
         $oldpictureFileName = $users->file; // Nama file saja
         $oldfilePath = public_path('upload/user/' . $oldpictureFileName);
-
+    
         if ($oldpictureFileName && file_exists($oldfilePath)) {
             unlink($oldfilePath);
         }
-
+    
+        // Hapus pengguna
         $users->delete();
         $loggedInUserId = Auth::id();
-
+    
         // Simpan log histori untuk operasi Delete dengan user_id yang sedang login dan informasi data yang dihapus
         $this->simpanLogHistori('Delete', 'users', $id, $loggedInUserId, json_encode($users), null);
-
+    
+        // Kembalikan respon sukses
         return response()->json(['message' => 'Data Berhasil Dihapus']);
     }
+    
 
     // Fungsi untuk menyimpan log histori
     private function simpanLogHistori($aksi, $tabelAsal, $idEntitas, $pengguna, $dataLama, $dataBaru)

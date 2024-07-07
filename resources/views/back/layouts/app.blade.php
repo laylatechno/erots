@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $profil->nama_perusahaan }} | @yield('title') @if(request()->route()->getName() === 'toko.toko_detail') | {{ $users->name }} @endif</title>
+    <title>{{ $profil->nama_perusahaan }} | @yield('title') @if (request()->route()->getName() === 'toko.toko_detail')
+            | {{ $users->name }}
+        @endif
+    </title>
 
 
 
@@ -123,11 +126,10 @@
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="/upload/user/{{ Auth::user()->avatar ?: 'avatar.png' }}"
-                             class="img-circle elevation-2"
-                             alt="User Image"
-                             onerror="this.onerror=null;this.src='/upload/avatar.png';">
+                            class="img-circle elevation-2" alt="User Image"
+                            onerror="this.onerror=null;this.src='/upload/avatar.png';">
                     </div>
-                    
+
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
@@ -314,9 +316,12 @@
                             <li class="nav-item">
                                 <a href="{{ route('users.index') }}" class="nav-link <?php echo $currentPath == '/users' ? 'active' : ''; ?>">
                                     <i class="nav-icon far fa-user"></i>
-                                    <p>
+                                    <p style="margin-right: 6px;">
                                         User
                                     </p>
+                                    @if ($nonActiveUserCount > 0)
+                                        <span class="badge bg-danger">{{ $nonActiveUserCount }}</span>
+                                    @endif
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -388,7 +393,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
                                 <li class="breadcrumb-item active">@yield('subtitle')</li>
                             </ol>
                         </div><!-- /.col -->
@@ -428,35 +433,37 @@
         </div>
     </footer>
 
-<!-- Include all your JS files here -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="{{ asset('themplete/back/plugins/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<script> $.widget.bridge('uibutton', $.ui.button); </script>
-<script src="{{ asset('themplete/back/plugins/sparklines/sparkline.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<script src="{{ asset('themplete/back/dist/js/adminlte.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/chart.js/Chart.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Include all your JS files here -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{ asset('themplete/back/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <script src="{{ asset('themplete/back/plugins/sparklines/sparkline.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/dist/js/adminlte.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('themplete/back/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-@stack('scripts')
+    @stack('scripts')
 
 
 
@@ -504,7 +511,7 @@
 
 
 
- 
+
 
 </body>
 

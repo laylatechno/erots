@@ -4,44 +4,44 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ $profil->nama_perusahaan }}">
+    <meta name="description" content="{{ $profil->deskripsi }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
     <meta name="theme-color" content="#0134d4">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <!-- Letakkan di bagian head -->
+
+    <meta property="og:title" content="{{ $title }} - {{ $profil->nama_perusahaan }}">
+    <meta property="og:description" content="{{ $profil->nama_perusahaan }}">
+    <meta property="og:image" content="{{ asset('upload/profil/' . $profil->logo) }}">
     <meta property="og:url" content="{{ request()->fullUrl() }}">
+    <meta property="og:type" content="website">
 
+    <!-- Title --
 
-    <!-- Title -->
+ 
     <title>{{ $title }} - {{ $profil->nama_perusahaan }}</title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="upload/profil/{{ $profil->favicon }}">
-    <link rel="apple-touch-icon" href="upload/profil/{{ $profil->logo }}">
-    <link rel="apple-touch-icon" sizes="152x152" href="upload/profil/{{ $profil->logo }}">
-    <link rel="apple-touch-icon" sizes="167x167" href="upload/profil/{{ $profil->logo }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="upload/profil/{{ $profil->logo }}">
+     Favicon -->
+    <link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
+    <link rel="apple-touch-icon" href="{{ asset('upload/profil/' . $profil->logo) }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('upload/profil/' . $profil->logo) }}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('upload/profil/' . $profil->logo) }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('upload/profil/' . $profil->logo) }}">
 
     <!-- Style CSS -->
-    <link rel="stylesheet" href="{{ asset('themplete/front') }}/style.css">
+    <link rel="stylesheet" href="{{ asset('themplete/front/style.css') }}">
 
     <!-- Web App Manifest -->
-    <link rel="manifest" href="{{ asset('themplete/front') }}/manifest.json">
+    <link rel="manifest" href="{{ asset('themplete/front/manifest.json') }}">
     <style>
-        /* CSS untuk menyembunyikan div saat mencetak */
         @media print {
             .unhide {
                 display: none;
             }
         }
     </style>
-
-
-
 </head>
+
 
 <body>
     <!-- Preloader -->
@@ -106,15 +106,16 @@
                 <!-- Sidenav Nav -->
                 <ul class="sidenav-nav ps-0">
                     <li>
-                        <a href="{{ asset('themplete/front') }}/home.html"><i class="bi bi-house-door"></i> Beranda</a>
+                        <a href="/"><i class="bi bi-house-door"></i> Beranda</a>
                     </li>
                     <li>
-                        <a href=""><i class="bi bi-folder2-open"></i> Kebijakan
+                        <a href="" data-bs-toggle="modal"
+                        data-bs-target="#fullscreenModal"><i class="bi bi-folder2-open"></i> Syarat & Ketentuan
                             <span class="badge bg-danger rounded-pill ms-2">Baru</span>
                         </a>
                     </li>
                     <li>
-                        <a href=""><i class="bi bi-collection"></i> Syarat & Ketentuan
+                        <a href="/informasi"><i class="bi bi-newspaper"></i> Berita
                             <span class="badge bg-success rounded-pill ms-2">Baru</span>
                         </a>
                     </li>
@@ -130,26 +131,7 @@
                             </div>
                         </div>
                     </li>
-                    {{-- <li>
-                         
-                          
-                        <div class="night-mode-nav">
-                    
-                                        <a class="btn btn-creative btn-success mb-3 w-100" href="/login" style="color: aliceblue"><i class="bi bi-box-arrow-left"></i>
-                                            Login</a>
-                    
-                        </div>
-                    </li>
-                    <li>
-                         
-                          
-                        <div class="night-mode-nav">
-                    
-                                        <a class="btn btn-creative btn-success mb-3 w-100" href="/login" style="color: aliceblue"><i class="bi bi-box-arrow-left"></i>
-                                            Daftar</a>
-                    
-                        </div>
-                    </li> --}}
+                   
 
                 </ul>
 
@@ -230,29 +212,52 @@
                         use Illuminate\Support\Facades\Auth;
                     @endphp
 
-                    
-                        @if (Auth::check() && Auth::user()->role == 'member')
-                            <li>
-                                <a href="/dashboard">
-                                    <i class="bi bi-people"></i>
-                                    <span>Dashboard</span>
-                                </a>
-                            </li>
-                        @else
-                            <li>
-                                <a href="/auth">
-                                    <i class="bi bi-people"></i>
-                                    <span>Login</span>
-                                </a>
-                            </li>
-                        @endif
-                  
+
+                    @if (Auth::check() && Auth::user()->role == 'pengguna')
+                        <li>
+                            <a href="/dashboard">
+                                <i class="bi bi-people"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                    @else
+                        <li>
+                            <a href="/auth">
+                                <i class="bi bi-people"></i>
+                                <span>Login</span>
+                            </a>
+                        </li>
+                    @endif
+
 
                 </ul>
             </div>
         </div>
     </div>
 
+     <!-- Fullscreen Modal -->
+     <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-labelledby="fullscreenModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog modal-fullscreen-md-down modal-lg">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h6 class="modal-title" id="fullscreenModalLabel">Syarat & Ketentuan</h6>
+                 <button class="btn btn-close p-1 ms-auto" type="button" data-bs-dismiss="modal"
+                     aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <span>Syarat :</span>
+                 <p> {{ $profil->syarat }}</p>
+                 <span>Ketentuan :</span>
+                 <p> {{ $profil->ketentuan }}</p>
+             </div>
+             <div class="modal-footer">
+                 <button class="btn btn-sm btn-secondary" type="button"
+                     data-bs-dismiss="modal">Close</button>
+             </div>
+         </div>
+     </div>
+ </div>
 
 
     <!-- Tambahkan SweetAlert di dalam <head> atau di bagian bawah sebelum </body> -->
@@ -263,7 +268,12 @@
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
+    <script>
+        $(document).ready(function() {
+            var currentUrl = window.location.href;
+            $('meta[property="og:url"]').attr('content', currentUrl);
+        });
+    </script>
 
 
 
@@ -322,12 +332,7 @@
     <script src="{{ asset('themplete/front') }}/js/dark-rtl.js"></script>
     <script src="{{ asset('themplete/front') }}/js/active.js"></script>
     <script src="{{ asset('themplete/front') }}/js/pwa.js"></script>
-    <script>
-        $(document).ready(function() {
-            var currentUrl = window.location.href;
-            $('meta[property="og:url"]').attr('content', currentUrl);
-        });
-        </script>
+
 
     @stack('scripts')
 </body>

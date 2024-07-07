@@ -1,13 +1,13 @@
 {
-  "name": "Affan - PWA Mobile HTML Template",
-  "short_name": "Affan",
-  "start_url": "https://designing-world.com/affan-1.6.0/hero-blocks.html",
+  "name": "Marketfillah",
+  "short_name": "Marketfillah",
+  "start_url": "http://192.168.1.6:8080/",
   "display": "standalone",
   "background_color": "#0d5afd",
   "theme_color": "#0d5afd",
   "categories": ["mobile", "multipurpose", "blog", "ecommerce", "pwa"],
   "orientation": "portrait",
-  "description": "Affan - PWA Mobile HTML Template",
+  "description": "Marketfillah",
   "icons": [{
       "src": "img/icons/icon-72x72.png",
       "type": "image/png",

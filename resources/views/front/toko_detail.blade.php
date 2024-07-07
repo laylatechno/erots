@@ -1,6 +1,11 @@
 @extends('front.layouts.app')
 @section('title', $title)
 @section('subtitle', $subtitle)
+<meta property="og:title" content="{{ $title }} - {{ $users->name }}">
+<meta property="og:description" content="{{ $users->description }}">
+<meta property="og:image" content="{{ asset('upload/user/' . $users->avatar) }}">
+<meta property="og:url" content="{{ request()->fullUrl() }}">
+<meta property="og:type" content="website">
 <style>
     .price-wrapper {
         min-height: 60px;
@@ -103,12 +108,15 @@
                     <h3>{{ $users->name }}</h3>
                     <span class="badge bg-primary">
                         @ {{ $users->user }}</span>
+
+                        <span class="badge bg-warning">
+                             {{ $users->phone_number }}</span>
                     <hr>
-                    <p><b>Deskripsi :</b></p>
+                    <p><b>Deskripsi Toko :</b></p>
                     <p>{{ $users->description }}</p>
                     <p><b>Alamat :</b></p>
                     <p>{{ $users->address }}</p>
-                    <p><b>Youtube :</b></p>
+                 <hr>
                     @if (!empty($users->embed_youtube))
                         <div class="video-container">
                             <iframe class="embed-responsive-item"
@@ -198,6 +206,11 @@
                                                 Rp. {{ number_format($product->harga_jual, 0, ',', '.') }}
                                             </p>
                                         @endif
+                                        <form class="add-to-cart-form" data-product-id="{{ $product->id }}">
+                                            @csrf
+                                            <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to
+                                                Cart</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -246,23 +259,10 @@
                 </div>
             </div>
 
-            <!-- Meta Tags for Social Sharing -->
-            @if (!empty($users->avatar))
-                <meta property="og:image" content="{{ asset($users->avatar) }}">
-                <meta name="twitter:image" content="{{ asset($users->avatar) }}">
-            @endif
-            <meta property="og:title" content="{{ $users->name }}">
-            <meta name="twitter:title" content="{{ $users->name }}">
-            <meta property="og:description" content="Deskripsi singkat mengenai konten yang ingin Anda bagikan.">
-            <meta name="twitter:description" content="Deskripsi singkat mengenai konten yang ingin Anda bagikan.">
-            <meta property="og:url" content="{{ request()->fullUrl() }}">
-
-            <meta name="twitter:card" content="summary_large_image">
+          
 
 
-
-
-            <div class="card product-details-card mb-3 direction-rtl">
+            <div class="card product-details-card  direction-rtl">
                 <div class="card-body">
 
                     <div class="custom-container">
@@ -270,7 +270,7 @@
                         <div class="register-form">
                             <div class="row">
                                 <div class="col-12">
-                                    <a class="btn btn-primary btn-facebook mb-3 w-100" href="{{ $users->maps }}">
+                                    <a class="btn btn-warning w-100" href="{{ $users->maps }}">
                                         <i class="bi bi-geo-alt-fill"></i> Buka Google Maps Toko
                                     </a>
 
@@ -287,4 +287,8 @@
 
         </div>
     </div>
+
+
+ 
+ 
 @endsection

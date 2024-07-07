@@ -308,6 +308,13 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group" id="embed_youtube_container">
+                                            <label for="embed_youtube">Embed Youtube</label>
+                                            <input type="text" class="form-control" name="embed_youtube" id="embed_youtube"
+                                                placeholder="Embed Youtube">
+                                        </div>
+                                    </div>
                                     <div class="col-6">
                                         <div class="form-group" id="password_container">
                                             <label for="password">Masukkan Password</label>
@@ -622,6 +629,13 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group" id="embed_youtube_edit_container">
+                                            <label for="embed_youtube_edit">Embed Youtube</label>
+                                            <input type="text" class="form-control" name="embed_youtube" id="embed_youtube_edit"
+                                                placeholder="Embed Youtube">
+                                        </div>
+                                    </div>
                                     <div class="col-6">
                                         <div class="form-group" id="password_edit_container">
                                             <label for="password_edit">Masukkan Password</label>
@@ -883,6 +897,7 @@
                         $('#instagram_edit').val(data.instagram);
                         $('#facebook_edit').val(data.facebook);
                         $('#youtube_edit').val(data.youtube);
+                        $('#embed_youtube_edit').val(data.embed_youtube);
                         $('#color_edit').val(data.color);
                         $('#status_edit').val(data.status);
                         $('#password_edit').val(data.password);

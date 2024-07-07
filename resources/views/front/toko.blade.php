@@ -88,48 +88,55 @@
                         <!-- Single Team Member -->
                         <div class="col-6">
                             <div class="card team-member-card shadow">
-                                <div class="card-body">
-                                    <!-- Member Image-->
-                                    <div class="team-member-img shadow-sm">
-                                        <a href="{{ route('toko.toko_detail', $p->user) }}">
-                                            <img src="{{ $p->avatar ? '/upload/user/' . $p->avatar : '/upload/avatar.png' }}" alt="">
-                                        </a>
-                                    </div>
-                                    <!-- Team Info-->
-                                    <div class="team-info">
-                                        <a href="{{ route('toko.toko_detail', $p->user) }}">
-                                            <h6 class="mb-1 fz-14">{{ $p->name }}</h6>
-                                            <p class="mb-0 fz-12">
-                                                {{ $p->description ? $p->description : 'Deskripsi atas nama ' . $p->email }}
-                                            </p>
-                                            
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- Contact Info-->
-                                <div class="contact-info bg-{{ $p->color }}">
-                                    <a href="{{ route('toko.toko_detail', $p->user) }}">
-                                        <p class="mb-0 text-truncate">  {{ $p->about ? $p->about : 'Tentang atas nama @'. $p->user }}</p>
-                                    </a>
-                                </div>
+                                <a href="{{ route('toko.toko_detail', $p->user) }}">
+                                    <div class="card-body">
+                                        <!-- Member Image-->
+                                        <div class="team-member-img shadow-sm">
+                                            <a href="{{ route('toko.toko_detail', $p->user) }}">
+                                                <img src="{{ $p->avatar ? '/upload/user/' . $p->avatar : '/upload/avatar.png' }}"
+                                                    alt="">
+                                            </a>
+                                        </div>
+
+
+                                        <!-- Team Info-->
+                                        <div class="team-info">
+                                            <a href="{{ route('toko.toko_detail', $p->user) }}">
+                                                <h6 class="mb-1 fz-14">{{ $p->name }}</h6>
+                                                <p class="mb-0 fz-12">
+                                                    {{ Str::limit($p->description ? $p->description : 'Deskripsi atas nama ' . $p->email, 100) }}
+
+                                                </p>
+
+                                            </a>
+                                        </div>
+                                </a>
+                            </div>
+                            <!-- Contact Info-->
+                            <div class="contact-info bg-{{ $p->color }}">
+                                <a href="{{ route('toko.toko_detail', $p->user) }}">
+                                    <p class="mb-0 text-truncate">
+                                        {{ $p->about ? $p->about : 'Tentang atas nama @' . $p->user }}</p>
+                                </a>
                             </div>
                         </div>
-                    @endforeach
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Pagination -->
+    <div class="shop-pagination pt-3">
+        <div class="container">
+            <div class="card">
+                <div class="card-body py-3">
+                    {{ $users->links('vendor.pagination.bootstrap-4') }}
+
+
                 </div>
             </div>
         </div>
-        <!-- Pagination -->
-        <div class="shop-pagination pt-3">
-            <div class="container">
-                <div class="card">
-                    <div class="card-body py-3">
-                        {{ $users->links('vendor.pagination.bootstrap-4') }}
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
 
 
     </div>

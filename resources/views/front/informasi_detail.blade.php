@@ -57,11 +57,11 @@
                                             <i class="bi bi-facebook me-1"></i> Bagikan Ke Facebook
                                         </a>
 
-                                        <a class="btn btn-primary btn-twitter mb-3 w-100" href="https://twitter.com/intent/tweet?url={{ route('informasi.informasi_detail', $berita->slug) }}&text={{ $berita->judul_berita }}">
+                                        <a class="btn btn-primary btn-twitter mb-3 w-100" href="https://twitter.com/intent/tweet?url={{ route('informasi.informasi_detail', $berita->slug) }}">
                                             <i class="bi bi-twitter me-1"></i> Bagikan Ke Twitter
                                         </a>
 
-                                        <a class="btn btn-success btn-whatsapp mb-3 w-100" href="https://wa.me/?text={{ route('informasi.informasi_detail', $berita->slug) }} - {{ $berita->judul_berita }}">
+                                        <a class="btn btn-success btn-whatsapp mb-3 w-100" href="https://wa.me/?text={{ route('informasi.informasi_detail', $berita->slug) }}">
                                             <i class="bi bi-whatsapp me-1"></i> Bagikan Ke Whatsapp
                                         </a>
                                     </div>
@@ -76,18 +76,7 @@
               
                     <hr>
 
-                    @php
-                        $no_telp = str_replace(['-', ' ', '+'], '', $profil->no_telp); // Menghapus tanda tambah (+), spasi, dan tanda hubung jika ada
-                        $pesan =
-                            'Hallo.. !! Apakah berkenan saya bertanya terkait informasi  ' .
-                            $profil->nama_perusahaan .
-                            ' ?';
-                        $encoded_pesan = urlencode($pesan); // Meng-encode pesan agar aman dalam URL
-                        $whatsapp_url = "https://wa.me/{$no_telp}?text={$encoded_pesan}"; // Membuat URL lengkap
-                    @endphp
-
-                    <a class="btn btn-primary mb-4" href="{{ $whatsapp_url }}"><i class="bi bi-whatsapp"></i> Konsultasi
-                        Gratis</a>
+                   
                 </div>
             </div>
         </div>

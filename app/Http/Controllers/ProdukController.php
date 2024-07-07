@@ -110,6 +110,7 @@ class ProdukController extends Controller
             'kategori_produk_id' => 'required',
             'harga_beli' => 'nullable',
             'harga_jual' => 'nullable',
+            'youtube' => 'nullable',
             'stok' => 'nullable|numeric',
             'gambar' => 'nullable|image|mimes:jpeg,jpg,png|max:6144',
         ], [
@@ -258,6 +259,7 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk' => 'required|min:4',
             'kategori_produk_id' => 'required',
+            'youtube' => 'nullable',
             'harga_beli' => 'nullable',
             'harga_jual' => 'nullable',
             'stok' => 'nullable|numeric',

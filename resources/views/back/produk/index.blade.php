@@ -264,6 +264,14 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-12">
+                                        <div class="form-group" id="youtube_container">
+                                            <label for="youtube">Embed Youtube</label>
+                                            <input type="text" class="form-control" name="youtube"
+                                                id="youtube" placeholder="Embed Youtube">
+                                        </div>
+                                    </div>
+
                                     <script>
                                         $(document).ready(function() {
                                             // Event handler saat input berubah pada input harga_beli dan harga_jual
@@ -282,13 +290,15 @@
                                         });
                                     </script>
 
-                                    <div class="col-12">
-                                        <div class="form-group" id="urutan_container">
-                                            <label for="urutan">Urutan</label>
-                                            <input type="number" class="form-control" name="urutan" id="urutan"
-                                                placeholder="Urutan">
+                                    @if ($isAdmin)
+                                        <div class="col-12">
+                                            <div class="form-group" id="urutan_container">
+                                                <label for="urutan">Urutan</label>
+                                                <input type="number" class="form-control" name="urutan" id="urutan"
+                                                    placeholder="Urutan">
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
 
 
 
@@ -496,6 +506,13 @@
                                                 id="harga_jual_diskon_edit" placeholder="Harga Jual Diskon">
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group" id="youtube_edit_container">
+                                            <label for="youtube_edit">Embed Youtube</label>
+                                            <input type="text" class="form-control" name="youtube"
+                                                id="youtube_edit" placeholder="Embed Youtube">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <script>
@@ -516,13 +533,15 @@
                                         }
                                     });
                                 </script>
-                                <div class="col-12">
-                                    <div class="form-group" id="urutan_edit_container">
-                                        <label for="urutan_edit">Urutan</label>
-                                        <input type="number" class="form-control" name="urutan" id="urutan_edit"
-                                            placeholder="Urutan">
+                                @if ($isAdmin)
+                                    <div class="col-12">
+                                        <div class="form-group" id="urutan_edit_container">
+                                            <label for="urutan_edit">Urutan</label>
+                                            <input type="number" class="form-control" name="urutan" id="urutan_edit"
+                                                placeholder="Urutan">
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
 
                                 <!-- /.card-body -->
 
@@ -571,7 +590,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
     <!-- DataTables Responsive CSS -->
-    <link rel="stylesheet" type="text/css"href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+    <link rel="stylesheet"
+        type="text/css"href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 
     <!-- jQuery -->
     {{-- <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
@@ -776,6 +796,7 @@
                         $('#deskripsi_edit').val(data.deskripsi);
                         $('#stok_edit').val(data.stok);
                         $('#slug_edit').val(data.slug);
+                        $('#youtube_edit').val(data.youtube);
                         $('#urutan_edit').val(data.urutan);
                         $('#harga_jual_diskon_edit').val(data.harga_jual_diskon);
 
