@@ -86,7 +86,7 @@
                 @endphp
                 <a target="_blank" class="btn btn-warning" href="{{ $whatsapp_url }}">Selengkapnya</a>
 
-                <button id="installAffan" class="btn btn-sm btn-warning">Install Now</button>
+                
 
 
             </div>
