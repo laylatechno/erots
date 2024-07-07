@@ -213,7 +213,9 @@
                             </div>
 
 
-
+                            <button type="submit" class="btn btn-success" style="color:white;"><i class="fas fa-save"></i>
+                                Update Data Umum</button>
+                            </form>
 
 
 
@@ -221,10 +223,12 @@
                         </div>
                         <!-- /.tab-pane -->
 
-
+                       
 
                         <div class="tab-pane" id="display">
-
+                            <form action="{{ route('profil.update_display_pengguna', $data->id) }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @method('put')
                             <!-- The timeline -->
                             <div class="timeline timeline-inverse">
                                 <!-- timeline time label -->
@@ -237,7 +241,7 @@
                                 <!-- timeline item -->
                                 <div>
 
-
+                                  
                                     <div class="timeline-item">
 
 
@@ -345,6 +349,9 @@
 
 
                             </div>
+                            <button type="submit" class="btn btn-success" style="color:white;"><i class="fas fa-save"></i>
+                                Update Data Display</button>
+                            </form>
 
                         </div>
                         <!-- /.tab-pane -->
@@ -353,9 +360,7 @@
                     </div>
                     <!-- /.tab-content -->
 
-                    <button type="submit" class="btn btn-success" style="color:white;"><i class="fas fa-save"></i>
-                        Update Data</button>
-                    </form>
+                  
                 </div><!-- /.card-body -->
             </div>
             <!-- /.card -->

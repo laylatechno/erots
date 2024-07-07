@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LogHistori;
 use App\Models\ProfilPengguna;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -87,7 +88,11 @@ class ProfilPenggunaController extends Controller
             ]);
     
             $data = ProfilPengguna::findOrFail($id);
-            $destinationPath = 'upload/user/';
+            $destinationPath = public_path('upload/user/');
+    
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0755, true);
+            }
     
             $input = $request->except(['_token', '_method']);
     
@@ -98,20 +103,13 @@ class ProfilPenggunaController extends Controller
                 unset($input['password']); // Jangan simpan password jika tidak ada perubahan
             }
     
-            // Handle image uploads
-            $handleImageUpload = function ($request, $attribute, $data, $destinationPath) {
-                // Implementasi upload gambar
-            };
     
-            $handleImageUpload($request, 'picture', $data, $destinationPath);
-            $handleImageUpload($request, 'avatar', $data, $destinationPath);
-            $handleImageUpload($request, 'banner', $data, $destinationPath);
     
             // Conditional update for wa_number
-            $wa_number = $input['wa_number'];
-            if (substr($wa_number, 0, 1) === '0') {
-                $input['wa_number'] = '62' . substr($wa_number, 1);
+            if (isset($input['wa_number']) && substr($input['wa_number'], 0, 1) === '0') {
+                $input['wa_number'] = '62' . substr($input['wa_number'], 1);
             }
+    
             // Update data dan simpan
             $data->fill($input);
             $data->save();
@@ -126,6 +124,97 @@ class ProfilPenggunaController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui data.');
         }
     }
+
+    public function update_display_pengguna(Request $request, $id)
+    {
+        $request->validate([
+            // Validasi untuk setiap gambar
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'favicon' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+    
+        $data = User::findOrFail($id); // Dapatkan data Profil yang akan diupdate
+        $destinationPath = 'upload/user/';
+    
+        // Fungsi internal untuk menghandle upload gambar
+        $handleImageUpload = function ($request, $attribute, $data, $destinationPath) {
+            if ($request->hasFile($attribute)) {
+                $image = $request->file($attribute);
+    
+                // Hapus gambar lama jika ada
+                if ($data->$attribute && File::exists(public_path($destinationPath . $data->$attribute))) {
+                    File::delete(public_path($destinationPath . $data->$attribute));
+                }
+    
+                // Mengambil nama file asli dan ekstensinya
+                $originalFileName = $image->getClientOriginalName();
+                $imageMimeType = $image->getMimeType();
+    
+                // Menyaring hanya tipe MIME gambar yang didukung (misalnya, image/jpeg, image/png, dll.)
+                if (strpos($imageMimeType, 'image/') === 0) {
+                    $prefix = $attribute . '_';
+                    $imageName = $prefix . date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName);
+    
+                    // Simpan gambar asli ke tujuan yang diinginkan
+                    $image->move($destinationPath, $imageName);
+    
+                    // Path gambar asli
+                    $sourceImagePath = public_path($destinationPath . $imageName);
+    
+                    // Path untuk menyimpan gambar WebP
+                    $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+    
+                    // Membaca gambar asli dan mengonversinya ke WebP jika tipe MIME-nya didukung
+                    $sourceImage = null;
+                    switch ($imageMimeType) {
+                        case 'image/jpeg':
+                            $sourceImage = @imagecreatefromjpeg($sourceImagePath);
+                            break;
+                        case 'image/png':
+                            $sourceImage = @imagecreatefrompng($sourceImagePath);
+                            break;
+                        // Tambahkan jenis MIME lain jika diperlukan
+                    }
+    
+                    // Jika gambar asli berhasil dibaca
+                    if ($sourceImage !== false) {
+                        // Membuat gambar baru dalam format WebP
+                        imagewebp($sourceImage, $webpImagePath);
+    
+                        // Hapus gambar asli dari memori
+                        imagedestroy($sourceImage);
+    
+                        // Hapus file asli setelah konversi selesai
+                        @unlink($sourceImagePath);
+    
+                        // Simpan hanya nama file gambar ke dalam atribut data
+                        $data->$attribute = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+                    } else {
+                        // Gagal membaca gambar asli, tangani kasus ini sesuai kebutuhan Anda
+                    }
+                } else {
+                    // Tipe MIME gambar tidak didukung, tangani kasus ini sesuai kebutuhan Anda
+                }
+            }
+        };
+    
+        // Update gambar
+        $handleImageUpload($request, 'picture', $data, $destinationPath);
+        $handleImageUpload($request, 'avatar', $data, $destinationPath);
+        $handleImageUpload($request, 'banner', $data, $destinationPath);
+    
+        // Simpan perubahan
+        $data->save();
+    
+        // Mendapatkan ID pengguna yang sedang login
+        $loggedInUserId = Auth::id();
+        // Simpan log histori untuk operasi Update dengan user_id yang sedang login
+        $this->simpanLogHistori('Update', 'Profil Display', $data->id, $loggedInUserId, json_encode($data->getOriginal()), json_encode($data));
+    
+        return redirect()->back()->with('message', 'Display berhasil diperbarui');
+    }
+    
     
     
     public function destroy($id)

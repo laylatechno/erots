@@ -63,6 +63,7 @@ Route::resource('/dashboard', DashboardController::class)->names([
 
 Route::resource('profil_pengguna', ProfilPenggunaController::class)->middleware('auth');
 Route::put('/profil_pengguna/update_pengguna/{id}', [ProfilPenggunaController::class, 'update_pengguna'])->name('profil.update_pengguna');
+Route::put('/profil_pengguna/update_display_pengguna/{id}', [ProfilPenggunaController::class, 'update_display_pengguna'])->name('profil.update_display_pengguna');
 // Produk
 
 // Route::get('produk/datatables', [ProdukController::class, 'index'])->name('produk.datatables');
