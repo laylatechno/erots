@@ -129,15 +129,15 @@
                             <div class="row">
                                 <div class="col-12">
                                     <a class="btn btn-primary btn-facebook mb-3 w-100"
-                                        href="https://www.facebook.com/sharer/sharer.php?u={{ route('informasi.informasi_detail', $produk->slug) }}">
+                                        href="https://www.facebook.com/sharer/sharer.php?u={{ route('produk_sale.produk_sale_detail', $produk->slug) }}">
                                         <i class="bi bi-facebook me-1"></i> Bagikan Ke Facebook
                                     </a>
                                     <a class="btn btn-primary btn-twitter mb-3 w-100"
-                                        href="https://twitter.com/intent/tweet?url={{ route('informasi.informasi_detail', $produk->slug) }}">
+                                        href="https://twitter.com/intent/tweet?url={{ route('produk_sale.produk_sale_detail', $produk->slug) }}">
                                         <i class="bi bi-twitter me-1"></i> Bagikan Ke Twitter
                                     </a>
                                     <a class="btn btn-success btn-whatsapp mb-3 w-100"
-                                        href="https://wa.me/?text={{ route('informasi.informasi_detail', $produk->slug) }}">
+                                        href="https://wa.me/?text={{ route('produk_sale.produk_sale_detail', $produk->slug) }}">
                                         <i class="bi bi-whatsapp me-1"></i> Bagikan Ke Whatsapp
                                     </a>
                                 </div>
