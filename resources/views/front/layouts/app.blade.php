@@ -16,13 +16,11 @@
     <meta property="og:url" content="{{ request()->fullUrl() }}">
     <meta property="og:type" content="website">
 
+    <link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
    
 
  
-    <title>{{ $title }} - {{ $profil->nama_perusahaan }}</title>
-
- 
-    <link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
+    {{-- <title>{{ $title }} - {{ $profil->nama_perusahaan }}</title> --}}
     {{-- <link rel="apple-touch-icon" href="{{ asset('upload/profil/' . $profil->logo) }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('upload/profil/' . $profil->logo) }}">
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('upload/profil/' . $profil->logo) }}">
