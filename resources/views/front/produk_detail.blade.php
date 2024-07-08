@@ -141,6 +141,21 @@
                                         <i class="bi bi-whatsapp me-1"></i> Bagikan Ke Whatsapp
                                     </a>
                                 </div>
+
+                                <div class="col-12">
+                                    <a class="btn btn-primary btn-facebook mb-3 w-100"
+                                        href="https://www.facebook.com/sharer/sharer.php?u={{ request()->fullUrl() }}">
+                                        <i class="bi bi-facebook me-1"></i> Bagikan Ke Facebook
+                                    </a>
+                                    <a class="btn btn-primary btn-twitter mb-3 w-100"
+                                        href="https://twitter.com/intent/tweet?url={{ request()->fullUrl() }}">
+                                        <i class="bi bi-twitter me-1"></i> Bagikan Ke Twitter
+                                    </a>
+                                    <a class="btn btn-success btn-whatsapp mb-3 w-100"
+                                        href="https://wa.me/?text={{ request()->fullUrl() }}">
+                                        <i class="bi bi-whatsapp me-1"></i> Bagikan Ke Whatsapp
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
