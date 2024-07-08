@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ $profil->deskripsi }}">
+    {{-- <meta name="description" content="{{ $profil->deskripsi }}"> --}}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="theme-color" content="#15dc36">
     <meta name="apple-mobile-web-app-capable" content="yes">
