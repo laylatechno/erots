@@ -10,21 +10,19 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <meta property="og:title" content="{{ $title }} - {{ $profil->nama_perusahaan }} - {{ $profil->nama_perusahaan }}">
+    <meta property="og:title" content="{{ $title }} - {{ $profil->nama_perusahaan }}">
     <meta property="og:description" content="{{ $profil->deskripsi }}">
     <meta property="og:image" content="{{ asset('upload/profil/' . $profil->logo) }}">
     <meta property="og:url" content="{{ request()->fullUrl() }}">
     <meta property="og:type" content="website">
 
+    
+    <title>{{ $title }} - {{ $profil->nama_perusahaan }}</title>
     <link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
-   
-
- 
-    {{-- <title>{{ $title }} - {{ $profil->nama_perusahaan }}</title> --}}
-    {{-- <link rel="apple-touch-icon" href="{{ asset('upload/profil/' . $profil->logo) }}">
+    <link rel="apple-touch-icon" href="{{ asset('upload/profil/' . $profil->logo) }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('upload/profil/' . $profil->logo) }}">
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('upload/profil/' . $profil->logo) }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('upload/profil/' . $profil->logo) }}"> --}}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('upload/profil/' . $profil->logo) }}">
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="{{ asset('themplete/front/style.css') }}">
