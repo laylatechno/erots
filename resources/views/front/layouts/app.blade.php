@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $profil->deskripsi }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="#0134d4">
+    <meta name="theme-color" content="#15dc36">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
@@ -23,10 +23,10 @@
 
  
     <link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
-    <link rel="apple-touch-icon" href="{{ asset('upload/profil/' . $profil->logo) }}">
+    {{-- <link rel="apple-touch-icon" href="{{ asset('upload/profil/' . $profil->logo) }}">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('upload/profil/' . $profil->logo) }}">
     <link rel="apple-touch-icon" sizes="167x167" href="{{ asset('upload/profil/' . $profil->logo) }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('upload/profil/' . $profil->logo) }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('upload/profil/' . $profil->logo) }}"> --}}
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="{{ asset('themplete/front/style.css') }}">
