@@ -133,11 +133,11 @@
                                         <i class="bi bi-facebook me-1"></i> Bagikan Ke Facebook
                                     </a>
                                     <a class="btn btn-primary btn-twitter mb-3 w-100"
-                                        href="https://twitter.com/intent/tweet?url={{ route('informasi.informasi_detail', $produk->slug) }}&text={{ $produk->nama_produk }}">
+                                        href="https://twitter.com/intent/tweet?url={{ route('informasi.informasi_detail', $produk->slug) }}">
                                         <i class="bi bi-twitter me-1"></i> Bagikan Ke Twitter
                                     </a>
                                     <a class="btn btn-success btn-whatsapp mb-3 w-100"
-                                        href="https://wa.me/?text={{ route('informasi.informasi_detail', $produk->slug) }} - {{ $produk->nama_produk }}">
+                                        href="https://wa.me/?text={{ route('informasi.informasi_detail', $produk->slug) }}">
                                         <i class="bi bi-whatsapp me-1"></i> Bagikan Ke Whatsapp
                                     </a>
                                 </div>
