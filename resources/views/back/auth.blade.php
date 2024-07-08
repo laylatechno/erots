@@ -107,6 +107,9 @@
                 <a href="https://wa.me/{{ $profil->no_wa }}">
                     <span>Informasi lebih lanjut : {{ $profil->no_wa }}</span>
                 </a>
+                <a href="/">
+                    <span class="badge badge-danger" style="font-size: 13px;"><i class="fa fa-dashboard" aria-hidden="true"></i> Kembali Ke Halaman Depan</span>
+                </a>
               
 
 
