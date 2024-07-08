@@ -127,7 +127,7 @@
                         <!-- Register Form -->
                         <div class="register-form">
                             <div class="row">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <a class="btn btn-primary btn-facebook mb-3 w-100"
                                         href="https://www.facebook.com/sharer/sharer.php?u={{ route('produk_sale.produk_sale_detail', $produk->slug) }}">
                                         <i class="bi bi-facebook me-1"></i> Bagikan Ke Facebook
@@ -140,7 +140,7 @@
                                         href="https://wa.me/?text={{ route('produk_sale.produk_sale_detail', $produk->slug) }}">
                                         <i class="bi bi-whatsapp me-1"></i> Bagikan Ke Whatsapp
                                     </a>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12">
                                     <a class="btn btn-primary btn-facebook mb-3 w-100"
