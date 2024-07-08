@@ -175,63 +175,60 @@
             <!-- Footer Content -->
             <div class="footer-nav position-relative">
                 <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
-                    <li class="active">
+                    <li class="{{ request()->is('/') ? 'active' : '' }}">
                         <a href="/">
                             <i class="bi bi-house"></i>
                             <span>Beranda</span>
                         </a>
                     </li>
-
-                    <li>
+            
+                    <li class="{{ request()->is('produk_sale*') ? 'active' : '' }}">
                         <a href="/produk_sale">
                             <i class="bi bi-collection"></i>
                             <span>Produk</span>
                         </a>
                     </li>
-
-                    <li>
+            
+                    <li class="{{ request()->is('toko*') ? 'active' : '' }}">
                         <a href="/toko">
                             <i class="bi bi-bookmark-star"></i>
                             <span>Toko</span>
                         </a>
                     </li>
-
-                    <li>
+            
+                    <li class="{{ request()->is('cart') ? 'active' : '' }}">
                         <a href="{{ route('cart.index') }}">
                             <i class="bi bi-basket"></i>
                             @php
                                 $cart = Session::get('cart', []);
                                 $cartCount = count($cart);
                             @endphp
-                            <span>Cart ({{ $cartCount }}) </span>
-
+                            <span>Cart ({{ $cartCount }})</span>
                         </a>
                     </li>
-
+            
                     @php
                         use Illuminate\Support\Facades\Auth;
                     @endphp
-
-
+            
                     @if (Auth::check() && Auth::user()->role == 'pengguna')
-                        <li>
+                        <li class="{{ request()->is('dashboard') ? 'active' : '' }}">
                             <a href="/dashboard">
                                 <i class="bi bi-people"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                     @else
-                        <li>
+                        <li class="{{ request()->is('auth') ? 'active' : '' }}">
                             <a href="/auth">
                                 <i class="bi bi-people"></i>
                                 <span>Login</span>
                             </a>
                         </li>
                     @endif
-
-
                 </ul>
             </div>
+            
         </div>
     </div>
 

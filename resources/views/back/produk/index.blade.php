@@ -603,6 +603,41 @@
     {{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script> --}}
 
 
+    <script src="{{ asset('themplete/back') }}/plugins/summernote/summernote-bs4.min.js"></script>
+
+    {{-- Summernote --}}
+    <script>
+        $(function() {
+            // Summernote
+            $('#deskripsi').summernote({
+                height: 200
+            });
+
+
+        })
+    </script>
+    {{-- Summernote --}}
+
+
+
+    <script>
+        $(function() {
+            // Indeskripsialisasi Summernote
+            $('#deskripsi_edit').summernote({
+                height: 200,
+                callbacks: {
+                    // Fungsi setelah Summernote selesai dimuat
+                    onInit: function() {
+                        // Set nilai pada Summernote
+                        $('#deskripsi_edit').summernote('code', data.deskripsi_edit);
+                    }
+                }
+            });
+        });
+    </script>
+
+
+
     <script>
         $(document).ready(function() {
             $('#user_id').select2();
@@ -661,7 +696,7 @@
                     {
                         data: 'user_name',
                         name: 'user_name',
-                        visible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
+                        vdeskripsible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
                     },
                     {
                         data: 'gambar',
@@ -737,9 +772,9 @@
                         $('#modal-tambah').modal('hide');
                         Swal.fire({
                             title: 'Sukses!',
-                            text: 'Data berhasil disimpan',
+                            text: 'Data berhasil ddeskripsimpan',
                             icon: 'success',
-                            html: '<br>Data berhasil disimpan', // Tambahkan subjudul di sini
+                            html: '<br>Data berhasil ddeskripsimpan', // Tambahkan subjudul di sini
                             confirmButtonText: 'OK'
                         }).then(function() {
                             location.reload();
@@ -793,7 +828,7 @@
                         $('#kategori_produk_id_edit').val(data.kategori_produk_id);
                         $('#harga_beli_edit').val(data.harga_beli);
                         $('#harga_jual_edit').val(data.harga_jual);
-                        $('#deskripsi_edit').val(data.deskripsi);
+                        $('#deskripsi_edit').summernote('code', data.deskripsi);
                         $('#stok_edit').val(data.stok);
                         $('#slug_edit').val(data.slug);
                         $('#youtube_edit').val(data.youtube);
@@ -804,7 +839,7 @@
                         $('#status_edit').val(data.status);
                         $('#status_diskon_edit').val(data.status_diskon);
 
-                        // Atur properti selected secara eksplisit
+                        // Atur properti selected secara ekspldeskripsit
                         $('#status_edit option').each(function() {
                             if ($(this).val() == data.status) {
                                 $(this).prop('selected', true);
