@@ -2,11 +2,11 @@
 @section('title', $title)
 @section('subtitle', $subtitle)
 
-<meta property="og:title" content="{{ $title }} - {{ $produk->nama_produk }}">
+{{-- <meta property="og:title" content="{{ $title }} - {{ $produk->nama_produk }}">
 <meta property="og:description" content="{{ $produk->deskripsi }}">
 <meta property="og:image" content="{{ asset('upload/produk/' . $produk->gambar) }}">
 <meta property="og:url" content="{{ request()->fullUrl() }}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="website"> --}}
 
 <style>
     .price-wrapper {
