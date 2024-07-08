@@ -3,42 +3,46 @@
 
 <head>
     @php
-        $segment1 = request()->segment(1);
-        $segment2 = request()->segment(2);
+    $segment1 = request()->segment(1);
+    $segment2 = request()->segment(2);
 
-        if ($segment1 == 'toko' && $segment2) {
-            $metaDescription = $users->description;
-            $metaImage = asset('upload/user/' . $users->picture);
-            $title = $title . ' - ' . $profil->nama_perusahaan;
-        } elseif ($segment1 == 'produk_sale') {
-            $metaDescription = $produk->deskripsi;
-            $metaImage = asset('upload/produk/' . $produk->gambar);
-            $title = $produk->nama_produk . ' - ' . $title . ' - ' . $profil->nama_perusahaan;
-        } else {
-            $metaDescription = $profil->deskripsi;
-            $metaImage = asset('upload/profil/' . $profil->logo);
-            $title = $title . ' - ' . $profil->nama_perusahaan;
-        }
-    @endphp
+    if ($segment1 == 'toko' && $segment2) {
+        $metaDescription = $users->description;
+        $metaImage = asset('upload/user/' . $users->picture);
+        $title = $title . ' - ' . $profil->nama_perusahaan;
+    } elseif ($segment1 == 'produk_sale' && $segment2) {
+        $metaDescription = $produk->deskripsi;
+        $metaImage = asset('upload/produk/' . $produk->gambar);
+        $title = $produk->nama_produk . ' - ' . $title . ' - ' . $profil->nama_perusahaan;
+    } elseif ($segment1 == 'produk_sale') {
+        $metaDescription = $profil->deskripsi;
+        $metaImage = asset('upload/profil/' . $profil->logo);
+        $title = $title . ' - ' . $profil->nama_perusahaan;
+    } else {
+        $metaDescription = $profil->deskripsi;
+        $metaImage = asset('upload/profil/' . $profil->logo);
+        $title = $title . ' - ' . $profil->nama_perusahaan;
+    }
+@endphp
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ $metaDescription }}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="#15dc36">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{ $metaDescription }}">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="theme-color" content="#15dc36">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <meta property="og:image" content="{{ $metaImage }}">
-    <meta property="og:url" content="{{ request()->fullUrl() }}">
-    <meta property="og:type" content="website">
+<meta property="og:image" content="{{ $metaImage }}">
+<meta property="og:url" content="{{ request()->fullUrl() }}">
+<meta property="og:type" content="website">
 
-    <title>{{ $title }}</title>
-    <link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
-    <link rel="apple-touch-icon" href="{{ $metaImage }}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ $metaImage }}">
-    <link rel="apple-touch-icon" sizes="167x167" href="{{ $metaImage }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ $metaImage }}">
+<title>{{ $title }}</title>
+<link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
+<link rel="apple-touch-icon" href="{{ $metaImage }}">
+<link rel="apple-touch-icon" sizes="152x152" href="{{ $metaImage }}">
+<link rel="apple-touch-icon" sizes="167x167" href="{{ $metaImage }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ $metaImage }}">
 
 
     <!-- Style CSS -->
@@ -122,8 +126,8 @@
                         <a href="/"><i class="bi bi-house-door"></i> Beranda</a>
                     </li>
                     <li>
-                        <a href="" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i
-                                class="bi bi-folder2-open"></i> Syarat & Ketentuan
+                        <a href="" data-bs-toggle="modal"
+                        data-bs-target="#fullscreenModal"><i class="bi bi-folder2-open"></i> Syarat & Ketentuan
                             <span class="badge bg-danger rounded-pill ms-2">Baru</span>
                         </a>
                     </li>
@@ -144,7 +148,7 @@
                             </div>
                         </div>
                     </li>
-
+                   
 
                 </ul>
 
@@ -194,21 +198,21 @@
                             <span>Beranda</span>
                         </a>
                     </li>
-
+            
                     <li class="{{ request()->is('produk_sale*') ? 'active' : '' }}">
                         <a href="/produk_sale">
                             <i class="bi bi-collection"></i>
                             <span>Produk</span>
                         </a>
                     </li>
-
+            
                     <li class="{{ request()->is('toko*') ? 'active' : '' }}">
                         <a href="/toko">
                             <i class="bi bi-bookmark-star"></i>
                             <span>Toko</span>
                         </a>
                     </li>
-
+            
                     <li class="{{ request()->is('cart') ? 'active' : '' }}">
                         <a href="{{ route('cart.index') }}">
                             <i class="bi bi-basket"></i>
@@ -219,11 +223,11 @@
                             <span>Cart ({{ $cartCount }})</span>
                         </a>
                     </li>
-
+            
                     @php
                         use Illuminate\Support\Facades\Auth;
                     @endphp
-
+            
                     @if (Auth::check() && Auth::user()->role == 'pengguna')
                         <li class="{{ request()->is('dashboard') ? 'active' : '' }}">
                             <a href="/dashboard">
@@ -241,32 +245,33 @@
                     @endif
                 </ul>
             </div>
-
+            
         </div>
     </div>
 
-    <!-- Fullscreen Modal -->
-    <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-labelledby="fullscreenModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen-md-down modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="fullscreenModalLabel">Syarat & Ketentuan</h6>
-                    <button class="btn btn-close p-1 ms-auto" type="button" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <span>Syarat :</span>
-                    <p> {{ $profil->syarat }}</p>
-                    <span>Ketentuan :</span>
-                    <p> {{ $profil->ketentuan }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-sm btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+     <!-- Fullscreen Modal -->
+     <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-labelledby="fullscreenModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog modal-fullscreen-md-down modal-lg">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h6 class="modal-title" id="fullscreenModalLabel">Syarat & Ketentuan</h6>
+                 <button class="btn btn-close p-1 ms-auto" type="button" data-bs-dismiss="modal"
+                     aria-label="Close"></button>
+             </div>
+             <div class="modal-body">
+                 <span>Syarat :</span>
+                 <p> {{ $profil->syarat }}</p>
+                 <span>Ketentuan :</span>
+                 <p> {{ $profil->ketentuan }}</p>
+             </div>
+             <div class="modal-footer">
+                 <button class="btn btn-sm btn-secondary" type="button"
+                     data-bs-dismiss="modal">Close</button>
+             </div>
+         </div>
+     </div>
+ </div>
 
 
     <!-- Tambahkan SweetAlert di dalam <head> atau di bagian bawah sebelum </body> -->
