@@ -104,7 +104,7 @@
                                             <a href="{{ route('toko.toko_detail', $p->user) }}">
                                                 <h6 class="mb-1 fz-14">{{ $p->name }}</h6>
                                                 <p class="mb-0 fz-12">
-                                                    {{ Str::limit($p->description ? $p->description : 'Deskripsi atas nama ' . $p->email, 100) }}
+                                                    {{ Str::limit($p->description ? $p->description : 'Deskripsi atas nama ' . $p->email, 90) }}
 
                                                 </p>
 
