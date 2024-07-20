@@ -79,8 +79,11 @@
                     <div class="checkbox">
                         <label>
                             <span>
-                               <a href="/daftar_member">Belum punya akun? klik Daftar disini</a>
+                               <a href="/daftar_member">Belum punya akun member? klik Daftar disini</a>
                             </span>
+                            <span>
+                                <a href="/daftar">Belum punya akun toko? klik Daftar disini</a>
+                             </span>
                         </label>
                     </div>
 
