@@ -135,7 +135,7 @@
             <hr>
             <div class="login-meta-data text-center">
                 <p class="mt-3 mb-0">
-                    <a style="color:white;" href="auth/redirect">
+                    <a style="color:rgb(29, 27, 27);" href="auth/redirect">
                         <i class="fab fa-google"></i>&nbsp;&nbsp;Login dengan Google
                     </a>
                 </p>
