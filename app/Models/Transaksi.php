@@ -11,6 +11,17 @@ class Transaksi extends Model
     protected $table = 'transaksi';
     protected $guarded = [];
     
+     // Definisikan relasi ke model User
+     public function user()
+     {
+         return $this->belongsTo(User::class);
+     }
+ 
+     // Definisikan relasi ke model Produk
+     public function produk()
+     {
+         return $this->belongsTo(Produk::class);
+     }
 
  
 }

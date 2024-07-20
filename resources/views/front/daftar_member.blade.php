@@ -171,7 +171,7 @@
                 var formData = new FormData(this);
 
                 $.ajax({
-                    url: '{{ route('daftar.register') }}', // correct route
+                    url: '{{ route('daftar_member.register') }}', // correct route
                     type: 'POST',
                     data: formData,
                     processData: false,

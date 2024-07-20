@@ -287,6 +287,15 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/transaksi" class="nav-link <?php echo $currentPath == '/transaksi' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-briefcase"></i>
+
+                                    <p>
+                                        Transaksi
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/pembelian" class="nav-link <?php echo $currentPath == '/pembelian' ? 'active' : ''; ?>">
                                     <i class="nav-icon fas fa-shopping-bag"></i>
 
@@ -375,6 +384,23 @@
                                 </a>
                             </li>
                         @endif
+                        @if (Auth::user()->role === 'member')
+                        <li class="nav-item">
+                            <a href="/dashboard" class="nav-link <?php echo $currentPath == '/dashboard' ? 'active' : ''; ?>">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a href="/profil_pengguna/{{ Auth::user()->id }}/edit" class="nav-link">
+                                <i class="nav-icon far fa-edit"></i>
+                                <p>Edit Profil</p>
+                            </a>
+                        </li>
+                    @endif
                     </ul>
                 </nav>
             </div>

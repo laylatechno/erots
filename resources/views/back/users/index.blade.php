@@ -180,6 +180,7 @@
                                                 <option value="admin">Admin</option>
                                                 <option value="kasir">Kasir</option>
                                                 <option value="pengguna">Pengguna</option>
+                                                <option value="member">Member</option>
                                             </select>
                                         </div>
                                     </div>
@@ -503,6 +504,7 @@
                                                 <option value="admin">Admin</option>
                                                 <option value="kasir">Kasir</option>
                                                 <option value="pengguna">Pengguna</option>
+                                                <option value="member">Member</option>
                                             </select>
                                         </div>
                                     </div>

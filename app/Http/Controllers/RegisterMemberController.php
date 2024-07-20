@@ -64,14 +64,16 @@ class RegisterMemberController extends Controller
 
         // Membuat user baru dan mendapatkan data pengguna yang baru dibuat
         $user = User::create($input);
+        $profil = Profil::where('id', 1)->first();
 
         // Simpan log histori untuk operasi Create dengan nama pengguna dan email pendaftar_member
         $this->simpanLogHistori('Create', 'users', $namaPengguna, $emailPendaftar_member, null, json_encode($input));
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Pendaftar_memberan berhasil dilakukan, silahkan tunggu informasi selanjutnya melalui email atau nomor WhatsApp terdaftar_member. Untuk pertanyaan lain bisa hubungi Nomor : 085320555394'
-            ]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Pendaftaran member berhasil dilakukan, silahkan tunggu informasi selanjutnya melalui email atau nomor WhatsApp terdaftar member. Untuk pertanyaan lain bisa hubungi Nomor : ' . $profil->no_wa
+        ]);
+        
         } catch (\Exception $e) {
             Log::error('Exception during registration: ' . $e->getMessage());
             return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data', 'error' => $e->getMessage()], 500);

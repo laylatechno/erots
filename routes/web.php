@@ -26,9 +26,7 @@ use App\Http\Controllers\ProfilPenggunaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterMemberController;
 use App\Http\Controllers\SocialiteController;
-
- 
-
+use App\Http\Controllers\TransaksiController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/informasi', [HomeController::class, 'informasi']);
@@ -47,6 +45,7 @@ Route::post('/daftar', [RegisterController::class, 'register'])->name('daftar.re
 Route::get('/daftar_member', [RegisterMemberController::class, 'showRegistrationForm'])->name('daftar_member.index');
 Route::post('/daftar_member', [RegisterMemberController::class, 'register'])->name('daftar_member.register');
 Route::resource('log_histori', LogHistoriController::class);
+
 
 
 // Route::resource('/dashboard', DashboardController::class);
@@ -119,6 +118,7 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
 
     // Info
     Route::resource('info', InformasiController::class);
+    Route::resource('transaksi', TransaksiController::class);
 });
 
 // Route untuk pengguna biasa

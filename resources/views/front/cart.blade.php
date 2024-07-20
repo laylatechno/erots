@@ -1,6 +1,6 @@
 @extends('front.layouts.app')
-@section('title', 'Keranjang')
-@section('subtitle', 'Keranjang Belanja')
+@section('title', $title)
+@section('subtitle', $subtitle)
 
 @section('content')
     <style>
@@ -40,6 +40,12 @@
 
     <div class="page-content-wrapper py-3">
         <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @if ($groupedCart->isEmpty())
                 <div class="alert alert-danger" role="alert">
                     Keranjang belanja Anda kosong.
@@ -125,7 +131,7 @@
             @endif
         </div>
         
-        <div class="container" hidden>
+        <div class="container">
             @if ($allCartItems->isNotEmpty())
                 <div class="cart-wrapper-area">
                     <div class="cart-table card mb-3">
@@ -198,24 +204,25 @@
                                 <div class="coupon-form">
                                     <a href="{{ $waUrl }}" class="btn btn-success w-100 mt-3" target="_blank"><i class="bi bi-whatsapp"></i> Checkout Via WhatsApp</a>
                                     <a href="{{ route('cart.reset') }}" class="btn btn-danger w-100 mt-3" onclick="return confirm('Apakah Anda yakin ingin mengosongkan keranjang?')"><i class="bi bi-cart"></i> Reset Keranjang</a>
-                                    <a href="{{ route('checkout') }}" class="btn btn-primary w-100 mt-3"><i class="bi bi-credit-card"></i> Checkout</a>
+                                    @if (Auth::check() && Auth::user()->role == 'member')
+                                    <a href="{{ route('checkout') }}" class="btn btn-primary w-100 mt-3">
+                                        <i class="bi bi-credit-card"></i> Checkout
+                                    </a>
+                                @else
+                                    <a href="{{ route('auth') }}" class="btn btn-primary w-100 mt-3">
+                                        <i class="bi bi-box-arrow-in-right"></i> Login
+                                    </a>
+                                @endif
+                                
                                 </div>
                             </div>
                         </div>
+                   
+
                         
                     </div>
-                </div>
-            @else
-                <div class="alert alert-info" role="alert">
-                    Keranjang belanja Anda kosong.
                 </div>
             @endif
         </div>
     </div>
-
-  
-    
-
-
-    
 @endsection

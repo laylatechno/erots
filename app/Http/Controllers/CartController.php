@@ -17,17 +17,21 @@ class CartController extends Controller
     {
         $title = "Halaman Keranjang";
         $subtitle = "Menu Keranjang";
-        $cart = Session::get('cart', []);
-
+        $cart = session('cart', []);
+    
         // Mengelompokkan produk berdasarkan user_id
         $groupedCart = collect($cart)->groupBy('user_id');
-
+    
         // Mendapatkan data pengguna
         $users = User::whereIn('id', $groupedCart->keys())->get();
         $allCartItems = collect($cart)->values();
-
-        return view('front.cart', compact('groupedCart', 'users', 'title', 'subtitle','allCartItems'));
+    
+        // Memeriksa pesan sukses dari sesi
+        $successMessage = session('success');
+    
+        return view('front.cart', compact('groupedCart', 'users', 'title', 'subtitle', 'allCartItems', 'successMessage'));
     }
+    
 
     public function add(Request $request)
     {
@@ -54,7 +58,7 @@ class CartController extends Controller
     
         Session::put('cart', $cart);
     
-        return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang!']);
+        return response()->json(['message' => 'Berhasil ditambahkan ke keranjang!']);
     }
     
     
