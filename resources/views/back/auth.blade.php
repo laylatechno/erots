@@ -81,6 +81,7 @@
                             <span>
                                <a href="/daftar_member">Belum punya akun member? klik Daftar disini</a>
                             </span>
+                            <br>
                             <span>
                                 <a href="/daftar">Belum punya akun toko? klik Daftar disini</a>
                              </span>
