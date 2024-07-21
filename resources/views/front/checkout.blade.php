@@ -34,7 +34,7 @@
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Nama Pengirim : {{ $profil->nama_perusahaan}}</h6>
-                                <small class="text-muted">Alamat Pengirim :{{ $profil->alamat}}</small>
+                                <small class="text-muted">Alamat Pengirim : {{ $profil->alamat}}</small>
                             </div>
                             
                         </li>
@@ -42,6 +42,10 @@
                     <li class="list-group-item d-flex justify-content-between">
                         <span>No WA : </span>
                         <strong>{{ $profil->no_wa }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>No Telp : </span>
+                        <strong>{{ $profil->no_telp }}</strong>
                     </li>
                 </ul>
             </div>
@@ -91,7 +95,60 @@
                    
                 </ul>
             </div>
+            <div class="col-md-12">
+                <h4>Alamat Tujuan Pengiriman</h4>
+                <form method="POST" action="{{ route('checkout.store') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="province">Provinsi</label>
+                        <select class="form-control" id="province" name="province">
+                            <option value="">Pilih Provinsi</option>
+                            @foreach($provinces as $province)
+                                <option value="{{ $province['province_id'] }}">{{ $province['province'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Kota</label>
+                        <select class="form-control" id="city" name="city" disabled>
+                            <option value="">Pilih Kota</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="courier">Kurir</label>
+                        <select class="form-control" id="courier" name="courier">
+                            <option value="">Pilih Kurir</option>
+                            <option value="jne">JNE</option>
+                            <option value="tiki">TIKI</option>
+                            <option value="pos">POS Indonesia</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Proses Checkout</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('province').addEventListener('change', function() {
+        const provinceId = this.value;
+        const citySelect = document.getElementById('city');
+
+        if (provinceId) {
+            fetch(`/checkout/cities?province_id=${provinceId}`)
+                .then(response => response.json())
+                .then(data => {
+                    citySelect.innerHTML = '<option value="">Pilih Kota</option>';
+                    data.forEach(city => {
+                        citySelect.innerHTML += `<option value="${city.city_id}">${city.city_name}</option>`;
+                    });
+                    citySelect.disabled = false;
+                });
+        } else {
+            citySelect.innerHTML = '<option value="">Pilih Kota</option>';
+            citySelect.disabled = true;
+        }
+    });
+</script>
 @endsection
