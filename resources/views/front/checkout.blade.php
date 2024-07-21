@@ -33,10 +33,10 @@
                     
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Nama Pengirim :{{ $profil->nama_perusahaan}}</h6>
+                                <h6 class="my-0">Nama Pengirim : {{ $profil->nama_perusahaan}}</h6>
                                 <small class="text-muted">Alamat Pengirim :{{ $profil->alamat}}</small>
                             </div>
-                            <span class="text-muted">No Telp : {{ $profil->no_telp}} </span>
+                            
                         </li>
                     
                     <li class="list-group-item d-flex justify-content-between">
