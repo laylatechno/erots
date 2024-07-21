@@ -28,6 +28,24 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <h4>Data Pengiriman</h4>
+                <ul class="list-group mb-3">
+                    
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Nama Pengirim :{{ $profil->nama_perusahaan}}</h6>
+                                <small class="text-muted">Alamat Pengirim :{{ $profil->alamat}}</small>
+                            </div>
+                            <span class="text-muted">No Telp : {{ $profil->no_telp}} </span>
+                        </li>
+                    
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>No WA : </span>
+                        <strong>{{ $profil->no_wa }}</strong>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-12">
                 <h4>Data Pesanan</h4>
                 <ul class="list-group mb-3">
                     @foreach ($cartItems as $item)
