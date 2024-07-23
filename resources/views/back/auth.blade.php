@@ -78,10 +78,10 @@
                     </div>
                     <div class="checkbox">
                         <label>
-                            <span>
+                            {{-- <span>
                                <a href="/daftar_member">Belum punya akun member? klik Daftar disini</a>
                             </span>
-                            <br><hr>
+                            <br><hr> --}}
                             <span>
                                 <a href="/daftar">Belum punya akun toko? klik Daftar disini</a>
                              </span>
