@@ -131,7 +131,7 @@
             @endif
         </div>
         
-        <div class="container">
+        {{-- <div class="container">
             @if ($allCartItems->isNotEmpty())
                 <div class="cart-wrapper-area">
                     <div class="cart-table card mb-3">
@@ -223,6 +223,6 @@
                     </div>
                 </div>
             @endif
-        </div>
+        </div> --}}
     </div>
 @endsection

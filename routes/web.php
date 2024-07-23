@@ -76,6 +76,7 @@ Route::get('/auth/google/callback', [SocialiteController::class,'callback']);
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('auth');
 Route::get('/checkout/cities', [CheckoutController::class, 'getCities']);
+Route::get('/checkout/cost', [CheckoutController::class, 'getCost']);
 
 
 Route::middleware(['auth', 'checkRole:administrator'])->group(function () {

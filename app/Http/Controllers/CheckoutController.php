@@ -5,16 +5,10 @@ use Illuminate\Http\Request;
 use App\Models\TransaksiHead;
 use App\Models\TransaksiDetail;
 use Illuminate\Support\Facades\Auth;
-use App\Services\RajaOngkirService;
-
+ 
 class CheckoutController extends Controller
 {
-    protected $rajaOngkir;
-
-    public function __construct(RajaOngkirService $rajaOngkir)
-    {
-        $this->rajaOngkir = $rajaOngkir;
-    }
+    
 
     public function index()
     {
@@ -22,16 +16,11 @@ class CheckoutController extends Controller
         $subtitle = "Menu Checkout";
         $user = Auth::user();
         $cartItems = collect(session('cart', []));
-        $provinces = $this->rajaOngkir->getProvinces();
-
-        return view('front.checkout', compact('user', 'cartItems', 'title', 'subtitle', 'provinces'));
+        
+    
+        return view('front.checkout', compact('user', 'cartItems', 'title', 'subtitle' ));
     }
-
-    public function getCities(Request $request)
-    {
-        $cities = $this->rajaOngkir->getCities($request->province_id);
-        return response()->json($cities);
-    }
+ 
 
     public function store(Request $request)
     {
