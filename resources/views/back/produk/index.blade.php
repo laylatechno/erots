@@ -411,7 +411,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <div class="form-group" id="deskripsi__edit_container">
+                                        <div class="form-group" id="deskripsi_edit_container">
                                             <label for="deskripsi_edit">Deskripsi</label>
                                             <textarea class="form-control" name="deskripsi" id="deskripsi_edit" cols="30" rows="2"></textarea>
                                         </div>
@@ -622,7 +622,7 @@
 
     <script>
         $(function() {
-            // Indeskripsialisasi Summernote
+            // Inisialisasi Summernote
             $('#deskripsi_edit').summernote({
                 height: 200,
                 callbacks: {
@@ -696,7 +696,7 @@
                     {
                         data: 'user_name',
                         name: 'user_name',
-                        vdeskripsible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
+                        visible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
                     },
                     {
                         data: 'gambar',
@@ -772,9 +772,9 @@
                         $('#modal-tambah').modal('hide');
                         Swal.fire({
                             title: 'Sukses!',
-                            text: 'Data berhasil ddeskripsimpan',
+                            text: 'Data berhasil disimpan',
                             icon: 'success',
-                            html: '<br>Data berhasil ddeskripsimpan', // Tambahkan subjudul di sini
+                            html: '<br>Data berhasil disimpan', // Tambahkan subjudul di sini
                             confirmButtonText: 'OK'
                         }).then(function() {
                             location.reload();
@@ -839,7 +839,7 @@
                         $('#status_edit').val(data.status);
                         $('#status_diskon_edit').val(data.status_diskon);
 
-                        // Atur properti selected secara ekspldeskripsit
+                        // Atur properti selected secara eksplisit
                         $('#status_edit option').each(function() {
                             if ($(this).val() == data.status) {
                                 $(this).prop('selected', true);
