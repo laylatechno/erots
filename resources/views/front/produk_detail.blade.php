@@ -91,7 +91,7 @@
                     <span class="badge bg-danger mb-3">@ {{ $produk->user->user }}</span>
                     <h2>{{ $produk->nama_produk }}</h2>
                     <h4>Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}</h4>
-                    <p>"{{ $produk->deskripsi }}"</p>
+                    <p>{!! $produk->deskripsi !!}</p>
                     <hr>
 
                     <form class="add-to-cart-form" data-product-id="{{ $produk->id }}">
