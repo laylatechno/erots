@@ -1,24 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\About;
+ 
 use App\Models\Alasan;
 use App\Models\Berita;
-use App\Models\Galeri;
-use App\Models\Guru;
-use App\Models\Hitung;
-use App\Models\KategoriBerita;
+ 
 use App\Models\KategoriProduk;
-use App\Models\Kegiatan;
-use App\Models\Kontak;
-use App\Models\Layanan;
-use App\Models\Mitra;
+ 
+
 use App\Models\Produk;
 use App\Models\Visitor;
 use App\Models\Slider;
 use App\Models\Testimoni;
-use App\Models\Unduhan;
+ 
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;

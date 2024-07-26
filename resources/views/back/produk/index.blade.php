@@ -39,6 +39,7 @@
                                 <th data-priority="4">Kategori</th>
                                 <th data-priority="5">Status</th>
                                 <th data-priority="3">User</th>
+                                <th data-priority="8">Urutan</th>
                                 <th data-priority="6">Gambar</th>
                                 <th data-priority="7">Aksi</th>
                             </tr>
@@ -699,6 +700,11 @@
                         visible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
                     },
                     {
+                        data: 'urutan',
+                        name: 'urutan',
+                        visible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
+                    },
+                    {
                         data: 'gambar',
                         name: 'gambar',
                         render: function(data, type, full, meta) {
@@ -742,6 +748,10 @@
                     {
                         responsivePriority: 7,
                         targets: 6
+                    },
+                    {
+                        responsivePriority: 8,
+                        targets: 7
                     }
                 ]
             });
