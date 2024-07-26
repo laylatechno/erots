@@ -63,7 +63,7 @@ class HomeController extends Controller
                     ->orWhereNull('status_diskon');
             })
             ->orderBy('urutan')
-            ->take(10)
+            ->take(12)
             ->get();
     
         $produk_diskon = Produk::with(['kategoriProduk'])
@@ -167,7 +167,7 @@ class HomeController extends Controller
             $produk = $query->inRandomOrder()->paginate(10);
         } else {
             // Lakukan paginasi dengan 10 item per halaman
-            $produk = $query->paginate(10);
+            $produk = $query->paginate(12);
         }
         
         return view('front.produk', compact('title', 'subtitle', 'kategori_produk', 'produk'));
