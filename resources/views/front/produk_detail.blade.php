@@ -44,7 +44,7 @@
             <div class="header-content position-relative d-flex align-items-center justify-content-between">
                 <!-- Back Button -->
                 <div class="back-button">
-                    <a href="/">
+                    <a href="{{ route('toko.toko_detail', $produk->user->user) }}">
                         <i class="bi bi-arrow-left-short"></i>
                     </a>
                 </div>
