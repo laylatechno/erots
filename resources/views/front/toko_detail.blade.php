@@ -154,8 +154,9 @@
                                         href="{{ $users->bukalapak }}"> Link Bukalapak</a>
                                     <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->tokopedia) ? ' d-none' : '' }}"
                                         href="{{ $users->tokopedia }}"> Link Tokopedia</a>
-                                    <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->wa_number) ? ' d-none' : '' }}"
-                                        href="{{ $users->wa_number }}"> Link WhatsApp</a>
+                                        <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->wa_number) ? ' d-none' : '' }}"
+                                            href="{{ 'https://wa.me/' . $users->wa_number }}"> Link WhatsApp</a>
+                                         
                                     <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->website) ? ' d-none' : '' }}"
                                         href="{{ $users->website }}"> Link Website</a>
                                     <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->youtube) ? ' d-none' : '' }}"
