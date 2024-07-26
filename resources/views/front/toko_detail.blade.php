@@ -105,18 +105,20 @@
 
             <div class="card product-details-card mb-3 direction-rtl">
                 <div class="card-body">
-                    <h3>{{ $users->name }}</h3>
+                    <a href="{{ route('toko.toko_detail', $users->user) }}">
+                        <h3>{{ $users->name }}</h3>
+                    </a>
                     <span class="badge bg-primary">
                         @ {{ $users->user }}</span>
 
-                        <span class="badge bg-warning">
-                             {{ $users->phone_number }}</span>
+                    <span class="badge bg-warning">
+                        {{ $users->phone_number }}</span>
                     <hr>
                     <p><b>Deskripsi Toko :</b></p>
                     <p>{{ $users->description }}</p>
                     <p><b>Alamat :</b></p>
                     <p>{{ $users->address }}</p>
-                 <hr>
+                    <hr>
                     @if (!empty($users->embed_youtube))
                         <div class="video-container">
                             <iframe class="embed-responsive-item"
@@ -154,9 +156,9 @@
                                         href="{{ $users->bukalapak }}"> Link Bukalapak</a>
                                     <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->tokopedia) ? ' d-none' : '' }}"
                                         href="{{ $users->tokopedia }}"> Link Tokopedia</a>
-                                        <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->wa_number) ? ' d-none' : '' }}"
-                                            href="{{ 'https://wa.me/' . $users->wa_number }}"> Link WhatsApp</a>
-                                         
+                                    <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->wa_number) ? ' d-none' : '' }}"
+                                        href="{{ 'https://wa.me/' . $users->wa_number }}"> Link WhatsApp</a>
+
                                     <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->website) ? ' d-none' : '' }}"
                                         href="{{ $users->website }}"> Link Website</a>
                                     <a class="btn btn-creative btn-warning mb-3 w-100{{ empty($users->youtube) ? ' d-none' : '' }}"
@@ -191,7 +193,8 @@
                                                 {{ $product->kategoriProduk->nama_kategori_produk }}</span>
                                         </a>
                                         <!-- Product Title -->
-                                        <a class="product-title d-block text-truncate" title="{{ $product->nama_produk }}"
+                                        <a class="product-title d-block text-truncate"
+                                            title="{{ $product->nama_produk }}"
                                             href="{{ route('produk_sale.produk_sale_detail', $product->slug) }}">{{ $product->nama_produk }}</a>
                                         <!-- Product Description -->
                                         @if ($product->status_diskon == 'Aktif')
@@ -254,13 +257,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <hr>
                 </div>
             </div>
 
-          
+
 
 
             <div class="card product-details-card  direction-rtl">
@@ -290,6 +293,6 @@
     </div>
 
 
- 
- 
+
+
 @endsection
