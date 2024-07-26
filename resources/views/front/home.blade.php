@@ -105,14 +105,14 @@
                             <div class="card-body p-3">
                                 <!-- Product Thumbnail -->
                                 <a class="product-thumbnail d-block"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}" title="{{ $p->nama_produk }}">
                                     <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     <!-- Badge -->
                                     <span class="badge bg-primary">{{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                 </a>
                                 <!-- Product Title -->
                                 <a class="product-title d-block text-truncate"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}" alt="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}" title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
                                 <!-- Product Price -->
                                 <p class="sale-price">Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</p>
                                 <a href="{{ route('toko.toko_detail', $p->user->user) }}">
@@ -187,14 +187,14 @@
                     <div class="card single-product-card">
                         <div class="card-body p-3">
                             <!-- Product Thumbnail -->
-                            <a class="product-thumbnail d-block" href="{{ asset('themplete/front') }}/shop-details.html">
+                            <a class="product-thumbnail d-block" href="{{ asset('themplete/front') }}/shop-details.html" title="{{ $p->nama_produk }}">
                                 <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                 <!-- Badge -->
                                 <span class="badge bg-danger">Diskon - {{ $p->kategoriProduk->nama_kategori_produk }}</span>
                             </a>
                             <!-- Product Title -->
                             <a class="product-title d-block text-truncate"
-                                href="{{ asset('themplete/front') }}/shop-details.html" alt="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
+                                href="{{ asset('themplete/front') }}/shop-details.html" title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
                             <!-- Product Price -->
                             <p class="sale-price">Rp. {{ number_format($p->harga_jual_diskon, 0, ',', '.') }}
                                 <br>
