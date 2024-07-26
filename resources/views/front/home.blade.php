@@ -52,12 +52,12 @@
                         <div class="col-3">
                             <div class="feature-card mx-auto text-center">
                                 <div class="card mx-auto bg-gray">
-                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}">
+                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" alt="{{ $p->nama_kategori_produk }}">
                                         <img src="/upload/kategori_produk/{{ $p->gambar }}" alt="{{ $p->nama_kategori_produk }}">
                                     </a>
                                 </div>
                                 <p class="mb-0">
-                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" title="{{ $p->nama_kategori_produk }}">
+                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" alt="{{ $p->nama_kategori_produk }}">
                                         {{ $p->nama_kategori_produk }}
                                     </a>
                                 </p>
@@ -106,13 +106,13 @@
                                 <!-- Product Thumbnail -->
                                 <a class="product-thumbnail d-block"
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
-                                    <img src="/upload/produk/{{ $p->gambar }}" alt="">
+                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     <!-- Badge -->
                                     <span class="badge bg-primary">{{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                 </a>
                                 <!-- Product Title -->
                                 <a class="product-title d-block text-truncate"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">{{ $p->nama_produk }}</a>
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}" alt="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
                                 <!-- Product Price -->
                                 <p class="sale-price">Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</p>
                                 <a href="{{ route('toko.toko_detail', $p->user->user) }}">
@@ -188,13 +188,13 @@
                         <div class="card-body p-3">
                             <!-- Product Thumbnail -->
                             <a class="product-thumbnail d-block" href="{{ asset('themplete/front') }}/shop-details.html">
-                                <img src="/upload/produk/{{ $p->gambar }}" alt="">
+                                <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                 <!-- Badge -->
                                 <span class="badge bg-danger">Diskon - {{ $p->kategoriProduk->nama_kategori_produk }}</span>
                             </a>
                             <!-- Product Title -->
                             <a class="product-title d-block text-truncate"
-                                href="{{ asset('themplete/front') }}/shop-details.html">{{ $p->nama_produk }}</a>
+                                href="{{ asset('themplete/front') }}/shop-details.html" alt="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
                             <!-- Product Price -->
                             <p class="sale-price">Rp. {{ number_format($p->harga_jual_diskon, 0, ',', '.') }}
                                 <br>

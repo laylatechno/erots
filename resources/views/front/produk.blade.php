@@ -86,12 +86,12 @@
                             <div class="col-3">
                                 <div class="feature-card mx-auto text-center">
                                     <div class="card mx-auto bg-gray">
-                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}">
+                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" alt="{{ $p->nama_kategori_produk }}">
                                             <img src="/upload/kategori_produk/{{ $p->gambar }}" alt="{{ $p->nama_kategori_produk }}">
                                         </a>
                                     </div>
                                     <p class="mb-0">
-                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" title="{{ $p->nama_kategori_produk }}">
+                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" alt="{{ $p->nama_kategori_produk }}">
                                             {{ $p->nama_kategori_produk }}
                                         </a>
                                     </p>
