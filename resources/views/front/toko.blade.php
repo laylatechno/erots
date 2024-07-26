@@ -138,8 +138,7 @@
         </div>
     </div>
 
-
-    </div>
+ 
 
     <div class="custom-container">
         <!-- Register Form -->
