@@ -88,7 +88,9 @@
 
             <div class="card product-details-card mb-3 direction-rtl">
                 <div class="card-body">
-                    <span class="badge bg-danger mb-3">@ {{ $produk->user->user }}</span>
+                    <a href="{{ route('toko.toko_detail', $produk->user->user) }}">
+                        <span class="badge bg-danger mb-3">@ {{ $produk->user->user }}</span>
+                    </a>
                     <h2>{{ $produk->nama_produk }}</h2>
                     <h4>Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}</h4>
                     <p>{!! $produk->deskripsi !!}</p>
