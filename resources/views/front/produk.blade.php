@@ -86,12 +86,12 @@
                             <div class="col-3">
                                 <div class="feature-card mx-auto text-center">
                                     <div class="card mx-auto bg-gray">
-                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" alt="{{ $p->nama_kategori_produk }}">
+                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" title="{{ $p->nama_kategori_produk }}">
                                             <img src="/upload/kategori_produk/{{ $p->gambar }}" alt="{{ $p->nama_kategori_produk }}">
                                         </a>
                                     </div>
                                     <p class="mb-0">
-                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" alt="{{ $p->nama_kategori_produk }}">
+                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" title="{{ $p->nama_kategori_produk }}">
                                             {{ $p->nama_kategori_produk }}
                                         </a>
                                     </p>
@@ -112,7 +112,7 @@
                                 <div class="card-body p-3">
                                     <a class="product-thumbnail d-block"
                                         href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
-                                        <img src="/upload/produk/{{ $p->gambar }}" alt="">
+                                        <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
 
                                         @if ($p->status_diskon == 'Aktif')
                                             <span class="badge bg-danger">Diskon -
@@ -122,7 +122,7 @@
                                                 {{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                         @endif
                                     </a>
-                                    <a class="product-title d-block text-truncate"
+                                    <a class="product-title d-block text-truncate" title="{{ $p->nama_produk }}"
                                         href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">{{ $p->nama_produk }}</a>
                                     @if ($p->status_diskon == 'Aktif')
                                         <p class="sale-price price-wrapper">
