@@ -51,11 +51,11 @@
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Email</b> <a class="float-right"><input type="text" class="form-control"
+                                <b>Email</b> <a class="float-right"><input type="email" class="form-control"
                                         id="email" name="email" value="{{ $data->email }}"></a>
                             </li>
                             <li class="list-group-item">
-                                <b>WhatsApp</b> <a class="float-right"><input type="text" class="form-control"
+                                <b>WhatsApp</b> <a class="float-right"><input type="number" class="form-control"
                                         id="no_wa" name="no_wa" value="{{ $data->no_wa }}"></a>
                             </li>
                             <li class="list-group-item">
@@ -128,7 +128,7 @@
                                 <div class="form-group row">
                                     <label for="no_telp" class="col-sm-2 col-form-label">No Telp</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="no_telp" name="no_telp"
+                                        <input type="number" class="form-control" id="no_telp" name="no_telp"
                                             placeholder="Masukkan No Telp" value="{{ $data->no_telp }}">
                                     </div>
                                 </div>

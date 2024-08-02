@@ -27,6 +27,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterMemberController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\VisitorController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/informasi', [HomeController::class, 'informasi']);
@@ -48,22 +49,7 @@ Route::resource('log_histori', LogHistoriController::class);
 
 
 
-// Route::resource('/dashboard', DashboardController::class);
-// Route::resource('users', UserController::class);
-Route::resource('/dashboard', DashboardController::class)->names([
-    'index' => 'dashboard.index',
-    'create' => 'dashboard.create',
-    'store' => 'dashboard.store',
-    'show' => 'dashboard.show',
-    'edit' => 'dashboard.edit',
-    'update' => 'dashboard.update',
-    'destroy' => 'dashboard.destroy',
-]);
-
-Route::resource('profil_pengguna', ProfilPenggunaController::class)->middleware('auth');
-Route::put('/profil_pengguna/update_pengguna/{id}', [ProfilPenggunaController::class, 'update_pengguna'])->name('profil.update_pengguna');
-Route::put('/profil_pengguna/update_display_pengguna/{id}', [ProfilPenggunaController::class, 'update_display_pengguna'])->name('profil.update_display_pengguna');
-// Produk
+ 
 
 // Route::get('produk/datatables', [ProdukController::class, 'index'])->name('produk.datatables');
 Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
@@ -84,6 +70,9 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     Route::resource('kategori_produk', KategoriProdukController::class);
     // Log History
     Route::get('/log-histori/delete-all', [LogHistoriController::class, 'deleteAll'])->name('log-histori.delete-all');
+    Route::get('/visitor/delete-all', [VisitorController::class, 'deleteAll'])->name('visitor.delete-all');
+    Route::get('/visitor_toko/delete-all', [VisitorController::class, 'deleteAllvisitor_toko'])->name('visitor_toko.delete-all');
+    
     Route::get('/backup', [BackupController::class, 'createBackup'])->name('backup.create');
 
     // Profil Perusahaan
@@ -120,15 +109,32 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     // Info
     Route::resource('info', InformasiController::class);
     Route::resource('transaksi', TransaksiController::class);
+    Route::resource('visitor', VisitorController::class);
 });
 
 // Route untuk pengguna biasa
-Route::middleware(['auth', 'checkRole:pengguna'])->group(function () {
-
+Route::middleware(['auth', 'checkRole:administrator|pengguna'])->group(function () {
+  
+    Route::resource('/dashboard', DashboardController::class)->names([
+        'index' => 'dashboard.index',
+        'create' => 'dashboard.create',
+        'store' => 'dashboard.store',
+        'show' => 'dashboard.show',
+        'edit' => 'dashboard.edit',
+        'update' => 'dashboard.update',
+        'destroy' => 'dashboard.destroy',
+    ]);
+    Route::resource('profil_pengguna', ProfilPenggunaController::class)->middleware('auth');
+    Route::put('/profil_pengguna/update_pengguna/{id}', [ProfilPenggunaController::class, 'update_pengguna'])->name('profil.update_pengguna');
+    Route::put('/profil_pengguna/update_display_pengguna/{id}', [ProfilPenggunaController::class, 'update_display_pengguna'])->name('profil.update_display_pengguna');
+    Route::get('visitor_toko', [VisitorController::class, 'index2'])->name('visitor.index2');
+    Route::get('/visitor_toko/delete-all2', [VisitorController::class, 'deleteVisitorPengguna'])->name('visitor_toko.delete-all2');
 });
 
 
+
 // Route untuk semua role
+// Route::get('visitor_toko', [VisitorController::class, 'index2'])->name('visitor.index2');
 Route::get('/auth', [AuthController::class, 'index'])->name('auth');
 Route::post('/auth', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');

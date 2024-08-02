@@ -278,6 +278,24 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/visitor" class="nav-link <?php echo $currentPath == '/visitor' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-users"></i>
+
+                                    <p>
+                                        Visitor
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/visitor_toko" class="nav-link <?php echo $currentPath == '/visitor_toko' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-briefcase"></i>
+
+                                    <p>
+                                        Visitor Toko
+                                    </p>
+                                </a>
+                            </li>
+                            {{-- <li class="nav-item">
                                 <a href="/konsumen" class="nav-link <?php echo $currentPath == '/konsumen' ? 'active' : ''; ?>">
                                     <i class="nav-icon fas fa-users"></i>
 
@@ -312,7 +330,7 @@
                                         Transaksi Penjualan
                                     </p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-header">Pengaturan</li>
                             <li class="nav-item">
                                 <a href="/profil/1/edit" class="nav-link <?php echo $currentPath == '/profil/1/edit' ? 'active' : ''; ?>">
@@ -383,6 +401,15 @@
                                     <p>Edit Profil</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/visitor_toko" class="nav-link <?php echo $currentPath == '/visitor_toko' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-briefcase"></i>
+
+                                    <p>
+                                        Visitor Toko
+                                    </p>
+                                </a>
+                            </li>
                         @endif
                         @if (Auth::user()->role === 'member')
                         <li class="nav-item">
@@ -400,6 +427,7 @@
                                 <p>Edit Profil</p>
                             </a>
                         </li>
+                        
                     @endif
                     </ul>
                 </nav>

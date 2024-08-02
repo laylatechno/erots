@@ -132,7 +132,7 @@
                             <div class="form-group row">
                                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="email" name="email"
+                                    <input type="email" class="form-control" id="email" name="email"
                                         placeholder="Masukkan Email" value="{{ $data->email }}">
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                             <div class="form-group row">
                                 <label for="phone_number" class="col-sm-2 col-form-label">No Telp</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="phone_number" name="phone_number"
+                                    <input type="number" class="form-control" id="phone_number" name="phone_number"
                                         placeholder="Masukkan No Telp" value="{{ $data->phone_number }}">
                                 </div>
                             </div>
@@ -165,7 +165,7 @@
                             <div class="form-group row">
                                 <label for="wa_number" class="col-sm-2 col-form-label">No WA</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="wa_number" name="wa_number"
+                                    <input type="number" class="form-control" id="wa_number" name="wa_number"
                                         placeholder="Masukkan No WA" value="{{ $data->wa_number }}">
                                 </div>
                             </div>

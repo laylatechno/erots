@@ -24,6 +24,10 @@ class User extends Authenticatable
         return $this->hasMany(Produk::class);
     }
  
+    public function visitorTokos()
+    {
+        return $this->hasMany(VisitorToko::class, 'user_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

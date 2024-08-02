@@ -15,6 +15,7 @@ use App\Models\Testimoni;
  
 use App\Models\User;
 use App\Models\Video;
+use App\Models\VisitorToko;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent; // Pustaka untuk mengurai user-
 
@@ -244,8 +245,30 @@ class HomeController extends Controller
         $title = $users->name . " | Halaman Toko Detail";
         $subtitle = "Menu Toko " . $users->name;
     
+        // Simpan visitor_toko
+        $agent = new Agent();
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $visit_time = date('Y-m-d H:i:s');
+        $session_id = session_id();
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $device = $agent->device();
+        $platform = $agent->platform();
+        $browser = $agent->browser();
+    
+        VisitorToko::create([
+            'user_id' => $users->id,
+            'ip_address' => $ip_address,
+            'visit_time' => $visit_time,
+            'session_id' => $session_id,
+            'user_agent' => $user_agent,
+            'device' => $device,
+            'platform' => $platform,
+            'browser' => $browser,
+        ]);
+    
         return view('front.toko_detail', compact('users', 'related_products', 'title', 'subtitle'));
     }
+    
     
 
  
