@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
  
 use App\Models\Alasan;
 use App\Models\Berita;
- 
 use App\Models\KategoriProduk;
- 
-
 use App\Models\Produk;
 use App\Models\Visitor;
 use App\Models\Slider;
 use App\Models\Testimoni;
- 
 use App\Models\User;
 use App\Models\Video;
 use App\Models\VisitorToko;
@@ -159,7 +155,7 @@ class HomeController extends Controller
         
         // Proses pengacakan produk
         if ($request->has('random')) {
-            $produk = $query->inRandomOrder()->paginate(10);
+            $produk = $query->inRandomOrder()->paginate(12);
         } else {
             // Lakukan paginasi dengan 10 item per halaman
             $produk = $query->paginate(12);
