@@ -480,8 +480,8 @@
     <!-- ./wrapper -->
 
     <footer class="main-footer" id="unhide">
-        All Rights Reserved by Layla Techno &copy; {{ date('Y') }}. Designed and Developed by <a
-            href="https://www.ltpresent.com">Layla Techno</a>.
+        All Rights Reserved by Proyeku &copy; {{ date('Y') }}. Designed and Developed by <a
+            href="https://www.proyeku.id">Proyeku</a>.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 1.0
         </div>
