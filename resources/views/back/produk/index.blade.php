@@ -28,8 +28,10 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal-tambah"><i
-                            class="fas fa-plus-circle"></i> Tambah Data</a>
+                    <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal-tambah">
+                        <i class="fas fa-plus-circle"></i> Tambah Data
+                    </a>
+
 
                     <table id="produkTable" class="table table-bordered table-striped">
                         <thead>
@@ -63,7 +65,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Form {{ $subtitle }}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="false">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -311,7 +313,7 @@
                                     <button type="submit" class="btn btn-primary" id="btn-save-tambah"><i
                                             class="fas fa-save"></i> Simpan</button>
                                     <button type="button" class="btn btn-danger float-right" data-dismiss="modal"><span
-                                            aria-hidden="true">&times;</span> Close</button>
+                                            aria-hidden="false">&times;</span> Close</button>
 
                                 </div>
                             </div>
@@ -604,7 +606,20 @@
     {{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script> --}}
 
 
-    <script src="{{ asset('themplete/back') }}/plugins/summernote/summernote-bs4.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+
+
+
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
 
     {{-- Summernote --}}
     <script>
@@ -622,21 +637,18 @@
 
 
     <script>
-        $(function() {
-            // Inisialisasi Summernote
+        $(document).ready(function() {
             $('#deskripsi_edit').summernote({
-                height: 200,
-                callbacks: {
-                    // Fungsi setelah Summernote selesai dimuat
-                    onInit: function() {
-                        // Set nilai pada Summernote
-                        $('#deskripsi_edit').summernote('code', data.deskripsi_edit);
-                    }
-                }
+                height: 200
+            });
+
+            $('#modal-edit').on('shown.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var deskripsiData = button.data('deskripsi'); // Ambil data deskripsi dari tombol
+                $('#deskripsi_edit').summernote('code', deskripsiData); // Set data deskripsi ke Summernote
             });
         });
-    </script>
-
+        </script>
 
 
     <script>

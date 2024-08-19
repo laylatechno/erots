@@ -108,7 +108,7 @@
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}" title="{{ $p->nama_produk }}">
                                     <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     <!-- Badge -->
-                                    <span class="badge bg-primary">{{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                    <span class="c">{{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                 </a>
                                 <!-- Product Title -->
                                 <a class="product-title d-block text-truncate"
