@@ -36,7 +36,8 @@ class ProdukController extends Controller
         $users = $isAdmin ? User::all() : [];
 
         // Ambil produk terkait dengan pengguna tertentu jika bukan administrator
-        $produk = $isAdmin ? Produk::all() : auth()->user()->produk()->get();
+        // $produk = $isAdmin ? Produk::all() : auth()->user()->produk()->get();
+        $produk = $isAdmin ? Produk::all() : auth()->user()->produk;
 
         return view('back.produk.index', compact('title', 'subtitle', 'kategoriProduk', 'users', 'produk', 'isAdmin'));
     }
@@ -52,13 +53,13 @@ class ProdukController extends Controller
         if ($request->ajax()) {
             $isAdmin = auth()->user()->role === 'administrator';
             $userId = auth()->id(); // Id pengguna yang sedang login
-    
+
             if ($isAdmin) {
                 $data = Produk::with(['kategoriProduk', 'user'])->get();
             } else {
                 $data = Produk::where('user_id', $userId)->with(['kategoriProduk', 'user'])->get();
             }
-    
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('kategori', function ($p) {
@@ -84,10 +85,10 @@ class ProdukController extends Controller
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
-    
+
         return response()->json(['error' => 'Unauthorized access'], 403); // Menangani akses tidak sah
     }
-    
+
 
 
 
@@ -217,7 +218,7 @@ class ProdukController extends Controller
 
 
 
-    /** 
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
