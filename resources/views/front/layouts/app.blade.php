@@ -79,7 +79,7 @@
                 class="header-content header-style-five position-relative d-flex align-items-center justify-content-between">
                 <!-- Logo Wrapper -->
                 <div class="logo-wrapper">
-                    <a href="{{ asset('themplete/front') }}/home.html">
+                    <a href="/">
                         <img src="upload/profil/{{ $profil->logo }}" alt="">
                     </a>
                 </div>
