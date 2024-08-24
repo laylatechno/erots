@@ -222,6 +222,12 @@
                             <span>Toko</span>
                         </a>
                     </li>
+                    <li class="{{ request()->is('kurir*') ? 'active' : '' }}">
+                        <a href="/kurir">
+                            <i class="bi bi-taxi-front"></i>
+                            <span>Kurir</span>
+                        </a>
+                    </li>
 
                     <li class="{{ request()->is('cart') ? 'active' : '' }}">
                         <a href="{{ route('cart.index') }}">
