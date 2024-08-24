@@ -15,7 +15,7 @@
                     <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal-tambah"><i
                             class="fas fa-plus-circle"></i> Tambah Data</a>
 
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="example1" class="table table-bordered table-striped dataTable">
                         <thead>
                             <tr>
                                 <th>No</th>
