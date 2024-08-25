@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\KurirController;
 use App\Http\Controllers\ProfilPenggunaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterMemberController;
@@ -32,6 +33,10 @@ use App\Http\Controllers\VisitorController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/informasi', [HomeController::class, 'informasi']);
 Route::get('/informasi/{slug}', [HomeController::class, 'informasi_detail'])->name('informasi.informasi_detail');
+Route::get('/kurir_page', [HomeController::class, 'kurir_page']);
+// Web.php
+Route::get('/kurir_page/{id}', [HomeController::class, 'getKurir']);
+
 Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('produk_sale');
 Route::get('/produk_sale/{slug}', [HomeController::class, 'produk_sale_detail'])->name('produk_sale.produk_sale_detail');
 Route::get('/toko', [HomeController::class, 'toko'])->name('toko');
@@ -49,15 +54,15 @@ Route::resource('log_histori', LogHistoriController::class);
 
 
 
- 
+
 
 // Route::get('produk/datatables', [ProdukController::class, 'index'])->name('produk.datatables');
 Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
 Route::resource('produk', ProdukController::class);
 
- 
-Route::get('/auth/redirect', [SocialiteController::class,'redirect']);
-Route::get('/auth/google/callback', [SocialiteController::class,'callback']);
+
+Route::get('/auth/redirect', [SocialiteController::class, 'redirect']);
+Route::get('/auth/google/callback', [SocialiteController::class, 'callback']);
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('auth');
@@ -72,7 +77,7 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     Route::get('/log-histori/delete-all', [LogHistoriController::class, 'deleteAll'])->name('log-histori.delete-all');
     Route::get('/visitor/delete-all', [VisitorController::class, 'deleteAll'])->name('visitor.delete-all');
     Route::get('/visitor_toko/delete-all', [VisitorController::class, 'deleteAllvisitor_toko'])->name('visitor_toko.delete-all');
-    
+
     Route::get('/backup', [BackupController::class, 'createBackup'])->name('backup.create');
 
     // Profil Perusahaan
@@ -103,6 +108,9 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     // Testimoni
     Route::resource('testimoni', TestimoniController::class);
 
+    // Testimoni
+    Route::resource('kurir', KurirController::class);
+
     // Video
     Route::resource('video', VideoController::class);
 
@@ -114,7 +122,7 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
 
 // Route untuk pengguna biasa
 Route::middleware(['auth', 'checkRole:administrator|pengguna'])->group(function () {
-  
+
     Route::resource('/dashboard', DashboardController::class)->names([
         'index' => 'dashboard.index',
         'create' => 'dashboard.create',

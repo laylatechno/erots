@@ -151,7 +151,7 @@
                             </li>
 
                             <li class="nav-header">Master</li>
-                            <li class="nav-item 
+                            <li class="nav-item
                         <?php echo strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : ''; ?> ">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-list"></i>
@@ -178,7 +178,7 @@
 
                                 </ul>
                             </li>
-                            <li class="nav-item 
+                            <li class="nav-item
                         <?php echo strpos($currentPath, '/kategori_berita') !== false || strpos($currentPath, '/berita') !== false ? 'menu-open active' : ''; ?> ">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-blog"></i>
@@ -205,7 +205,7 @@
 
                                 </ul>
                             </li>
-                            <li class="nav-item 
+                            <li class="nav-item
                         <?php echo strpos($currentPath, '/kategori_galeri') !== false || strpos($currentPath, '/galeri') !== false ? 'menu-open active' : ''; ?> ">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-film"></i>
@@ -274,6 +274,15 @@
 
                                     <p>
                                         Testimoni
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/kurir" class="nav-link <?php echo $currentPath == '/kurir' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-car"></i>
+
+                                    <p>
+                                        Kurir
                                     </p>
                                 </a>
                             </li>
@@ -420,14 +429,14 @@
                                 </p>
                             </a>
                         </li>
-                       
+
                         <li class="nav-item">
                             <a href="/profil_pengguna/{{ Auth::user()->id }}/edit" class="nav-link">
                                 <i class="nav-icon far fa-edit"></i>
                                 <p>Edit Profil</p>
                             </a>
                         </li>
-                        
+
                     @endif
                     </ul>
                 </nav>

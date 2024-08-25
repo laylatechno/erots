@@ -223,7 +223,7 @@
                         </a>
                     </li>
                     <li class="{{ request()->is('kurir*') ? 'active' : '' }}">
-                        <a href="/kurir">
+                        <a href="/kurir_page">
                             <i class="bi bi-taxi-front"></i>
                             <span>Kurir</span>
                         </a>
