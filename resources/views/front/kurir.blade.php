@@ -44,7 +44,7 @@
                     <div class="col-12 col-md-8 col-lg-7 col-xl-6">
                         <div class="card shadow-sm blog-list-card">
                             <div class="d-flex align-items-center">
-                                <div class="card-blog-img position-relative kurir-clickable"
+                                <div class="card-blog-img position-relative btn-edit"
                                     style="background-image: url('/upload/kurir/{{ $p->gambar }}')"
                                     data-bs-toggle="modal" data-bs-target="#modal-edit" data-id="{{ $p->id }}">
                                     <span
@@ -53,7 +53,7 @@
                                 <div class="card-blog-content">
                                     <span
                                         class="badge bg-danger rounded-pill mb-2 d-inline-block">{{ $p->no_wa }}</span>
-                                    <a class="blog-title d-block mb-3 text-dark kurir-clickable btn-edit" href="#"
+                                    <a class="blog-title d-block mb-3 text-dark btn-edit" href="#"
                                         data-bs-toggle="modal" data-bs-target="#modal-edit"
                                         data-id="{{ $p->id }}">{{ $p->nama_kurir }}</a>
                                     <a class="btn btn-success btn-sm"
