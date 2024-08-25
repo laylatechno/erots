@@ -118,17 +118,18 @@
                                         <label for="umur_edit" class="form-label">Umur</label>
                                         <p id="umur_edit"></p>
                                     </div>
+
                                     <div class="col-md-6 mb-3">
-                                        <label for="alamat_edit" class="form-label">Alamat</label>
-                                        <p id="alamat_edit"></p>
+                                        <label for="afiliasi_edit" class="form-label">Afiliasi</label>
+                                        <p id="afiliasi_edit"></p>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="no_wa_edit" class="form-label">No WA</label>
                                         <p id="no_wa_edit"></p>
                                     </div>
                                     <div class="col-md-12 mb-6">
-                                        <label for="afiliasi_edit" class="form-label">Afiliasi</label>
-                                        <p id="afiliasi_edit"></p>
+                                        <label for="alamat_edit" class="form-label">Alamat</label>
+                                        <p id="alamat_edit"></p>
                                     </div>
                                     {{-- <div class="col-md-12 mb-3" id="gambar_edit_container">
                                         <!-- Gambar bukti akan dimuat di sini -->
