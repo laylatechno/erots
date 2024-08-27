@@ -56,6 +56,20 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <form action="{{ route('user.import') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="file">Import File Excel</label>
+                            <input type="file" name="file" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Import</button>
+                    </form>
+                    <br>
+                    @if (session('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @endif
                     <a href="#" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal-tambah"><i
                             class="fas fa-plus-circle"></i> Tambah Data</a>
 
@@ -94,13 +108,15 @@
                                     <td>
                                         @if ($p->avatar && file_exists(public_path("/upload/user/$p->avatar")))
                                             <a href="/upload/user/{{ $p->avatar }}" target="_blank">
-                                                <img style="max-width:100px; max-height:100px" src="/upload/user/{{ $p->avatar }}" alt="">
+                                                <img style="max-width:100px; max-height:100px"
+                                                    src="/upload/user/{{ $p->avatar }}" alt="">
                                             </a>
                                         @else
-                                            <img style="max-width:100px; max-height:100px" src="/upload/avatar.png" alt="Default Avatar">
+                                            <img style="max-width:100px; max-height:100px" src="/upload/avatar.png"
+                                                alt="Default Avatar">
                                         @endif
                                     </td>
-                                    
+
                                     <td>
                                         <a href="#" class="btn btn-sm btn-warning btn-edit" data-toggle="modal"
                                             data-target="#modal-edit" data-id="{{ $p->id }}" style="color: black">
@@ -312,8 +328,8 @@
                                     <div class="col-12">
                                         <div class="form-group" id="embed_youtube_container">
                                             <label for="embed_youtube">Embed Youtube</label>
-                                            <input type="text" class="form-control" name="embed_youtube" id="embed_youtube"
-                                                placeholder="Embed Youtube">
+                                            <input type="text" class="form-control" name="embed_youtube"
+                                                id="embed_youtube" placeholder="Embed Youtube">
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -634,8 +650,8 @@
                                     <div class="col-12">
                                         <div class="form-group" id="embed_youtube_edit_container">
                                             <label for="embed_youtube_edit">Embed Youtube</label>
-                                            <input type="text" class="form-control" name="embed_youtube" id="embed_youtube_edit"
-                                                placeholder="Embed Youtube">
+                                            <input type="text" class="form-control" name="embed_youtube"
+                                                id="embed_youtube_edit" placeholder="Embed Youtube">
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -868,9 +884,7 @@
         });
     </script>
     <script>
-      
-
-            $(document).ready(function() {
+        $(document).ready(function() {
             $('#example1').on('click', '.btn-edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');

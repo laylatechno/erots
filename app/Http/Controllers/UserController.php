@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UserImport;
 use App\Models\LogHistori;
 use App\Models\Produk;
 use Illuminate\Support\Facades\Hash;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Cache;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -34,6 +36,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        Excel::import(new UserImport, $request->file('file'));
+
+        return redirect('/users')->with('message', 'Data berhasil diimpor');
+    }
+
+
     public function create()
     {
     }
@@ -69,32 +85,32 @@ class UserController extends Controller
                 'banner.mimes' => 'Format gambar harus jpeg, jpg, atau png',
                 'banner.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
             ]);
-    
+
             $input = $request->all();
-    
+
             // Function to handle image upload and conversion
             function handleImageUpload($image, $destinationPath)
             {
                 // Mengambil nama file asli dan ekstensinya
                 $originalFileName = $image->getClientOriginalName();
-    
+
                 // Membaca tipe MIME dari file gambar
                 $imageMimeType = $image->getMimeType();
-    
+
                 // Menyaring hanya tipe MIME gambar yang didukung (misalnya, image/jpeg, image/png, dll.)
                 if (strpos($imageMimeType, 'image/') === 0) {
                     // Menggabungkan waktu dengan nama file asli
                     $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName);
-    
+
                     // Simpan gambar asli ke tujuan yang diinginkan
                     $image->move($destinationPath, $imageName);
-    
+
                     // Path gambar asli
                     $sourceImagePath = public_path($destinationPath . $imageName);
-    
+
                     // Path untuk menyimpan gambar WebP
                     $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
-    
+
                     // Membaca gambar asli dan mengonversinya ke WebP jika tipe MIME-nya didukung
                     switch ($imageMimeType) {
                         case 'image/jpeg':
@@ -109,18 +125,18 @@ class UserController extends Controller
                             // Misalnya, tampilkan pesan kesalahan atau lakukan tindakan yang sesuai
                             break;
                     }
-    
+
                     // Jika gambar asli berhasil dibaca
                     if ($sourceImage !== false) {
                         // Membuat gambar baru dalam format WebP
                         imagewebp($sourceImage, $webpImagePath);
-    
+
                         // Hapus gambar asli dari memori
                         imagedestroy($sourceImage);
-    
+
                         // Hapus file asli setelah konversi selesai
                         @unlink($sourceImagePath);
-    
+
                         // Simpan hanya nama file gambar ke dalam array input
                         return pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
                     } else {
@@ -132,51 +148,51 @@ class UserController extends Controller
                     return null;
                 }
             }
-    
+
             if ($image = $request->file('picture')) {
                 $input['picture'] = handleImageUpload($image, 'upload/user/');
             } else {
                 $input['picture'] = '';
             }
-    
+
             if ($image = $request->file('avatar')) {
                 $input['avatar'] = handleImageUpload($image, 'upload/user/');
             } else {
                 $input['avatar'] = '';
             }
-    
+
             if ($image = $request->file('banner')) {
                 $input['banner'] = handleImageUpload($image, 'upload/user/');
             } else {
                 $input['banner'] = '';
             }
-    
+
             // Hash password
             $input['password'] = Hash::make($request->password);
-    
+
             // Membuat user baru dan mendapatkan data pengguna yang baru dibuat
             $user = User::create($input);
-    
+
             // Mendapatkan ID pengguna yang sedang login
             $loggedInUserId = Auth::id();
-    
+
             // Simpan log histori untuk operasi Create dengan user_id yang sedang login
             $this->simpanLogHistori('Create', 'User', $user->id, $loggedInUserId, null, json_encode($user));
-    
+
             return response()->json(['message' => 'Data berhasil ditambahkan', 'data' => $user], 201);
         } catch (\Exception $e) {
             // Tangkap semua exception dan kembalikan respon JSON dengan pesan error
             return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data', 'error' => $e->getMessage()], 500);
         }
     }
-    
-    
 
 
 
 
 
-    /** 
+
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -241,13 +257,13 @@ class UserController extends Controller
              'banner.mimes' => 'Format banner harus jpeg, jpg, atau png',
              'banner.max' => 'Ukuran banner tidak boleh lebih dari 8 MB',
          ]);
-     
+
          // Ambil data user yang akan diupdate
          $user = User::findOrFail($id);
-     
+
          // Setel data yang akan diupdate
          $input = $request->except(['_token', '_method', 'password']);
-     
+
          // Cek apakah password diisi dan hash password baru jika diisi
          if ($request->filled('password')) {
              $input['password'] = Hash::make($request->input('password'));
@@ -255,7 +271,7 @@ class UserController extends Controller
              // Jika password tidak diisi, hapus dari input agar tidak mengubahnya di database
              unset($input['password']);
          }
-     
+
          // Fungsi untuk mengelola penanganan file gambar
          function handleImageUpload2($request, $attribute, $destinationPath, &$input, &$user)
          {
@@ -268,33 +284,33 @@ class UserController extends Controller
                          unlink($oldFilePath);
                      }
                  }
-     
+
                  // Upload file baru
                  $image = $request->file($attribute);
                  $imageName = time() . '_' . $image->getClientOriginalName();
                  $image->move($destinationPath, $imageName);
-     
+
                  // Simpan nama file di input
                  $input[$attribute] = $imageName;
              }
          }
-     
+
          // Panggil fungsi untuk mengelola gambar profile picture, avatar, dan banner
          handleImageUpload2($request, 'picture', 'upload/user/', $input, $user);
          handleImageUpload2($request, 'avatar', 'upload/user/', $input, $user);
          handleImageUpload2($request, 'banner', 'upload/user/', $input, $user);
-     
+
          // Update data user
          $user->update($input);
-     
+
          // Simpan log histori untuk operasi Update dengan user_id yang sedang login
          $loggedInUserId = Auth::id();
          $this->simpanLogHistori('Update', 'User', $user->id, $loggedInUserId, json_encode($user->getOriginal()), json_encode($input));
-     
+
          // Beri respons JSON jika berhasil
          return response()->json(['message' => 'Data berhasil diupdate']);
      }
-     
+
 
 
     /**
@@ -307,39 +323,39 @@ class UserController extends Controller
     {
         // Cari pengguna berdasarkan ID
         $users = User::find($id);
-    
+
         // Jika pengguna tidak ditemukan, kembalikan respon error
         if (!$users) {
             return response()->json(['message' => 'Data users not found'], 404);
         }
-    
+
         // Periksa apakah ada produk yang berelasi dengan pengguna ini
         $relatedProducts = Produk::where('user_id', $id)->exists();
-    
+
         // Jika ada produk yang berelasi, kembalikan respon konfirmasi
         if ($relatedProducts) {
             return response()->json(['message' => 'Data pengguna tidak bisa dihapus karena masih berelasi dengan produk'], 400);
         }
-    
+
         // Hapus file gambar lama jika ada
         $oldpictureFileName = $users->file; // Nama file saja
         $oldfilePath = public_path('upload/user/' . $oldpictureFileName);
-    
+
         if ($oldpictureFileName && file_exists($oldfilePath)) {
             unlink($oldfilePath);
         }
-    
+
         // Hapus pengguna
         $users->delete();
         $loggedInUserId = Auth::id();
-    
+
         // Simpan log histori untuk operasi Delete dengan user_id yang sedang login dan informasi data yang dihapus
         $this->simpanLogHistori('Delete', 'users', $id, $loggedInUserId, json_encode($users), null);
-    
+
         // Kembalikan respon sukses
         return response()->json(['message' => 'Data Berhasil Dihapus']);
     }
-    
+
 
     // Fungsi untuk menyimpan log histori
     private function simpanLogHistori($aksi, $tabelAsal, $idEntitas, $pengguna, $dataLama, $dataBaru)

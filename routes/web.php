@@ -118,6 +118,9 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     Route::resource('info', InformasiController::class);
     Route::resource('transaksi', TransaksiController::class);
     Route::resource('visitor', VisitorController::class);
+
+
+    Route::post('/user/import', [UserController::class, 'import'])->name('user.import');
 });
 
 // Route untuk pengguna biasa
