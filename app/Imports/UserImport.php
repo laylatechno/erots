@@ -22,6 +22,7 @@ class UserImport implements ToModel, WithHeadingRow
             'description' => $row['description'],
             'role' => $row['role'],
             'status' => $row['status'],
+            'color' => $row['color'],
         ]);
     }
 }
