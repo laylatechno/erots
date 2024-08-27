@@ -68,8 +68,60 @@ class HomeController extends Controller
         $testimoni = Testimoni::all();
         $slider = Slider::all();
         $kategori_produk = KategoriProduk::all();
+        // Ambil kategori dengan urutan pertama yang tersedia
+        $kategori_pertama = KategoriProduk::orderBy('urutan', 'asc')
+            ->whereNotNull('urutan')
+            ->first();
 
-        return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon'));
+        $produk_kategori_pertama = Produk::where('status', 'Aktif')
+            ->where('kategori_produk_id', $kategori_pertama->id)
+            ->where(function ($query) {
+                $query->where('status_diskon', 'Non Aktif')
+                    ->orWhereNull('status_diskon');
+            })
+            ->orderBy('urutan')
+            ->take(9)
+            ->get();
+
+        $kategori_kedua = KategoriProduk::orderBy('urutan', 'asc')
+            ->whereNotNull('urutan')
+            ->skip(1) // Melewati urutan pertama
+            ->first();
+
+
+        $produk_kategori_kedua = Produk::where('status', 'Aktif')
+            ->where('kategori_produk_id', $kategori_kedua->id)
+            ->where(function ($query) {
+                $query->where('status_diskon', 'Non Aktif')
+                    ->orWhereNull('status_diskon');
+            })
+            ->orderBy('urutan')
+            ->take(9)
+            ->get();
+
+
+        // Mengambil kategori dengan urutan terbesar ketiga
+        $kategori_ketiga = KategoriProduk::orderBy('urutan', 'asc')
+            ->whereNotNull('urutan')
+            ->skip(2) // Lewati dua kategori pertama
+            ->first();
+
+        // Mengambil produk berdasarkan kategori terbesar ketiga
+        $produk_kategori_ketiga = Produk::where('status', 'Aktif')
+            ->where('kategori_produk_id', $kategori_ketiga->id)
+            ->where(function ($query) {
+                $query->where('status_diskon', 'Non Aktif')
+                    ->orWhereNull('status_diskon');
+            })
+            ->orderBy('urutan')
+            ->take(9)
+            ->get();
+
+
+
+
+
+        return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga'));
     }
 
 

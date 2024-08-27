@@ -19,7 +19,7 @@
         <button class="btn btn-close btn-close-white position-absolute p-1" type="button" data-bs-dismiss="toast"
             aria-label="Close"></button>
     </div>
- 
+
     <!-- Tiny Slider One Wrapper -->
     <div class="tiny-slider-one-wrapper">
         <div class="tiny-slider-one">
@@ -52,12 +52,15 @@
                         <div class="col-3">
                             <div class="feature-card mx-auto text-center">
                                 <div class="card mx-auto bg-gray">
-                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" alt="{{ $p->nama_kategori_produk }}">
-                                        <img src="/upload/kategori_produk/{{ $p->gambar }}" alt="{{ $p->nama_kategori_produk }}">
+                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}"
+                                        alt="{{ $p->nama_kategori_produk }}">
+                                        <img src="/upload/kategori_produk/{{ $p->gambar }}"
+                                            alt="{{ $p->nama_kategori_produk }}">
                                     </a>
                                 </div>
                                 <p class="mb-0">
-                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" alt="{{ $p->nama_kategori_produk }}">
+                                    <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}"
+                                        alt="{{ $p->nama_kategori_produk }}">
                                         {{ $p->nama_kategori_produk }}
                                     </a>
                                 </p>
@@ -86,7 +89,7 @@
                 @endphp
                 <a target="_blank" class="btn btn-warning" href="{{ $whatsapp_url }}">Selengkapnya</a>
 
-                
+
 
 
             </div>
@@ -105,14 +108,16 @@
                             <div class="card-body p-3">
                                 <!-- Product Thumbnail -->
                                 <a class="product-thumbnail d-block"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}" title="{{ $p->nama_produk }}">
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    title="{{ $p->nama_produk }}">
                                     <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     <!-- Badge -->
                                     <span class="c">{{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                 </a>
                                 <!-- Product Title -->
                                 <a class="product-title d-block text-truncate"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}" title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
                                 <!-- Product Price -->
                                 <p class="sale-price">Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</p>
                                 <a href="{{ route('toko.toko_detail', $p->user->user) }}">
@@ -143,7 +148,7 @@
         </div>
     </div>
 
-    
+
     <div class="container direction-rtl">
         <div class="card">
             <div class="card-body">
@@ -166,7 +171,161 @@
     <div class="pb-3"></div>
 
     <div class="container">
+        <div class="card bg-success mb-3 bg-img"
+            style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
+            <div class="card-body direction-rtl p-4">
+                <h2 class="text-white">Kategori {{ $kategori_pertama->nama_kategori_produk }}</h2>
+                <p class="mb-4 text-white">{{ $kategori_pertama->deskripsi }}</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="top-products-area">
+        <div class="container">
+            <div class="row g-3">
+                @foreach ($produk_kategori_pertama as $p)
+                    <!-- Single Top Product Card -->
+                    <div class="col-6 col-sm-4 col-lg-3">
+                        <div class="card single-product-card">
+                            <div class="card-body p-3">
+                                <!-- Product Thumbnail -->
+                                <a class="product-thumbnail d-block"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    title="{{ $p->nama_produk }}">
+                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
+                                    <!-- Badge -->
+                                    <span class="c">{{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                </a>
+                                <!-- Product Title -->
+                                <a class="product-title d-block text-truncate"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
+                                <!-- Product Price -->
+                                <p class="sale-price">Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</p>
+                                <a href="{{ route('toko.toko_detail', $p->user->user) }}">
+                                    <p class="mb-2">@ {{ $p->user->user }}</p>
+                                </a>
+                                <form class="add-to-cart-form" data-product-id="{{ $p->id }}">
+                                    @csrf
+                                    <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to
+                                        Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="pb-3"></div>
+
+    <div class="container">
+        <div class="card bg-danger mb-3 bg-img"
+            style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
+            <div class="card-body direction-rtl p-4">
+                <h2 class="text-white">Kategori {{ $kategori_kedua->nama_kategori_produk }}</h2>
+                <p class="mb-4 text-white">{{ $kategori_kedua->deskripsi }}</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="top-products-area">
+        <div class="container">
+            <div class="row g-3">
+                @foreach ($produk_kategori_kedua as $p)
+                    <!-- Single Top Product Card -->
+                    <div class="col-6 col-sm-4 col-lg-3">
+                        <div class="card single-product-card">
+                            <div class="card-body p-3">
+                                <!-- Product Thumbnail -->
+                                <a class="product-thumbnail d-block"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    title="{{ $p->nama_produk }}">
+                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
+                                    <!-- Badge -->
+                                    <span class="c">{{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                </a>
+                                <!-- Product Title -->
+                                <a class="product-title d-block text-truncate"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
+                                <!-- Product Price -->
+                                <p class="sale-price">Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</p>
+                                <a href="{{ route('toko.toko_detail', $p->user->user) }}">
+                                    <p class="mb-2">@ {{ $p->user->user }}</p>
+                                </a>
+                                <form class="add-to-cart-form" data-product-id="{{ $p->id }}">
+                                    @csrf
+                                    <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to
+                                        Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="pb-3"></div>
+
+
+    <div class="container">
         <div class="card bg-primary mb-3 bg-img"
+            style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
+            <div class="card-body direction-rtl p-4">
+                <h2 class="text-white">Kategori {{ $kategori_ketiga->nama_kategori_produk }}</h2>
+                <p class="mb-4 text-white">{{ $kategori_ketiga->deskripsi }}</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="top-products-area">
+        <div class="container">
+            <div class="row g-3">
+                @foreach ($produk_kategori_ketiga as $p)
+                    <!-- Single Top Product Card -->
+                    <div class="col-6 col-sm-4 col-lg-3">
+                        <div class="card single-product-card">
+                            <div class="card-body p-3">
+                                <!-- Product Thumbnail -->
+                                <a class="product-thumbnail d-block"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    title="{{ $p->nama_produk }}">
+                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
+                                    <!-- Badge -->
+                                    <span class="c">{{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                </a>
+                                <!-- Product Title -->
+                                <a class="product-title d-block text-truncate"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
+                                <!-- Product Price -->
+                                <p class="sale-price">Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</p>
+                                <a href="{{ route('toko.toko_detail', $p->user->user) }}">
+                                    <p class="mb-2">@ {{ $p->user->user }}</p>
+                                </a>
+                                <form class="add-to-cart-form" data-product-id="{{ $p->id }}">
+                                    @csrf
+                                    <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to
+                                        Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="pb-3"></div>
+
+
+
+
+
+    <div class="container">
+        <div class="card bg-warning mb-3 bg-img"
             style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
             <div class="card-body direction-rtl p-4">
                 <h2 class="text-white">Promo Harian</h2>
@@ -182,38 +341,43 @@
             <div class="row g-3">
 
                 @foreach ($produk_diskon as $p)
-                <!-- Single Top Product Card -->
-                <div class="col-6 col-sm-4 col-lg-3">
-                    <div class="card single-product-card">
-                        <div class="card-body p-3">
-                            <!-- Product Thumbnail -->
-                            <a class="product-thumbnail d-block" href="{{ asset('themplete/front') }}/shop-details.html" title="{{ $p->nama_produk }}">
-                                <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
-                                <!-- Badge -->
-                                <span class="badge bg-danger">Diskon - {{ $p->kategoriProduk->nama_kategori_produk }}</span>
-                            </a>
-                            <!-- Product Title -->
-                            <a class="product-title d-block text-truncate"
-                                href="{{ asset('themplete/front') }}/shop-details.html" title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
-                            <!-- Product Price -->
-                            <p class="sale-price">Rp. {{ number_format($p->harga_jual_diskon, 0, ',', '.') }}
-                                <br>
-                                 <span>Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</span></p>
-                                 <a href="{{ route('toko.toko_detail', $p->user->user) }}">
+                    <!-- Single Top Product Card -->
+                    <div class="col-6 col-sm-4 col-lg-3">
+                        <div class="card single-product-card">
+                            <div class="card-body p-3">
+                                <!-- Product Thumbnail -->
+                                <a class="product-thumbnail d-block"
+                                    href="{{ asset('themplete/front') }}/shop-details.html"
+                                    title="{{ $p->nama_produk }}">
+                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
+                                    <!-- Badge -->
+                                    <span class="badge bg-danger">Diskon -
+                                        {{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                </a>
+                                <!-- Product Title -->
+                                <a class="product-title d-block text-truncate"
+                                    href="{{ asset('themplete/front') }}/shop-details.html"
+                                    title="{{ $p->nama_produk }}">{{ $p->nama_produk }}</a>
+                                <!-- Product Price -->
+                                <p class="sale-price">Rp. {{ number_format($p->harga_jual_diskon, 0, ',', '.') }}
+                                    <br>
+                                    <span>Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</span>
+                                </p>
+                                <a href="{{ route('toko.toko_detail', $p->user->user) }}">
                                     <p class="mb-2">@ {{ $p->user->user }}</p>
                                 </a>
-                                 <form class="add-to-cart-form" data-product-id="{{ $p->id }}">
+                                <form class="add-to-cart-form" data-product-id="{{ $p->id }}">
                                     @csrf
                                     <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to
                                         Cart</button>
                                 </form>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
 
-            
-               
+
+
             </div>
         </div>
     </div>
@@ -228,26 +392,27 @@
                 <div class="testimonial-slide-three-wrapper">
                     <div class="testimonial-slide3 testimonial-style3">
                         @foreach ($testimoni as $p)
-                        <!-- Single Testimonial Slide -->
-                        <div class="single-testimonial-slide">
-                            <div class="text-content">
-                                <span class="d-inline-block badge bg-warning mb-2">
-                                    <i class="bi bi-star-fill me-1"></i>
-                                    <i class="bi bi-star-fill me-1"></i>
-                                    <i class="bi bi-star-fill me-1"></i>
-                                    <i class="bi bi-star-fill me-1"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                </span>
-                               <br>
-                                    <img src="/upload/testimoni/{{ $p->gambar }}" alt="" width="10%" height="auto">
+                            <!-- Single Testimonial Slide -->
+                            <div class="single-testimonial-slide">
+                                <div class="text-content">
+                                    <span class="d-inline-block badge bg-warning mb-2">
+                                        <i class="bi bi-star-fill me-1"></i>
+                                        <i class="bi bi-star-fill me-1"></i>
+                                        <i class="bi bi-star-fill me-1"></i>
+                                        <i class="bi bi-star-fill me-1"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                    </span>
+                                    <br>
+                                    <img src="/upload/testimoni/{{ $p->gambar }}" alt="" width="10%"
+                                        height="auto">
                                     <div class="pb-3"></div>
-                                <h6 class="mb-2">{{ $p->deskripsi }}</h6>
-                                <span class="d-block">{{ $p->nama_testimoni }} - {{ $p->status }}</span>
+                                    <h6 class="mb-2">{{ $p->deskripsi }}</h6>
+                                    <span class="d-block">{{ $p->nama_testimoni }} - {{ $p->status }}</span>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
 
-                       
+
                     </div>
                 </div>
             </div>
