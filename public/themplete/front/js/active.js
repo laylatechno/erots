@@ -1,5 +1,5 @@
 // =================================================================
-// Template Name: Nyariapa.com
+// Template Name: Lapaktasik.com
 // Template Author: Designing World
 // Template Author URL: https://themeforest.net/user/designing-world
 // Last Updated: 23 Dec, 2022
