@@ -2,7 +2,14 @@
 @section('title', $title)
 @section('subtitle', $subtitle)
 
+<style>
+    .product-thumbnail img {
+    width: 100%; /* Mengatur lebar gambar agar sesuai dengan lebar kontainer */
+    height: auto; /* Menjaga rasio aspek asli */
+    object-fit: cover; /* Memastikan gambar tetap terpotong rapi jika ukuran aslinya berbeda */
+}
 
+</style>
 @section('content')
 
     <!-- Welcome Toast -->
