@@ -1,27 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found</title>
-    <link rel="stylesheet" href="{{ asset('css/error.css') }}">
-</head>
-<body>
-    <div class="error-container">
-        <h1>Oops! Page Not Found</h1>
-        <p>The page you're looking for doesn't exist or has been moved.</p>
-        <a href="{{ url('/') }}" class="btn btn-primary">Go Home</a>
-    </div>
-</body>
-</html>
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -35,10 +13,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
   <!-- Title -->
-  <title>Lapaktasik.com</title>
+  <title>Lapaktasik.com - Page Not Found</title>
 
   <!-- Favicon -->
-  <link rel="icon" href="{{ asset('themplete/front') }}/img/core-img/favicon.ico">
+  <link rel="icon" href="{{ asset('upload/profil/' . $profil->favicon) }}">
   <link rel="apple-touch-icon" href="{{ asset('themplete/front') }}/img/icons/icon-96x96.png">
   <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
   <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
@@ -80,16 +58,16 @@
   </div>
 
   <!-- Page Content Wrapper -->
-  <div class="coming-soon-wrapper bg-white text-center bg-overlay" style="background-image: url('img/bg-img/26.jpg')">
+  <div class="coming-soon-wrapper bg-white text-center bg-overlay" style="background-image: url('{{ asset('themplete/front') }}/img/bg-img/26.jpg')">
     <div class="container">
       <div class="cs-logo">
         <a href="home.html">
-          <img src="{{ asset('themplete/front') }}/img/core-img/logo-dark.png" alt="">
+          <img src="{{ asset('upload/profil/' . $profil->logo) }}" alt="">
         </a>
       </div>
 
-      <h2 class="text-white display-3">Coming Soon</h2>
-      <p class="text-white">It is very nicely designed &amp; coded with the latest technology.</p>
+      <h2 class="text-white display-3">404 - Oops! Page Not Found</h2>
+      <p class="text-white">The page you're looking for doesn't exist or has been moved</p>
 
       <div class="countdown2 justify-content-center" id="countdown2" data-date="11-6-2022" data-time="23:24">
         <div class="day">
@@ -111,8 +89,7 @@
       </div>
 
       <div class="notify-email mt-5">
-        <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Notify via
-          Email</button>
+        <a href="{{ url('/') }}" class="btn btn-primary">Go Home</a>
       </div>
     </div>
   </div>
