@@ -62,7 +62,8 @@
     <div class="container">
       <div class="cs-logo">
         <a href="home.html">
-            <img width="100px" height="100px" src="{{ asset('upload/profil/' . $profil->logo) }}" alt="">
+            <img src="{{ asset('upload/profil/' . $profil->logo) }}" alt="" style="width: 50%; height: auto;">
+
         </a>
       </div>
 
