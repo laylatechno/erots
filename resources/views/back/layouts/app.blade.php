@@ -386,6 +386,14 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/" class="nav-link <?php echo $currentPath == '/' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-globe"></i>
+                                    <p>
+                                       Lihat Website
+                                    </p>
+                                </a>
+                            </li>
                         @endif
 
                         @if (Auth::user()->role === 'pengguna')
