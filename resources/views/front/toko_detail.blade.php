@@ -188,9 +188,13 @@
                                             href="{{ route('produk_sale.produk_sale_detail', $product->slug) }}">
                                             <img src="/upload/produk/{{ $product->gambar }}"
                                                 alt="{{ $product->nama_produk }}">
-                                            <!-- Badge -->
-                                            <span class="badge bg-primary">
-                                                {{ $product->kategoriProduk->nama_kategori_produk }}</span>
+                                                @if ($product->status_diskon == 'Aktif')
+                                                <span class="badge bg-danger" style="color: white">Diskon -
+                                                    {{ $product->kategoriProduk->nama_kategori_produk }}</span>
+                                            @else
+                                                <span class="badge bg-warning" style="color: black">Sale -
+                                                    {{ $product->kategoriProduk->nama_kategori_produk }}</span>
+                                            @endif
                                         </a>
                                         <!-- Product Title -->
                                         <a class="product-title d-block text-truncate"
@@ -210,6 +214,7 @@
                                                 Rp. {{ number_format($product->harga_jual, 0, ',', '.') }}
                                             </p>
                                         @endif
+                                       
                                         <form class="add-to-cart-form" data-product-id="{{ $product->id }}">
                                             @csrf
                                             <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to

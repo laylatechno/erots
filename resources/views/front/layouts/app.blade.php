@@ -57,6 +57,15 @@
             }
         }
     </style>
+
+<style>
+    .product-thumbnail img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+        overflow: hidden;
+    }
+</style>
 </head>
 
 
