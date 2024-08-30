@@ -120,7 +120,7 @@
                                     @endif
                                 </a>
                                 <!-- Product Title -->
-                                <a class="product-title d-block text-truncate"
+                                <a class="product-title d-block  "
                                     title="{{ $p->nama_produk }}"
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">{{ $p->nama_produk }}</a>
                                 <!-- Product Description -->
