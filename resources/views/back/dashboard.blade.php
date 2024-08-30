@@ -100,6 +100,8 @@
                                 </div>
                             </div>
 
+
+
                         </div>
 
 
@@ -200,7 +202,16 @@
                         <!-- Section for the Gender-based Chart -->
                         <div class="row">
 
-
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Kunjungan Toko
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="visitorToko"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -211,13 +222,13 @@
                                         <a href="{{ $informasi->link }}">
                                             <h4><span class="badge badge-primary"> {{ $informasi->nama_informasi }}</span>
                                         </a>
-                                          
+
                                             </h4>
                                             <a href="/upload/informasi/{{ $informasi->gambar }}">
                                                 <img style="max-width:300px; max-height:300px"
                                                 src="/upload/informasi/{{ $informasi->gambar }}" alt="">
                                             </a>
-                                            
+
                                             <p> {{ $informasi->deskripsi }}</p>
                                         @endforeach
 
@@ -244,38 +255,76 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js library -->
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var visitData = @json($visits); // Data dari controller
+ <!-- Script untuk Grafik Kunjungan Website -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var visitData = @json($visits); // Data dari controller
 
-            var dates = visitData.map(v => v.date); // Ambil tanggal
-            var counts = visitData.map(v => v.count); // Ambil jumlah kunjungan
+        // Grafik Kunjungan Website
+        var dates = visitData.map(v => v.date); // Ambil tanggal
+        var counts = visitData.map(v => v.count); // Ambil jumlah kunjungan
 
-            var ctx = document.getElementById("visitors").getContext("2d");
+        var ctx = document.getElementById("visitors").getContext("2d");
 
-            new Chart(ctx, {
-                type: 'line', // Grafik garis
-                data: {
-                    labels: dates, // Label sumbu-x
-                    datasets: [{
-                        label: 'Kunjungan',
-                        data: counts, // Data sumbu-y
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Warna latar belakang
-                        borderColor: 'rgba(75, 192, 192, 1)', // Warna garis
-                        borderWidth: 1, // Lebar garis
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true, // Mulai sumbu-y dari nol
-                        },
+        new Chart(ctx, {
+            type: 'line', // Grafik garis
+            data: {
+                labels: dates, // Label sumbu-x
+                datasets: [{
+                    label: 'Kunjungan',
+                    data: counts, // Data sumbu-y
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Warna latar belakang
+                    borderColor: 'rgba(75, 192, 192, 1)', // Warna garis
+                    borderWidth: 1, // Lebar garis
+                }],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true, // Mulai sumbu-y dari nol
                     },
                 },
-            });
+            },
         });
-    </script>
+    });
+</script>
+
+<!-- Script untuk Grafik Kunjungan Toko -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var visitorTokoData = @json($visitorTokoData); // Data kunjungan toko dari controller
+
+        // Grafik Kunjungan Toko
+        var tokoDates = visitorTokoData.map(v => v.date); // Ambil tanggal
+        var tokoCounts = visitorTokoData.map(v => v.count); // Ambil jumlah kunjungan toko
+
+        var tokoCtx = document.getElementById("visitorToko").getContext("2d");
+
+        new Chart(tokoCtx, {
+            type: 'line', // Grafik garis
+            data: {
+                labels: tokoDates, // Label sumbu-x
+                datasets: [{
+                    label: 'Kunjungan Toko',
+                    data: tokoCounts, // Data sumbu-y
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // Warna latar belakang
+                    borderColor: 'rgba(54, 162, 235, 1)', // Warna garis
+                    borderWidth: 1, // Lebar garis
+                }],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true, // Mulai sumbu-y dari nol
+                    },
+                },
+            },
+        });
+    });
+</script>
+
 
 
     <script>

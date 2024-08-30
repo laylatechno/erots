@@ -11,6 +11,7 @@ use App\Models\Slider;
 use App\Models\User;
 use App\Models\Video;
 use App\Models\Visitor;
+use App\Models\VisitorToko;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,7 +31,9 @@ class DashboardController extends Controller
     {
         $title = "Halaman Dashboard";
         $subtitle = "Menu Dashboard";
-       
+
+        $userId = Auth::id(); // Ambil ID user yang sedang login
+
         // Contoh pengambilan data produk berdasarkan user_id atau pengguna tertentu
         $produkData = Cache::remember('produk_chart_data', 6, function () {
             return DB::table('produk')
@@ -38,23 +41,23 @@ class DashboardController extends Controller
                 ->groupBy('user_id')
                 ->get();
         });
-    
+
         // Persiapkan data untuk digunakan dalam grafik
         $chartData = [];
         $labels = [];
         $data = [];
-    
+
         foreach ($produkData as $produk) {
             // Ambil nama pengguna berdasarkan user_id
             $namaPengguna = User::find($produk->user_id)->name ?? 'Unknown User';
-            
+
             // Tambahkan nama pengguna ke labels
             $labels[] = $namaPengguna;
-    
+
             // Tambahkan total produk ke data
             $data[] = $produk->total_produk;
         }
-    
+
         // Format data untuk digunakan dalam Chart.js (grafik lingkaran)
         $chartData = [
             'labels' => $labels,
@@ -66,10 +69,20 @@ class DashboardController extends Controller
                 ],
             ],
         ];
-    
+
         // Ambil data kunjungan untuk grafik lainnya
         $visits = Cache::remember('visits_cache', 6, function () {
             return Visitor::where('visit_time', '>=', Carbon::now()->subWeek())
+                ->selectRaw('DATE(visit_time) as date, COUNT(*) as count')
+                ->groupBy('date')
+                ->orderBy('date')
+                ->get();
+        });
+
+        // Ambil data kunjungan dari visitor_toko berdasarkan user_id
+        $visitorTokoData = Cache::remember('visitor_toko_cache_'.$userId, 6, function () use ($userId) {
+            return VisitorToko::where('user_id', $userId)
+                ->where('visit_time', '>=', Carbon::now()->subWeek())
                 ->selectRaw('DATE(visit_time) as date, COUNT(*) as count')
                 ->groupBy('date')
                 ->orderBy('date')
@@ -81,18 +94,21 @@ class DashboardController extends Controller
         $totalBerita = Berita::count();
         $totalUser = User::count();
 
-        $userId = Auth::id();
         $totalProdukPengguna = Produk::where('user_id', $userId)->count();
         $informasiData = Informasi::where('status', 'Aktif')->orderBy('urutan')->get();
-    
-        return view('back.dashboard', compact('title', 'subtitle', 'chartData', 'visits','totalProduk','totalBerita','totalUser','totalProdukPengguna','totalKategoriProduk','informasiData'));
+
+        return view('back.dashboard', compact(
+            'title', 'subtitle', 'chartData', 'visits', 'visitorTokoData', 'totalProduk',
+            'totalBerita', 'totalUser', 'totalProdukPengguna', 'totalKategoriProduk', 'informasiData'
+        ));
     }
-    
 
 
 
 
-    
+
+
+
     public function create(): Response
     {
         dd('create');
