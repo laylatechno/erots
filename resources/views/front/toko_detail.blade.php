@@ -197,7 +197,7 @@
                                             @endif
                                         </a>
                                         <!-- Product Title -->
-                                        <a class="product-title d-block text-truncate"
+                                        <a class="product-title d-block"
                                             title="{{ $product->nama_produk }}"
                                             href="{{ route('produk_sale.produk_sale_detail', $product->slug) }}">{{ $product->nama_produk }}</a>
                                         <!-- Product Description -->
