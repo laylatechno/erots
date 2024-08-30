@@ -87,35 +87,36 @@
                                     @if ($isAdmin)
                                         <div class="col-12">
                                             <div class="form-group" id="user_id_container">
-                                                <label for="user_id">Nama User</label>
+                                                <label for="user_id">Nama User <span class="text-danger">*</span></label>
                                                 <select name="user_id" id="user_id" class="form-control select2">
                                                     @foreach ($users as $user)
                                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                     @endforeach
                                                 </select>
+                                                <small class="text-danger">Wajib diisi</small>
                                             </div>
                                         </div>
                                     @endif
 
-
                                     <div class="col-6">
                                         <div class="form-group" id="nama_produk_container">
-                                            <label for="nama_produk">Nama Produk</label>
-                                            <input type="text" class="form-control" name="nama_produk" id="nama_produk"
-                                                placeholder="Nama Produk">
+                                            <label for="nama_produk">Nama Produk <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="nama_produk" id="nama_produk" placeholder="Nama Produk">
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
+
                                     <div class="col-12" hidden>
                                         <div class="form-group" id="slug_container">
                                             <label for="slug">Slug Produk</label>
                                             <input type="text" class="form-control" name="slug" id="slug">
                                         </div>
                                     </div>
+
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="kategori_produk_id">Kategori</label>
-                                            <select class="form-control select2" name="kategori_produk_id"
-                                                id="kategori_produk_id" required>
+                                            <label for="kategori_produk_id">Kategori <span class="text-danger">*</span></label>
+                                            <select class="form-control select2" name="kategori_produk_id" id="kategori_produk_id">
                                                 <option value="">--Pilih Kategori--</option>
                                                 @foreach ($kategoriProduk as $kategori)
                                                     <option value="{{ $kategori->id }}">
@@ -123,42 +124,24 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
+
                                     <div class="col-6">
                                         <div class="form-group" id="harga_beli_container">
                                             <label for="harga_beli">Harga Beli</label>
-                                            <input type="text" class="form-control " name="harga_beli" id="harga_beli"
-                                                placeholder="Harga Beli">
+                                            <input type="text" class="form-control " name="harga_beli" id="harga_beli" placeholder="Harga Beli">
                                         </div>
                                     </div>
+
                                     <div class="col-6">
                                         <div class="form-group" id="harga_jual_container">
-                                            <label for="harga_jual">Harga Jual</label>
-                                            <input type="text" class="form-control " name="harga_jual" id="harga_jual"
-                                                placeholder="Harga Jual">
+                                            <label for="harga_jual">Harga Jual <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control " name="harga_jual" id="harga_jual" placeholder="Harga Jual">
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
-
-                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-                                    <script>
-                                        $(document).ready(function() {
-                                            // Event handler saat input berubah pada input harga_beli dan harga_jual
-                                            $('#harga_beli, #harga_jual, #harga_jual_diskon').on('input', function(e) {
-                                                var inputVal = $(this).val().replace(/[^\d]/g, ''); // Hapus semua karakter non-digit
-                                                var formattedVal = addThousandSeparator(inputVal);
-                                                $(this).val(formattedVal);
-                                            });
-
-                                            // Fungsi untuk menambahkan separator ribuan
-                                            function addThousandSeparator(num) {
-                                                var parts = num.toString().split(".");
-                                                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                                return parts.join(".");
-                                            }
-                                        });
-                                    </script>
 
                                     <div class="col-12">
                                         <div class="form-group" id="deskripsi_container">
@@ -170,75 +153,29 @@
                                     <div class="col-6">
                                         <div class="form-group" id="stok_container">
                                             <label for="stok">Stok</label>
-                                            <input type="number" class="form-control" name="stok" id="stok"
-                                                placeholder="Stok">
+                                            <input type="number" class="form-control" name="stok" id="stok" placeholder="Stok">
                                         </div>
                                     </div>
 
                                     <div class="col-6">
                                         <div class="form-group" id="gambar_container">
-                                            <label for="gambar">Gambar</label>
-                                            <input type="file" class="form-control" name="gambar" id="gambar"
-                                                onchange="previewImage()">
-                                            <canvas id="preview_canvas"
-                                                style="display: none; max-width: 100%; margin-top: 10px;"></canvas>
-                                            <img id="preview_image" src="#" alt="Preview Gambar"
-                                                style="display: none; max-width: 100%; margin-top: 10px;">
+                                            <label for="gambar">Gambar <span class="text-danger">*</span></label>
+                                            <input type="file" class="form-control" name="gambar" id="gambar" onchange="previewImage()">
+                                            <canvas id="preview_canvas" style="display: none; max-width: 100%; margin-top: 10px;"></canvas>
+                                            <img id="preview_image" src="#" alt="Preview Gambar" style="display: none; max-width: 100%; margin-top: 10px;">
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
 
-                                    <script>
-                                        function previewImage() {
-                                            var previewCanvas = document.getElementById('preview_canvas');
-                                            var previewImage = document.getElementById('preview_image');
-                                            var fileInput = document.getElementById('gambar');
-                                            var file = fileInput.files[0];
-                                            var reader = new FileReader();
-
-                                            reader.onload = function(e) {
-                                                var img = new Image();
-                                                img.src = e.target.result;
-
-                                                img.onload = function() {
-                                                    var canvasContext = previewCanvas.getContext('2d');
-                                                    var maxWidth = 200; // Max width untuk pratinja gambar
-
-                                                    var scaleFactor = maxWidth / img.width;
-                                                    var newHeight = img.height * scaleFactor;
-
-                                                    previewCanvas.width = maxWidth;
-                                                    previewCanvas.height = newHeight;
-
-                                                    canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
-
-                                                    // Menampilkan pratinja gambar setelah diperkecil
-                                                    previewCanvas.style.display = 'block';
-                                                    previewImage.style.display = 'none';
-                                                };
-                                            };
-
-                                            if (file) {
-                                                reader.readAsDataURL(file); // Membaca file yang dipilih sebagai URL data
-                                            } else {
-                                                previewImage.src = '';
-                                                previewCanvas.style.display = 'none'; // Menyembunyikan pratinja gambar jika tidak ada file yang dipilih
-                                            }
-                                        }
-                                    </script>
-
                                     <div class="col-6">
                                         <div class="form-group" id="status_container">
-                                            <label for="status_edit">Status</label>
+                                            <label for="status_edit">Status <span class="text-danger">*</span></label>
                                             <select class="form-control" name="status" id="status_edit">
                                                 <option value="">--Pilih Status--</option>
-                                                <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>
-                                                    Aktif
-                                                </option>
-                                                <option value="Non Aktif"
-                                                    {{ old('status') == 'Non Aktif' ? 'selected' : '' }}>
-                                                    Non Aktif
-                                                </option>
+                                                <option value="Aktif" selected>Aktif</option>
+                                                <option value="Non Aktif">Non Aktif</option>
                                             </select>
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
 
@@ -247,77 +184,46 @@
                                             <label for="status_diskon_edit">Status Diskon</label>
                                             <select class="form-control" name="status_diskon" id="status_diskon_edit">
                                                 <option value="">--Pilih Status Diskon--</option>
-                                                <option value="Aktif"
-                                                    {{ old('status_diskon') == 'Aktif' ? 'selected' : '' }}>
-                                                    Aktif
-                                                </option>
-                                                <option value="Non Aktif"
-                                                    {{ old('status_diskon') == 'Non Aktif' ? 'selected' : '' }}>
-                                                    Non Aktif
-                                                </option>
+                                                <option value="Aktif" >Aktif</option>
+                                                <option value="Non Aktif">Non Aktif</option>
                                             </select>
+
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-group" id="harga_jual_diskon_container">
                                             <label for="harga_jual_diskon">Harga Jual Diskon</label>
-                                            <input type="text" class="form-control" name="harga_jual_diskon"
-                                                id="harga_jual_diskon" placeholder="Harga Jual Diskon">
+                                            <input type="text" class="form-control" name="harga_jual_diskon" id="harga_jual_diskon" placeholder="Harga Jual Diskon">
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-group" id="youtube_container">
                                             <label for="youtube">Embed Youtube</label>
-                                            <input type="text" class="form-control" name="youtube"
-                                                id="youtube" placeholder="Embed Youtube">
+                                            <input type="text" class="form-control" name="youtube" id="youtube" placeholder="Embed Youtube">
                                         </div>
                                     </div>
-
-                                    <script>
-                                        $(document).ready(function() {
-                                            // Event handler saat input berubah pada input harga_beli dan harga_jual
-                                            $('#harga_beli, #harga_jual, #harga_jual_diskon').on('input', function(e) {
-                                                var inputVal = $(this).val().replace(/[^\d]/g, ''); // Hapus semua karakter non-digit
-                                                var formattedVal = addThousandSeparator(inputVal);
-                                                $(this).val(formattedVal);
-                                            });
-
-                                            // Fungsi untuk menambahkan separator ribuan
-                                            function addThousandSeparator(num) {
-                                                var parts = num.toString().split(".");
-                                                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                                return parts.join(".");
-                                            }
-                                        });
-                                    </script>
 
                                     @if ($isAdmin)
                                         <div class="col-12">
                                             <div class="form-group" id="urutan_container">
                                                 <label for="urutan">Urutan</label>
-                                                <input type="number" class="form-control" name="urutan" id="urutan"
-                                                    placeholder="Urutan">
+                                                <input type="number" class="form-control" name="urutan" id="urutan" placeholder="Urutan">
                                             </div>
                                         </div>
                                     @endif
-
-
-
 
                                 </div>
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary" id="btn-save-tambah"><i
-                                            class="fas fa-save"></i> Simpan</button>
-                                    <button type="button" class="btn btn-danger float-right" data-dismiss="modal"><span
-                                            aria-hidden="false">&times;</span> Close</button>
-
+                                    <button type="submit" class="btn btn-primary" id="btn-save-tambah"><i class="fas fa-save"></i> Simpan</button>
+                                    <button type="button" class="btn btn-danger float-right" data-dismiss="modal"><span aria-hidden="false">&times;</span> Close</button>
                                 </div>
                             </div>
                         </form>
+
 
                     </div>
                     <!-- /.card -->
@@ -356,13 +262,12 @@
                             <input type="hidden" id="id" name="id" />
                             <!-- Input hidden untuk menyimpan ID -->
                             <div class="card-body">
-
                                 <div class="row">
                                     @if ($isAdmin)
                                         <div class="col-12">
                                             <div class="form-group" id="user_id_edit_container">
-                                                <label for="user_id_edit">Nama User</label>
-                                                <select name="user_id" id="user_id_edit" class="form-control select2">
+                                                <label for="user_id_edit">Nama User <span class="text-danger">*</span></label>
+                                                <select name="user_id" id="user_id_edit" class="form-control select2" required>
                                                     @foreach ($users as $user)
                                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                     @endforeach
@@ -373,22 +278,23 @@
 
                                     <div class="col-6">
                                         <div class="form-group" id="nama_produk_edit_container">
-                                            <label for="nama_produk_edit">Nama Produk</label>
-                                            <input type="text" class="form-control" name="nama_produk"
-                                                id="nama_produk_edit" placeholder="Nama Produk">
+                                            <label for="nama_produk_edit">Nama Produk <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="nama_produk" id="nama_produk_edit" placeholder="Nama Produk" required>
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
+
                                     <div class="col-12" hidden>
                                         <div class="form-group" id="slug_edit_container">
                                             <label for="slug_edit">Slug Produk</label>
                                             <input type="text" class="form-control" name="slug" id="slug_edit">
                                         </div>
                                     </div>
+
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="kategori_produk_id_edit">Kategori</label>
-                                            <select class="form-control select2" name="kategori_produk_id"
-                                                id="kategori_produk_id_edit" required>
+                                            <label for="kategori_produk_id_edit">Kategori <span class="text-danger">*</span></label>
+                                            <select class="form-control select2" name="kategori_produk_id" id="kategori_produk_id_edit" required>
                                                 <option value="">--Pilih Kategori--</option>
                                                 @foreach ($kategoriProduk as $kategori)
                                                     <option value="{{ $kategori->id }}">
@@ -396,96 +302,59 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
+
                                     <div class="col-6">
                                         <div class="form-group" id="harga_beli__edit_container">
-                                            <label for="harga_beli_edit">Harga Beli</label>
-                                            <input type="text" class="form-control" name="harga_beli"
-                                                id="harga_beli_edit" placeholder="Harga Beli">
+                                            <label for="harga_beli_edit">Harga Beli <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="harga_beli" id="harga_beli_edit" placeholder="Harga Beli" required>
                                         </div>
                                     </div>
+
                                     <div class="col-6">
                                         <div class="form-group" id="harga_jual__edit_container">
-                                            <label for="harga_jual_edit">Harga Jual</label>
-                                            <input type="text" class="form-control" name="harga_jual"
-                                                id="harga_jual_edit" placeholder="Harga Jual">
+                                            <label for="harga_jual_edit">Harga Jual <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="harga_jual" id="harga_jual_edit" placeholder="Harga Jual" required>
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-group" id="deskripsi_edit_container">
-                                            <label for="deskripsi_edit">Deskripsi</label>
-                                            <textarea class="form-control" name="deskripsi" id="deskripsi_edit" cols="30" rows="2"></textarea>
+                                            <label for="deskripsi_edit">Deskripsi  </label>
+                                            <textarea class="form-control" name="deskripsi" id="deskripsi_edit" cols="30" rows="2" required></textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-6">
                                         <div class="form-group" id="stok__edit_container">
-                                            <label for="stok_edit">Stok</label>
-                                            <input type="number" class="form-control" name="stok" id="stok_edit"
-                                                placeholder="Stok">
+                                            <label for="stok_edit">Stok  </label>
+                                            <input type="number" class="form-control" name="stok" id="stok_edit" placeholder="Stok" required>
                                         </div>
                                     </div>
 
                                     <div class="col-6">
                                         <div class="form-group" id="gambar__edit_container">
-                                            <label for="gambar_edit">Gambar</label>
-                                            <input type="file" class="form-control" name="gambar" id="gambar_edit"
-                                                onchange="previewImage()">
-                                            <canvas id="preview_canvas_edit"
-                                                style="display: none; max-width: 100%; margin-top: 10px;"></canvas>
-                                            <img id="preview_image_edit" src="#" alt="Preview Gambar"
-                                                style="display: none; max-width: 100%; margin-top: 10px;">
+                                            <label for="gambar_edit">Gambar <span class="text-danger">*</span></label>
+                                            <input type="file" class="form-control" name="gambar" id="gambar_edit" onchange="previewImage()" required>
+                                            <canvas id="preview_canvas_edit" style="display: none; max-width: 100%; margin-top: 10px;"></canvas>
+                                            <img id="preview_image_edit" src="#" alt="Preview Gambar" style="display: none; max-width: 100%; margin-top: 10px;">
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
+
                                     </div>
 
-                                    <script>
-                                        function previewImage() {
-                                            var previewCanvas = document.getElementById('preview_canvas_edit');
-                                            var previewImage = document.getElementById('preview_image_edit');
-                                            var fileInput = document.getElementById('gambar_edit');
-                                            var file = fileInput.files[0];
-                                            var reader = new FileReader();
-
-                                            reader.onload = function(e) {
-                                                var img = new Image();
-                                                img.src = e.target.result;
-
-                                                img.onload = function() {
-                                                    var canvasContext = previewCanvas.getContext('2d');
-                                                    var maxWidth = 200; // Max width untuk pratinja gambar
-
-                                                    var scaleFactor = maxWidth / img.width;
-                                                    var newHeight = img.height * scaleFactor;
-
-                                                    previewCanvas.width = maxWidth;
-                                                    previewCanvas.height = newHeight;
-
-                                                    canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
-
-                                                    // Menampilkan pratinja gambar setelah diperkecil
-                                                    previewCanvas.style.display = 'block';
-                                                    previewImage.style.display = 'none';
-                                                };
-                                            };
-
-                                            if (file) {
-                                                reader.readAsDataURL(file); // Membaca file yang dipilih sebagai URL data
-                                            } else {
-                                                previewImage.src = '';
-                                                previewCanvas.style.display = 'none'; // Menyembunyikan pratinja gambar jika tidak ada file yang dipilih
-                                            }
-                                        }
-                                    </script>
                                     <div class="col-6">
                                         <div class="form-group" id="status_edit_container">
-                                            <label for="status_edit">Status</label>
-                                            <select class="form-control" name="status" id="status_edit">
+                                            <label for="status_edit">Status <span class="text-danger">*</span></label>
+                                            <select class="form-control" name="status" id="status_edit" required>
                                                 <option value="">--Pilih Status--</option>
                                                 <option value="Aktif">Aktif</option>
                                                 <option value="Non Aktif">Non Aktif</option>
                                             </select>
+                                            <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
 
@@ -500,63 +369,37 @@
                                         </div>
                                     </div>
 
-
-
                                     <div class="col-12">
                                         <div class="form-group" id="harga_jual_diskon_edit_container">
                                             <label for="harga_jual_diskon_edit">Harga Jual Diskon</label>
-                                            <input type="text" class="form-control" name="harga_jual_diskon"
-                                                id="harga_jual_diskon_edit" placeholder="Harga Jual Diskon">
+                                            <input type="text" class="form-control" name="harga_jual_diskon" id="harga_jual_diskon_edit" placeholder="Harga Jual Diskon">
                                         </div>
                                     </div>
+
                                     <div class="col-12">
                                         <div class="form-group" id="youtube_edit_container">
                                             <label for="youtube_edit">Embed Youtube</label>
-                                            <input type="text" class="form-control" name="youtube"
-                                                id="youtube_edit" placeholder="Embed Youtube">
+                                            <input type="text" class="form-control" name="youtube" id="youtube_edit" placeholder="Embed Youtube">
                                         </div>
                                     </div>
-                                </div>
 
-                                <script>
-                                    $(document).ready(function() {
-                                        // Event handler saat input berubah pada input harga_beli dan harga_jual
-                                        $('#harga_beli_edit, #harga_jual_edit, #harga_jual_diskon_edit').on('input', function(
-                                            e) {
-                                            var inputVal = $(this).val().replace(/[^\d]/g, ''); // Hapus semua karakter non-digit
-                                            var formattedVal = addThousandSeparator(inputVal);
-                                            $(this).val(formattedVal);
-                                        });
-
-                                        // Fungsi untuk menambahkan separator ribuan
-                                        function addThousandSeparator(num) {
-                                            var parts = num.toString().split(".");
-                                            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                            return parts.join(".");
-                                        }
-                                    });
-                                </script>
-                                @if ($isAdmin)
-                                    <div class="col-12">
-                                        <div class="form-group" id="urutan_edit_container">
-                                            <label for="urutan_edit">Urutan</label>
-                                            <input type="number" class="form-control" name="urutan" id="urutan_edit"
-                                                placeholder="Urutan">
+                                    @if ($isAdmin)
+                                        <div class="col-12">
+                                            <div class="form-group" id="urutan_edit_container">
+                                                <label for="urutan_edit">Urutan</label>
+                                                <input type="number" class="form-control" name="urutan" id="urutan_edit" placeholder="Urutan" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endif
-
-                                <!-- /.card-body -->
-
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary" id="btn-save-edit"><i
-                                            class="fas fa-save"></i> Simpan</button>
-                                    <button type="button" class="btn btn-danger float-right" data-dismiss="modal"><span
-                                            aria-hidden="true">&times;</span> Close</button>
-
+                                    @endif
                                 </div>
                             </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" id="btn-save-edit"><i class="fas fa-save"></i> Simpan</button>
+                                <button type="button" class="btn btn-danger float-right" data-dismiss="modal"><span aria-hidden="true">&times;</span> Close</button>
+                            </div>
                         </form>
+
 
                     </div>
                     <!-- /.card -->

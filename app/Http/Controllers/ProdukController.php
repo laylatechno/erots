@@ -109,15 +109,14 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk' => 'required|min:4',
             'kategori_produk_id' => 'required',
-            'harga_beli' => 'nullable',
-            'harga_jual' => 'nullable',
-            'youtube' => 'nullable',
-            'stok' => 'nullable|numeric',
-            'gambar' => 'nullable|image|mimes:jpeg,jpg,png|max:6144',
+            'harga_jual' => 'required',
+
+            'gambar' => 'image|mimes:jpeg,jpg,png|max:6144',
         ], [
             'nama_produk.required' => 'Nama produk wajib diisi',
+            'harga_jual.required' => 'Harga Jual produk wajib diisi',
             'kategori_produk_id.required' => 'Kategori produk wajib diisi',
-            'stok.numeric' => 'Stok harus berupa angka',
+        
             'gambar.image' => 'Gambar harus dalam format jpeg, jpg, atau png',
             'gambar.mimes' => 'Format gambar harus jpeg, jpg, atau png',
             'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
@@ -260,15 +259,14 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk' => 'required|min:4',
             'kategori_produk_id' => 'required',
-            'youtube' => 'nullable',
-            'harga_beli' => 'nullable',
-            'harga_jual' => 'nullable',
-            'stok' => 'nullable|numeric',
-            'gambar' => 'nullable|image|mimes:jpeg,jpg,png|max:6144',
+            'harga_jual' => 'required',
+
+            'gambar' => 'image|mimes:jpeg,jpg,png|max:6144',
         ], [
             'nama_produk.required' => 'Nama produk wajib diisi',
+            'harga_jual.required' => 'Harga Jual produk wajib diisi',
             'kategori_produk_id.required' => 'Kategori produk wajib diisi',
-            'stok.numeric' => 'Stok harus berupa angka',
+
             'gambar.image' => 'Gambar harus dalam format jpeg, jpg, atau png',
             'gambar.mimes' => 'Format gambar harus jpeg, jpg, atau png',
             'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
