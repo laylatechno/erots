@@ -61,10 +61,10 @@
                         $orderDetails = "Orderan Saya di {$profil->nama_perusahaan}:\n\n" . $cartItems->map(function($item) {
                             return "{$item['nama_produk']} - Rp." . number_format($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual'], 0, ',', '.') . " x {$item['quantity']} = Rp." . number_format(($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual']) * $item['quantity'], 0, ',', '.');
                         })->implode("\n") . "\n\nTotal: Rp." . number_format($total, 0, ',', '.');
-        
+
                         $waUrl = "https://wa.me/{$user->wa_number}?text=" . urlencode($orderDetails);
                     @endphp
-        
+
                     <div class="cart-wrapper-area">
                         <div class="cart-table card mb-3">
                             <div class="card-header">
@@ -113,7 +113,7 @@
                                     </tbody>
                                 </table>
                             </div>
-        
+
                             <div class="total-price-wrapper">
                                 <h6>Total: Rp. {{ number_format($total, 0, ',', '.') }}</h6>
                             </div>
@@ -130,13 +130,15 @@
                 @endforeach
             @endif
         </div>
-        
-        {{-- <div class="container">
+
+        <div class="container">
             @if ($allCartItems->isNotEmpty())
                 <div class="cart-wrapper-area">
                     <div class="cart-table card mb-3">
                         <div class="card-header">
                             <h5 class="card-title">KERANJANG SEMUA PRODUK</h5>
+                            <hr>
+                            <h6>Hanya dengan menambah biaya sebesar <b>Rp. 3.000</b> anda bisa sekaligus memesan pesanan dalam satu kali proses checkout via admin.</h6>
                         </div>
                         <div class="table-responsive card-body">
                             <table class="table mb-0 text-center">
@@ -181,48 +183,48 @@
                                 </tbody>
                             </table>
                         </div>
-    
+
                         @php
                         $total = $allCartItems->sum(function($item) {
                             return ($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual']) * $item['quantity'];
                         });
-                    
+
                         // Membuat pesan orderan untuk WhatsApp
                         $orderDetails = "Orderan Saya di {$profil->nama_perusahaan}:\n\n" . implode("\n", array_map(function($item) {
                             return "{$item['nama_produk']} - Rp." . number_format($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual'], 0, ',', '.') . " x {$item['quantity']} = Rp." . number_format(($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual']) * $item['quantity'], 0, ',', '.');
                         }, $allCartItems->toArray())) . "\n\nTotal: Rp." . number_format($total, 0, ',', '.');
-                    
+
                         $waUrl = "https://wa.me/{$profil->no_wa}?text=" . urlencode($orderDetails);
                     @endphp
-                    
-    
+
+
                         <div class="total-price-wrapper">
                             <h6>Total: Rp. {{ number_format($total, 0, ',', '.') }}</h6>
                         </div>
                         <div class="card-body border-top">
                             <div class="apply-coupon">
                                 <div class="coupon-form">
-                                    <a href="{{ $waUrl }}" class="btn btn-success w-100 mt-3" target="_blank"><i class="bi bi-whatsapp"></i> Checkout Via WhatsApp</a>
+                                    <a href="{{ $waUrl }}" class="btn btn-success w-100 mt-3" target="_blank"><i class="bi bi-whatsapp"></i> Checkout Semua Produk Via WhatsApp Admin</a>
                                     <a href="{{ route('cart.reset') }}" class="btn btn-danger w-100 mt-3" onclick="return confirm('Apakah Anda yakin ingin mengosongkan keranjang?')"><i class="bi bi-cart"></i> Reset Keranjang</a>
                                     @if (Auth::check() && Auth::user()->role == 'member')
                                     <a href="{{ route('checkout') }}" class="btn btn-primary w-100 mt-3">
                                         <i class="bi bi-credit-card"></i> Checkout
                                     </a>
                                 @else
-                                    <a href="{{ route('auth') }}" class="btn btn-primary w-100 mt-3">
+                                    {{-- <a href="{{ route('auth') }}" class="btn btn-primary w-100 mt-3">
                                         <i class="bi bi-box-arrow-in-right"></i> Login
-                                    </a>
+                                    </a> --}}
                                 @endif
-                                
+
                                 </div>
                             </div>
                         </div>
-                   
 
-                        
+
+
                     </div>
                 </div>
             @endif
-        </div> --}}
+        </div>
     </div>
 @endsection
