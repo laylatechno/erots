@@ -166,6 +166,44 @@
                                             <small class="text-danger">Wajib diisi</small>
                                         </div>
                                     </div>
+                                    <script>
+                                        function previewImage() {
+                                            var previewCanvas = document.getElementById('preview_canvas');
+                                            var previewImage = document.getElementById('preview_image');
+                                            var fileInput = document.getElementById('gambar');
+                                            var file = fileInput.files[0];
+                                            var reader = new FileReader();
+
+                                            reader.onload = function(e) {
+                                                var img = new Image();
+                                                img.src = e.target.result;
+
+                                                img.onload = function() {
+                                                    var canvasContext = previewCanvas.getContext('2d');
+                                                    var maxWidth = 200; // Max width untuk pratinja gambar
+
+                                                    var scaleFactor = maxWidth / img.width;
+                                                    var newHeight = img.height * scaleFactor;
+
+                                                    previewCanvas.width = maxWidth;
+                                                    previewCanvas.height = newHeight;
+
+                                                    canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
+
+                                                    // Menampilkan pratinja gambar setelah diperkecil
+                                                    previewCanvas.style.display = 'block';
+                                                    previewImage.style.display = 'none';
+                                                };
+                                            };
+
+                                            if (file) {
+                                                reader.readAsDataURL(file); // Membaca file yang dipilih sebagai URL data
+                                            } else {
+                                                previewImage.src = '';
+                                                previewCanvas.style.display = 'none'; // Menyembunyikan pratinja gambar jika tidak ada file yang dipilih
+                                            }
+                                        }
+                                    </script>
 
                                     <div class="col-6">
                                         <div class="form-group" id="status_container">
@@ -338,13 +376,52 @@
                                     <div class="col-6">
                                         <div class="form-group" id="gambar__edit_container">
                                             <label for="gambar_edit">Gambar <span class="text-danger">*</span></label>
-                                            <input type="file" class="form-control" name="gambar" id="gambar_edit" onchange="previewImage()" required>
+                                            <input type="file" class="form-control" name="gambar" id="gambar_edit" onchange="previewImage_edit()" required>
                                             <canvas id="preview_canvas_edit" style="display: none; max-width: 100%; margin-top: 10px;"></canvas>
                                             <img id="preview_image_edit" src="#" alt="Preview Gambar" style="display: none; max-width: 100%; margin-top: 10px;">
                                             <small class="text-danger">Wajib diisi</small>
                                         </div>
-
                                     </div>
+                                    <script>
+                                        function previewImage_edit() {
+                                            var previewCanvas_edit = document.getElementById('preview_canvas_edit');
+                                            var previewImage_edit = document.getElementById('preview_image_edit');
+                                            var fileInput_edit = document.getElementById('gambar_edit'); // Mengubah id menjadi gambar_edit
+                                            var file_edit = fileInput_edit.files[0];
+                                            var reader_edit = new FileReader();
+
+                                            reader_edit.onload = function(e) {
+                                                var img = new Image();
+                                                img.src = e.target.result;
+
+                                                img.onload = function() {
+                                                    var canvasContext = previewCanvas_edit.getContext('2d');
+                                                    var maxWidth = 200; // Max width untuk pratinja gambar
+
+                                                    var scaleFactor = maxWidth / img.width;
+                                                    var newHeight = img.height * scaleFactor;
+
+                                                    previewCanvas_edit.width = maxWidth;
+                                                    previewCanvas_edit.height = newHeight;
+
+                                                    canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
+
+                                                    // Menampilkan pratinja gambar setelah diperkecil
+                                                    previewCanvas_edit.style.display = 'block';
+                                                    previewImage_edit.style.display = 'none';
+                                                };
+                                            };
+
+                                            if (file_edit) {
+                                                reader_edit.readAsDataURL(file_edit); // Membaca file yang dipilih sebagai URL data
+                                            } else {
+                                                previewImage_edit.src = '';
+                                                previewCanvas_edit.style.display =
+                                                    'none'; // Menyembunyikan pratinja gambar jika tidak ada file yang dipilih
+                                            }
+                                        }
+                                    </script>
+
 
                                     <div class="col-6">
                                         <div class="form-group" id="status_edit_container">
