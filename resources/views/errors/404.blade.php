@@ -60,11 +60,9 @@
   <!-- Page Content Wrapper -->
   <div class="coming-soon-wrapper bg-white text-center bg-overlay" style="background-image: url('{{ asset('themplete/front') }}/img/bg-img/26.jpg')">
     <div class="container">
-
         <a href="/">
-            <img src="{{ asset('upload/profil/' . $profil->logo) }}" alt="" style="width: 50%; height:50%;">
-
-        </a>
+            <img src="{{ asset('upload/profil/' . $profil->logo) }}" alt="" style="width: 50%;">
+         </a>
 
 
       <h2 class="text-white display-3">404 - Oops! Page Not Found</h2>
