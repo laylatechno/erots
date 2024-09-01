@@ -64,8 +64,6 @@
         <a href="/">
            <img src="{{ asset('upload/profil/' . $profil->logo) }}" alt="" style="width: 50%;">
         </a>
-
-
       <h2 class="text-white display-3">500 - Oops! Something Went Wrong</h2>
       <p class="text-white">We're experiencing an internal server issue.</p>
       <p class="text-white">Please try again later, or contact support if the problem persists.</p>

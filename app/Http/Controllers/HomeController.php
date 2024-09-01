@@ -117,11 +117,13 @@ class HomeController extends Controller
             ->take(9)
             ->get();
 
+        $berita = Berita::with('kategoriBerita')->orderBy('id', 'desc')->paginate(10);
 
 
 
 
-        return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga'));
+
+        return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga','berita'));
     }
 
 
