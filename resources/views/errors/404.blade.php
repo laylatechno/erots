@@ -62,10 +62,10 @@
     <div class="container">
 
         <a href="/">
-            <img src="{{ asset('upload/profil/' . $profil->logo) }}" alt="" style="width: 50%; height: auto;">
+            <img src="{{ asset('upload/profil/' . $profil->logo) }}" alt="" style="width: 50%; height:50%;">
 
         </a>
-    
+
 
       <h2 class="text-white display-3">404 - Oops! Page Not Found</h2>
       <p class="text-white">The page you're looking for doesn't exist or has been moved</p>
