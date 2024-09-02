@@ -37,7 +37,8 @@ class ProdukController extends Controller
 
         // Ambil produk terkait dengan pengguna tertentu jika bukan administrator
         // $produk = $isAdmin ? Produk::all() : auth()->user()->produk()->get();
-        $produk = $isAdmin ? Produk::all() : auth()->user()->produk;
+        $produk = $isAdmin ? Produk::orderBy('id', 'desc')->get() : auth()->user()->produk()->orderBy('id', 'desc')->get();
+
 
         return view('back.produk.index', compact('title', 'subtitle', 'kategoriProduk', 'users', 'produk', 'isAdmin'));
     }
@@ -116,7 +117,7 @@ class ProdukController extends Controller
             'nama_produk.required' => 'Nama produk wajib diisi',
             'harga_jual.required' => 'Harga Jual produk wajib diisi',
             'kategori_produk_id.required' => 'Kategori produk wajib diisi',
-        
+
             'gambar.image' => 'Gambar harus dalam format jpeg, jpg, atau png',
             'gambar.mimes' => 'Format gambar harus jpeg, jpg, atau png',
             'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
