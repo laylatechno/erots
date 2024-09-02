@@ -56,9 +56,14 @@ class ProdukController extends Controller
             $userId = auth()->id(); // Id pengguna yang sedang login
 
             if ($isAdmin) {
-                $data = Produk::with(['kategoriProduk', 'user'])->get();
+                // Urutkan produk berdasarkan id terbaru
+                $data = Produk::with(['kategoriProduk', 'user'])->orderBy('id', 'desc')->get();
             } else {
-                $data = Produk::where('user_id', $userId)->with(['kategoriProduk', 'user'])->get();
+                // Urutkan produk berdasarkan id terbaru dan filter berdasarkan user_id
+                $data = Produk::where('user_id', $userId)
+                              ->with(['kategoriProduk', 'user'])
+                              ->orderBy('id', 'desc')
+                              ->get();
             }
 
             return Datatables::of($data)
@@ -89,6 +94,7 @@ class ProdukController extends Controller
 
         return response()->json(['error' => 'Unauthorized access'], 403); // Menangani akses tidak sah
     }
+
 
 
 
