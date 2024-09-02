@@ -37,7 +37,7 @@ class ProdukController extends Controller
 
         // Ambil produk terkait dengan pengguna tertentu jika bukan administrator
         // $produk = $isAdmin ? Produk::all() : auth()->user()->produk()->get();
-        $produk = $isAdmin ? Produk::orderBy('id', 'desc')->get() : auth()->user()->produk()->orderBy('id', 'desc')->get();
+        $produk = $isAdmin ? Produk::orderBy('urutan', 'desc')->get() : auth()->user()->produk()->orderBy('urutan', 'desc')->get();
 
 
         return view('back.produk.index', compact('title', 'subtitle', 'kategoriProduk', 'users', 'produk', 'isAdmin'));
