@@ -117,7 +117,7 @@ class HomeController extends Controller
             ->take(9)
             ->get();
 
-        $berita = Berita::with('kategoriBerita')->orderBy('id', 'desc')->paginate(10);
+        $berita = Berita::with('kategoriBerita')->orderBy('id', 'desc');
 
 
 
