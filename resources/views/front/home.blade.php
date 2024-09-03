@@ -134,7 +134,7 @@
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
                                     <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     @if ($p->status_diskon == 'Aktif')
-                                        <span class="badge bg-danger" style="color: white">Diskon -
+                                        <span class="badge bg-danger" style="color: white">Disk -
                                             {{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                     @else
                                         <span class="badge bg-warning" style="color: black">Sale -
@@ -282,7 +282,7 @@
                                         href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
                                         <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                         @if ($p->status_diskon == 'Aktif')
-                                            <span class="badge bg-danger" style="color: white">Diskon -
+                                            <span class="badge bg-danger" style="color: white">Disk -
                                                 {{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                         @else
                                             <span class="badge bg-warning" style="color: black">Sale -
@@ -346,7 +346,7 @@
                                         href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
                                         <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                         @if ($p->status_diskon == 'Aktif')
-                                            <span class="badge bg-danger" style="color: white">Diskon -
+                                            <span class="badge bg-danger" style="color: white">Disk -
                                                 {{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                         @else
                                             <span class="badge bg-warning" style="color: black">Sale -
@@ -412,7 +412,7 @@
                                         href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
                                         <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                         @if ($p->status_diskon == 'Aktif')
-                                            <span class="badge bg-danger" style="color: white">Diskon -
+                                            <span class="badge bg-danger" style="color: white">Disk -
                                                 {{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                         @else
                                             <span class="badge bg-warning" style="color: black">Sale -
@@ -484,7 +484,7 @@
                                         href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
                                         <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                         @if ($p->status_diskon == 'Aktif')
-                                            <span class="badge bg-danger" style="color: white">Diskon -
+                                            <span class="badge bg-danger" style="color: white">Disk -
                                                 {{ $p->kategoriProduk->nama_kategori_produk }}</span>
                                         @else
                                             <span class="badge bg-warning" style="color: black">Sale -
