@@ -189,11 +189,17 @@
                                             <img src="/upload/produk/{{ $product->gambar }}"
                                                 alt="{{ $product->nama_produk }}">
                                                 @if ($product->status_diskon == 'Aktif')
-                                                <span class="badge bg-danger" style="color: white">Diskon -
-                                                    {{ $product->kategoriProduk->nama_kategori_produk }}</span>
+                                                <span class="badge bg-danger"
+                                                    style="color: white; position: absolute; bottom: 10px; right: 10px;
+                                                          padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                                    {{ $product->kategoriProduk->nama_kategori_produk }}
+                                                </span>
                                             @else
-                                                <span class="badge bg-warning" style="color: black">Sale -
-                                                    {{ $product->kategoriProduk->nama_kategori_produk }}</span>
+                                                <span class="badge bg-warning"
+                                                    style="color: black; position: absolute; bottom: 10px; right: 10px;
+                                                          padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                                    {{ $product->kategoriProduk->nama_kategori_produk }}
+                                                </span>
                                             @endif
                                         </a>
                                         <!-- Product Title -->
@@ -214,7 +220,7 @@
                                                 Rp. {{ number_format($product->harga_jual, 0, ',', '.') }}
                                             </p>
                                         @endif
-                                       
+
                                         <form class="add-to-cart-form" data-product-id="{{ $product->id }}">
                                             @csrf
                                             <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to

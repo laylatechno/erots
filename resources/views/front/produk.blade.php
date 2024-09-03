@@ -116,11 +116,17 @@
                                     <img src="/upload/produk/{{ $p->gambar }}"
                                         alt="{{ $p->nama_produk }}">
                                         @if ($p->status_diskon == 'Aktif')
-                                        <span class="badge bg-danger" style="color: white">Diskon -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                        <span class="badge bg-danger"
+                                            style="color: white; position: absolute; bottom: 10px; right: 10px;
+                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                            {{ $p->kategoriProduk->nama_kategori_produk }}
+                                        </span>
                                     @else
-                                        <span class="badge bg-warning" style="color: black">Sale -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                        <span class="badge bg-warning"
+                                            style="color: black; position: absolute; bottom: 10px; right: 10px;
+                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                            {{ $p->kategoriProduk->nama_kategori_produk }}
+                                        </span>
                                     @endif
                                 </a>
                                 <!-- Product Title -->

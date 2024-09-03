@@ -134,12 +134,18 @@
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
                                     <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     @if ($p->status_diskon == 'Aktif')
-                                        <span class="badge bg-danger" style="color: white">Disk -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
-                                    @else
-                                        <span class="badge bg-warning" style="color: black">Sale -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
-                                    @endif
+                                    <span class="badge bg-danger"
+                                        style="color: white; position: absolute; bottom: 10px; right: 10px;
+                                              padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                        {{ $p->kategoriProduk->nama_kategori_produk }}
+                                    </span>
+                                @else
+                                    <span class="badge bg-warning"
+                                        style="color: black; position: absolute; bottom: 10px; right: 10px;
+                                              padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                        {{ $p->kategoriProduk->nama_kategori_produk }}
+                                    </span>
+                                @endif
                                 </a>
                                 <!-- Product Title -->
                                 <a class="product-title d-block" title="{{ $p->nama_produk }}"
@@ -278,24 +284,24 @@
                         <div class="card single-product-card border">
                             <div class="card-body p-3">
                                 <!-- Product Thumbnail -->
-                                <a class="product-thumbnail d-block position-relative"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
-                                    style="display: block; position: relative;">
-                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}"
-                                        style="width: 100%; height: auto;">
+                                <a class="product-thumbnail d-block"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
+                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     @if ($p->status_diskon == 'Aktif')
-                                        <span class="badge bg-danger"
-                                            style="color: white; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px;">
-                                            Disk - {{ $p->kategoriProduk->nama_kategori_produk }}
-                                        </span>
-                                    @else
-                                        <span class="badge bg-warning"
-                                            style="color: black; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px;">
-                                            Sale - {{ $p->kategoriProduk->nama_kategori_produk }}
-                                        </span>
-                                    @endif
-                                </a>
+                                    <span class="badge bg-danger"
+                                        style="color: white; position: absolute; bottom: 10px; right: 10px;
+                                              padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                        {{ $p->kategoriProduk->nama_kategori_produk }}
+                                    </span>
+                                @else
+                                    <span class="badge bg-warning"
+                                        style="color: black; position: absolute; bottom: 10px; right: 10px;
+                                              padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                        {{ $p->kategoriProduk->nama_kategori_produk }}
+                                    </span>
+                                @endif
 
+                                </a>
                                 <!-- Product Title -->
                                 <a class="product-title d-block" title="{{ $p->nama_produk }}"
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">{{ $p->nama_produk }}</a>
@@ -353,12 +359,19 @@
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
                                     <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     @if ($p->status_diskon == 'Aktif')
-                                        <span class="badge bg-danger" style="color: white">Disk -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                        <span class="badge bg-danger"
+                                            style="color: white; position: absolute; bottom: 10px; right: 10px;
+                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                            {{ $p->kategoriProduk->nama_kategori_produk }}
+                                        </span>
                                     @else
-                                        <span class="badge bg-warning" style="color: black">Sale -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                        <span class="badge bg-warning"
+                                            style="color: black; position: absolute; bottom: 10px; right: 10px;
+                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                            {{ $p->kategoriProduk->nama_kategori_produk }}
+                                        </span>
                                     @endif
+
                                 </a>
                                 <!-- Product Title -->
                                 <a class="product-title d-block" title="{{ $p->nama_produk }}"
@@ -419,12 +432,19 @@
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
                                     <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
                                     @if ($p->status_diskon == 'Aktif')
-                                        <span class="badge bg-danger" style="color: white">Disk -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
-                                    @else
-                                        <span class="badge bg-warning" style="color: black">Sale -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
-                                    @endif
+                                    <span class="badge bg-danger"
+                                        style="color: white; position: absolute; bottom: 10px; right: 10px;
+                                              padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                        {{ $p->kategoriProduk->nama_kategori_produk }}
+                                    </span>
+                                @else
+                                    <span class="badge bg-warning"
+                                        style="color: black; position: absolute; bottom: 10px; right: 10px;
+                                              padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                        {{ $p->kategoriProduk->nama_kategori_produk }}
+                                    </span>
+                                @endif
+
                                 </a>
                                 <!-- Product Title -->
                                 <a class="product-title d-block" title="{{ $p->nama_produk }}"
@@ -487,17 +507,27 @@
                         <div class="card single-product-card border">
                             <div class="card-body p-3">
                                 <!-- Product Thumbnail -->
-                                <a class="product-thumbnail d-block"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
-                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
+                                <a class="product-thumbnail d-block position-relative"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    style="display: block; position: relative;">
+                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}"
+                                        style="width: 100%; height: auto; display: block;">
                                     @if ($p->status_diskon == 'Aktif')
-                                        <span class="badge bg-danger" style="color: white">Disk -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                        <span class="badge bg-danger"
+                                            style="color: white; position: absolute; bottom: 10px; right: 10px;
+                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                            {{ $p->kategoriProduk->nama_kategori_produk }}
+                                        </span>
                                     @else
-                                        <span class="badge bg-warning" style="color: black">Sale -
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}</span>
+                                        <span class="badge bg-warning"
+                                            style="color: black; position: absolute; bottom: 10px; right: 10px;
+                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                            {{ $p->kategoriProduk->nama_kategori_produk }}
+                                        </span>
                                     @endif
                                 </a>
+
+
                                 <!-- Product Title -->
                                 <a class="product-title d-block" title="{{ $p->nama_produk }}"
                                     href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">{{ $p->nama_produk }}</a>
