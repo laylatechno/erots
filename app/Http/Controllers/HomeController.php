@@ -66,7 +66,7 @@ class HomeController extends Controller
 
         $alasan = Alasan::all();
         $testimoni = Testimoni::all();
-        $slider = Slider::orderBy('urutan', 'asc');
+        $slider = Slider::all();
         $kategori_produk = KategoriProduk::all();
         // Ambil kategori dengan urutan pertama yang tersedia
         $kategori_pertama = KategoriProduk::orderBy('urutan', 'asc')
