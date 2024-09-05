@@ -131,7 +131,7 @@
             @endif
         </div>
 
-        <div class="container">
+        {{-- <div class="container">
             @if ($allCartItems->isNotEmpty())
                 <div class="cart-wrapper-area">
                     <div class="cart-table card mb-3">
@@ -189,7 +189,6 @@
                             return ($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual']) * $item['quantity'];
                         });
 
-                        // Membuat pesan orderan untuk WhatsApp
                         $orderDetails = "Orderan Saya di {$profil->nama_perusahaan}:\n\n" . implode("\n", array_map(function($item) {
                             return "{$item['nama_produk']} - Rp." . number_format($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual'], 0, ',', '.') . " x {$item['quantity']} = Rp." . number_format(($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual']) * $item['quantity'], 0, ',', '.');
                         }, $allCartItems->toArray())) . "\n\nTotal: Rp." . number_format($total, 0, ',', '.');
@@ -211,9 +210,7 @@
                                         <i class="bi bi-credit-card"></i> Checkout
                                     </a>
                                 @else
-                                    {{-- <a href="{{ route('auth') }}" class="btn btn-primary w-100 mt-3">
-                                        <i class="bi bi-box-arrow-in-right"></i> Login
-                                    </a> --}}
+
                                 @endif
 
                                 </div>
@@ -225,6 +222,9 @@
                     </div>
                 </div>
             @endif
-        </div>
+        </div> --}}
+
+
+
     </div>
 @endsection
