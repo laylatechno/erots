@@ -252,6 +252,10 @@
                                         </div>
                                     @endif
 
+
+
+
+
                                 </div>
                                 <!-- /.card-body -->
 
@@ -453,6 +457,7 @@
                                         </div>
                                     </div>
 
+
                                     <div class="col-12">
                                         <div class="form-group" id="youtube_edit_container">
                                             <label for="youtube_edit">Embed Youtube</label>
@@ -540,6 +545,24 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
+
+<script>
+    $(document).ready(function() {
+        // Event handler untuk input harga beli, harga jual, dan harga jual diskon
+        $('#harga_beli, #harga_jual, #harga_jual_diskon, #harga_beli_edit, #harga_jual_edit, #harga_jual_diskon_edit').on('input', function() {
+            var inputVal = $(this).val().replace(/[^\d]/g, ''); // Hapus semua karakter non-digit
+            var formattedVal = addThousandSeparator(inputVal);   // Tambahkan separator ribuan
+            $(this).val(formattedVal); // Set nilai baru ke dalam input
+        });
+
+        // Fungsi untuk menambahkan separator ribuan
+        function addThousandSeparator(num) {
+            var parts = num.toString().split("."); // Pisahkan jika ada desimal
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Tambahkan koma
+            return parts.join("."); // Gabungkan kembali jika ada desimal
+        }
+    });
+</script>
 
     {{-- Summernote --}}
     <script>
