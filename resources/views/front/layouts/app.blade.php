@@ -136,7 +136,7 @@
                     </li>
                     <li>
                         <a href="" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i
-                                class="bi bi-folder2-open"></i> Syarat & Ketentuan
+                                class="bi bi-folder2-open"></i> Informasi Penting
                             <span class="badge bg-danger rounded-pill ms-2">Baru</span>
                         </a>
                     </li>
@@ -281,7 +281,7 @@
         <div class="modal-dialog modal-fullscreen-md-down modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="fullscreenModalLabel">Syarat & Ketentuan</h6>
+                    <h6 class="modal-title" id="fullscreenModalLabel">Informasi Penting Mencangkup Kebijakan Privasi & Syarat Ketentuan</h6>
                     <button class="btn btn-close p-1 ms-auto" type="button" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
