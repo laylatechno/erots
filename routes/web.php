@@ -21,6 +21,7 @@ use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\IklanController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KurirController;
 use App\Http\Controllers\ProfilPenggunaController;
@@ -108,7 +109,7 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     // Testimoni
     Route::resource('testimoni', TestimoniController::class);
 
-    // Testimoni
+    // Kurir
     Route::resource('kurir', KurirController::class);
 
     // Video
@@ -118,6 +119,9 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     Route::resource('info', InformasiController::class);
     Route::resource('transaksi', TransaksiController::class);
     Route::resource('visitor', VisitorController::class);
+
+    // Kurir
+    Route::resource('iklan', IklanController::class);
 
 
     Route::post('/user/import', [UserController::class, 'import'])->name('user.import');

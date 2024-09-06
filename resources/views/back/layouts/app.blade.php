@@ -296,6 +296,15 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/iklan" class="nav-link <?php echo $currentPath == '/iklan' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-clone"></i>
+
+                                    <p>
+                                        Iklan
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/visitor_toko" class="nav-link <?php echo $currentPath == '/visitor_toko' ? 'active' : ''; ?>">
                                     <i class="nav-icon fas fa-briefcase"></i>
 
