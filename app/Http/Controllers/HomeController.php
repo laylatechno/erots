@@ -101,7 +101,7 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan', 'desc')
+            ->orderBy('id', 'desc')
             ->take(12)
             ->get();
 
@@ -143,9 +143,6 @@ class HomeController extends Controller
 
         return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga', 'berita'));
     }
-
-
-
 
     public function informasi()
     {
