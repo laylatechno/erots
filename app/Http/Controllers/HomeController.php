@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alasan;
 use App\Models\Berita;
+use App\Models\Iklan;
 use App\Models\KategoriProduk;
 use App\Models\Kurir;
 use App\Models\Produk;
@@ -144,8 +145,11 @@ class HomeController extends Controller
             ->orderBy('urutan', 'asc') // Urutkan berdasarkan kolom 'urutan' secara ascending
             ->get();
 
+            $iklan = Iklan::orderBy('urutan', 'asc')->get();
 
-        return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga', 'berita'));
+
+
+        return view('front.home', compact('slider','iklan', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga', 'berita'));
     }
 
     public function informasi()

@@ -38,7 +38,7 @@ class IklanController extends Controller
 
         $request->validate([
             'nama_iklan' => 'required|unique:iklan,nama_iklan',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:6048', // Validasi file gambar
         ], [
             'nama_iklan.required' => 'Nama iklan wajib diisi.',
             'nama_iklan.unique' => 'Nama iklan sudah ada.',
@@ -167,7 +167,7 @@ class IklanController extends Controller
     {
         $request->validate([
             'nama_iklan' => 'required',
-            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:6048', // Validasi file gambar
         ], [
             'nama_iklan.required' => 'Nama iklan wajib diisi.',
             'gambar.image' => 'Gambar harus dalam format jpeg, jpg, atau png',

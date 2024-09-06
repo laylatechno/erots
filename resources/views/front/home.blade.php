@@ -66,6 +66,12 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <div class="pb-3"></div>
+
     <div class="container direction-rtl">
         <div class="card mb-3">
             <div class="card-body">
@@ -255,7 +261,7 @@
             @endforeach
         </div>
     </div>
-    
+
     <div class="pb-3"></div>
     <div class="container direction-rtl">
         <div class="card mb-3">
@@ -267,6 +273,46 @@
         </div>
     </div>
 
+    <div class="container">
+        <div class="card mb-0">
+            <div class="card-body">
+                <div id="carouselExampleIndicators" class="carousel slide" style="max-width: 100%; margin: auto; position: relative;">
+                    <div class="carousel-inner">
+                        @foreach ($iklan as $index => $p)
+                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                <img src="/upload/iklan/{{ $p->gambar }}"
+                                     class="d-block w-100"
+                                     alt="Slide {{ $index + 1 }}"
+                                     style="height: 200px; object-fit: cover;">
+                            </div>
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="width: 5%; background-color: rgba(0, 0, 0, 0.3);">
+                        <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5);"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="width: 5%; background-color: rgba(0, 0, 0, 0.3);">
+                        <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.5);"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    <ol class="carousel-indicators" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);">
+                        @foreach ($iklan as $index => $p)
+                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" style="background-color: #000;"></li>
+                        @endforeach
+                    </ol>
+                    <!-- Centered Button -->
+                    <button class="carousel-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 20px; border-radius: 5px; z-index: 5; font-size: 16px;">
+                        Selengkapnya
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <div class="pb-3"></div>
     <div class="container">
         <div class="card bg-success mb-3 bg-img"
             style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
