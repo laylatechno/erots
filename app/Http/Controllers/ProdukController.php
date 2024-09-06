@@ -61,9 +61,9 @@ class ProdukController extends Controller
             } else {
                 // Urutkan produk berdasarkan id terbaru dan filter berdasarkan user_id
                 $data = Produk::where('user_id', $userId)
-                              ->with(['kategoriProduk', 'user'])
-                              ->orderBy('id', 'desc')
-                              ->get();
+                    ->with(['kategoriProduk', 'user'])
+                    ->orderBy('id', 'desc')
+                    ->get();
             }
 
             return Datatables::of($data)
@@ -104,9 +104,7 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
 
 

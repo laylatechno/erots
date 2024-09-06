@@ -42,6 +42,7 @@
                                 <th data-priority="5">Status</th>
                                 <th data-priority="3">User</th>
                                 <th data-priority="8">Urutan</th>
+                                <th data-priority="9">Urutan Lain</th>
                                 <th data-priority="6">Gambar</th>
                                 <th data-priority="7">Aksi</th>
                             </tr>
@@ -248,6 +249,12 @@
                                             <div class="form-group" id="urutan_container">
                                                 <label for="urutan">Urutan</label>
                                                 <input type="number" class="form-control" name="urutan" id="urutan" placeholder="Urutan" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group" id="urutan_lain_container">
+                                                <label for="urutan_lain">Urutan Lain</label>
+                                                <input type="number" class="form-control" name="urutan_lain" id="urutan_lain" placeholder="Urutan Lain" value="0">
                                             </div>
                                         </div>
                                     @endif
@@ -472,6 +479,12 @@
                                                 <input type="number" class="form-control" name="urutan" id="urutan_edit" placeholder="Urutan" required>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="form-group" id="urutan_lain_edit_container">
+                                                <label for="urutan_lain_edit">Urutan</label>
+                                                <input type="number" class="form-control" name="urutan_lain" id="urutan_lain_edit" placeholder="Urutan Lain" required>
+                                            </div>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -660,6 +673,11 @@
                         visible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
                     },
                     {
+                        data: 'urutan_lain',
+                        name: 'urutan_lain',
+                        visible: {{ auth()->user()->role === 'administrator' ? 'true' : 'false' }}
+                    },
+                    {
                         data: 'gambar',
                         name: 'gambar',
                         render: function(data, type, full, meta) {
@@ -707,6 +725,10 @@
                     {
                         responsivePriority: 8,
                         targets: 7
+                    },
+                    {
+                        responsivePriority: 9,
+                        targets: 8
                     }
                 ]
             });
@@ -798,6 +820,7 @@
                         $('#slug_edit').val(data.slug);
                         $('#youtube_edit').val(data.youtube);
                         $('#urutan_edit').val(data.urutan);
+                        $('#urutan_lain_edit').val(data.urutan_lain);
                         $('#harga_jual_diskon_edit').val(data.harga_jual_diskon);
 
                         // Set nilai dan tambahkan log untuk memastikan bahwa nilai benar-benar di-set

@@ -101,7 +101,7 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('id', 'desc')
+            ->orderBy('urutan_lain', 'asc')
             ->take(12)
             ->get();
 
