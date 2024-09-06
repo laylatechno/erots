@@ -42,10 +42,10 @@
                         $truncated_text = $cleaned_text; // Membatasi hingga 150 karakter
                     @endphp
 
-                    <p>{{ $truncated_text }}</p>
+                    <p>{!! $truncated_text !!}</p>
                     <hr>
                     <!-- Login Wrapper Area -->
-           
+
                         <div class="custom-container">
 
                             <!-- Register Form -->
@@ -68,15 +68,15 @@
                                 </div>
                             </div>
 
-                            
+
                         </div>
-          
 
 
-              
+
+
                     <hr>
 
-                   
+
                 </div>
             </div>
         </div>
