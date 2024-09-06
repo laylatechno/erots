@@ -276,7 +276,7 @@
     <div class="container">
         <div class="card mb-0">
             <div class="card-body">
-                <div id="carouselExampleIndicators" class="carousel slide" style="max-width: 100%; margin: auto; position: relative;">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style="max-width: 100%; margin: auto; position: relative;">
                     <div class="carousel-inner">
                         @foreach ($iklan as $index => $p)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
@@ -309,10 +309,9 @@
         </div>
     </div>
 
-
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <div class="pb-3"></div>
+    
     <div class="container">
         <div class="card bg-success mb-3 bg-img"
             style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
