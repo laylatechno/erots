@@ -81,7 +81,7 @@ class HomeController extends Controller
 
         $produk_diskon = Produk::with(['kategoriProduk'])
             ->where('status_diskon', 'Aktif')
-            ->orderBy('urutan')
+            ->orderBy('urutan', 'desc')
             ->take(6)
             ->get();
 
