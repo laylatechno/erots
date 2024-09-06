@@ -55,7 +55,7 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan', 'asc')
+            ->orderBy('urutan', 'desc')
             ->take(12) // Ambil maksimal 12 produk
             ->get();
 
