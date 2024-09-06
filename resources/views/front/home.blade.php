@@ -243,7 +243,7 @@
                             <div class="card-blog-content">
                                 <span
                                     class="badge bg-danger rounded-pill mb-2 d-inline-block">{{ $p->tanggal_posting }}</span>
-                                <a class="blog-title d-block mb-3 text-dark"
+                                <a class="blog-title  mb-3 text-dark" title="{{ $p->judul_berita }}"
                                     href="{{ route('informasi.informasi_detail', $p->slug) }}">{{ $p->judul_berita }}</a>
                                 <a class="btn btn-primary btn-sm"
                                     href="{{ route('informasi.informasi_detail', $p->slug) }}">Selengkapnya</a>
