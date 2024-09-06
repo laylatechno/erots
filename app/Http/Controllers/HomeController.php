@@ -82,7 +82,7 @@ class HomeController extends Controller
         $produk_diskon = Produk::with(['kategoriProduk'])
             ->where('status_diskon', 'Aktif')
             ->orderBy('urutan', 'desc')
-            ->take(6)
+            ->take(12)
             ->get();
 
         $alasan = Alasan::all();
@@ -102,7 +102,7 @@ class HomeController extends Controller
                     ->orWhereNull('status_diskon');
             })
             ->orderBy('urutan', 'desc')
-            ->take(9)
+            ->take(12)
             ->get();
 
         $kategori_kedua = KategoriProduk::orderBy('urutan', 'asc')
@@ -118,7 +118,7 @@ class HomeController extends Controller
                     ->orWhereNull('status_diskon');
             })
             ->orderBy('urutan', 'desc')
-            ->take(9)
+            ->take(12)
             ->get();
 
 
@@ -136,7 +136,7 @@ class HomeController extends Controller
                     ->orWhereNull('status_diskon');
             })
             ->orderBy('urutan', 'desc')
-            ->take(9)
+            ->take(12)
             ->get();
 
         $berita = Berita::with('kategoriBerita')->orderBy('id', 'desc');
