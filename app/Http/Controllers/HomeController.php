@@ -55,7 +55,7 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan', 'asc') // Urutkan berdasarkan urutan
+            ->orderBy('urutan', 'asc')
             ->take(12) // Ambil maksimal 12 produk
             ->get();
 
@@ -140,10 +140,6 @@ class HomeController extends Controller
             ->get();
 
         $berita = Berita::with('kategoriBerita')->orderBy('id', 'desc');
-
-
-
-
 
         return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga', 'berita'));
     }

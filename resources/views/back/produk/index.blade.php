@@ -247,7 +247,7 @@
                                         <div class="col-12">
                                             <div class="form-group" id="urutan_container">
                                                 <label for="urutan">Urutan</label>
-                                                <input type="number" class="form-control" name="urutan" id="urutan" placeholder="Urutan">
+                                                <input type="number" class="form-control" name="urutan" id="urutan" placeholder="Urutan" value="0">
                                             </div>
                                         </div>
                                     @endif
