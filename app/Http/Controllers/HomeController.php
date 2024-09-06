@@ -139,7 +139,11 @@ class HomeController extends Controller
             ->take(12)
             ->get();
 
-        $berita = Berita::with('kategoriBerita')->orderBy('id', 'desc');
+            $berita = Berita::with('kategoriBerita')
+            ->where('status', 'Aktif') // Filter status 'Aktif'
+            ->orderBy('urutan', 'asc') // Urutkan berdasarkan kolom 'urutan' secara ascending
+            ->get();
+
 
         return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga', 'berita'));
     }

@@ -58,7 +58,7 @@
                         $total = $cartItems->sum(function($item) {
                             return ($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual']) * $item['quantity'];
                         });
-                        $orderDetails = "Orderan Saya di {$profil->nama_perusahaan}:\n\n" . $cartItems->map(function($item) {
+                        $orderDetails = "Berikut Orderan Saya di {$profil->nama_perusahaan}:\n\n" . $cartItems->map(function($item) {
                             return "{$item['nama_produk']} - Rp." . number_format($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual'], 0, ',', '.') . " x {$item['quantity']} = Rp." . number_format(($item['status_diskon'] == 'Aktif' ? $item['harga_jual_diskon'] : $item['harga_jual']) * $item['quantity'], 0, ',', '.');
                         })->implode("\n") . "\n\nTotal: Rp." . number_format($total, 0, ',', '.');
 
