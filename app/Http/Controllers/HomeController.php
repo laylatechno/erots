@@ -55,7 +55,7 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan', 'asc')
+            ->orderBy('urutan', 'desc')
             ->take(12) // Ambil maksimal 12 produk
             ->get();
 
@@ -70,7 +70,7 @@ class HomeController extends Controller
                         ->orWhereNull('status_diskon');
                 })
                 ->whereNotIn('id', $produk->pluck('id')) // Exclude produk yang sudah diambil
-                ->orderBy('id', 'asc') // Urutkan berdasarkan ID untuk ambil produk dengan ID lebih kecil
+                ->orderBy('id', 'desc') // Urutkan berdasarkan ID untuk ambil produk dengan ID lebih kecil
                 ->take($remaining) // Ambil produk untuk melengkapi jumlah menjadi 12
                 ->get();
 
