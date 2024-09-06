@@ -37,12 +37,8 @@
                 <div class="card-body">
                     <img class="mb-3 rounded" src="/upload/berita/{{ $berita->gambar }}" alt="">
                     <h5>{{ $berita->judul_berita }}</h5>
-                    @php
-                        $cleaned_text = strip_tags($berita->isi); // Menghilangkan semua tag HTML
-                        $truncated_text = $cleaned_text; // Membatasi hingga 150 karakter
-                    @endphp
-
-                    <p>{!! $truncated_text !!}</p>
+                 
+                    <p>{!! $berita->isi !!}</p>
                     <hr>
                     <!-- Login Wrapper Area -->
 
