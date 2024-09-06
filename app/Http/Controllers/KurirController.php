@@ -31,22 +31,26 @@ class KurirController extends Controller
     {
     }
 
-
-
     public function store(Request $request)
     {
 
         $request->validate([
             'nama_kurir' => 'required|unique:kurir,nama_kurir',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file gambar
+            'ktp' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi file KTP
         ], [
             'nama_kurir.required' => 'Nama kurir wajib diisi.',
             'nama_kurir.unique' => 'Nama kurir sudah ada.',
             'gambar.required' => 'Gambar wajib diisi.',
-            'gambar.image' => 'Gambar harus dalam format jpeg, jpg, atau png',
-            'gambar.mimes' => 'Format gambar harus jpeg, jpg, atau png',
-            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 6 MB',
+            'gambar.image' => 'Gambar harus dalam format jpeg, jpg, atau png.',
+            'gambar.mimes' => 'Format gambar harus jpeg, jpg, atau png.',
+            'gambar.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
+            'ktp.required' => 'File KTP wajib diisi.',
+            'ktp.image' => 'File KTP harus dalam format jpeg, jpg, atau png.',
+            'ktp.mimes' => 'Format file KTP harus jpeg, jpg, atau png.',
+            'ktp.max' => 'Ukuran file KTP tidak boleh lebih dari 2 MB.',
         ]);
+
 
         $input = $request->all();
 
@@ -112,7 +116,67 @@ class KurirController extends Controller
             $input['gambar'] = '';
         }
 
+        if ($image = $request->file('ktp')) {
+            $destinationPath = 'upload/kurir/';
 
+            // Mengambil nama file asli dan ekstensinya
+            $originalFileName = $image->getClientOriginalName();
+
+            // Membaca tipe MIME dari file ktp
+            $imageMimeType = $image->getMimeType();
+
+            // Menyaring hanya tipe MIME ktp yang didukung (misalnya, image/jpeg, image/png, dll.)
+            if (strpos($imageMimeType, 'image/') === 0) {
+                // Menggabungkan waktu dengan nama file asli
+                $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName);
+
+                // Simpan ktp asli ke tujuan yang diinginkan
+                $image->move($destinationPath, $imageName);
+
+                // Path ktp asli
+                $sourceImagePath = public_path($destinationPath . $imageName);
+
+                // Path untuk menyimpan ktp WebP
+                $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+
+                // Membaca ktp asli dan mengonversinya ke WebP jika tipe MIME-nya didukung
+                switch ($imageMimeType) {
+                    case 'image/jpeg':
+                        $sourceImage = @imagecreatefromjpeg($sourceImagePath);
+                        break;
+                    case 'image/png':
+                        $sourceImage = @imagecreatefrompng($sourceImagePath);
+                        break;
+                        // Tambahkan jenis MIME lain jika diperlukan
+                    default:
+                        // Jenis MIME tidak didukung, tangani kasus ini sesuai kebutuhan Anda
+                        // Misalnya, tampilkan pesan kesalahan atau lakukan tindakan yang sesuai
+                        break;
+                }
+
+                // Jika ktp asli berhasil dibaca
+                if ($sourceImage !== false) {
+                    // Membuat ktp baru dalam format WebP
+                    imagewebp($sourceImage, $webpImagePath);
+
+                    // Hapus ktp asli dari memori
+                    imagedestroy($sourceImage);
+
+                    // Hapus file asli setelah konversi selesai
+                    @unlink($sourceImagePath);
+
+                    // Simpan hanya nama file ktp ke dalam array input
+                    $input['ktp'] = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+                } else {
+                    // Gagal membaca ktp asli, tangani kasus ini sesuai kebutuhan Anda
+                }
+            } else {
+                // Tipe MIME ktp tidak didukung, tangani kasus ini sesuai kebutuhan Anda
+            }
+        } else {
+            // Set nilai default untuk ktp jika tidak ada ktp yang diunggah
+            $input['ktp'] = '';
+        }
 
 
         // Membuat kurir baru dan mendapatkan data pengguna yang baru dibuat

@@ -142,6 +142,13 @@
                                                 placeholder="Masukkan Afiliasi" required>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="no_ktp">No KTP</label>
+                                            <input type="text" class="form-control" id="no_ktp" name="no_ktp"
+                                                placeholder="Masukkan No KTP" required>
+                                        </div>
+                                    </div>
 
 
                                     <div class="col-12">
@@ -203,8 +210,59 @@
 
                                     </div>
 
-
                                     <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="ktp">KTP</label>
+                                            <input type="file" class="form-control" name="ktp" id="ktp"
+                                                onchange="previewImageKtp()" required>
+                                            <canvas id="preview_canvas_ktp"
+                                                style="display: none; max-width: 100%; margin-top: 10px;"></canvas>
+                                            <img id="preview_image_ktp" src="#" alt="Preview Gambar"
+                                                style="display: none; max-width: 100%; margin-top: 10px;">
+                                        </div>
+                                        <script>
+                                            function previewImageKtp() {
+                                                var previewCanvas = document.getElementById('preview_canvas_ktp');
+                                                var previewImageKtp = document.getElementById('preview_image_ktp');
+                                                var fileInput = document.getElementById('ktp');
+                                                var file = fileInput.files[0];
+                                                var reader = new FileReader();
+
+                                                reader.onload = function(e) {
+                                                    var img = new Image();
+                                                    img.src = e.target.result;
+
+                                                    img.onload = function() {
+                                                        var canvasContext = previewCanvas.getContext('2d');
+                                                        var maxWidth = 200; // Max width untuk pratinja ktp
+
+                                                        var scaleFactor = maxWidth / img.width;
+                                                        var newHeight = img.height * scaleFactor;
+
+                                                        previewCanvas.width = maxWidth;
+                                                        previewCanvas.height = newHeight;
+
+                                                        canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
+
+                                                        // Menampilkan pratinja ktp setelah diperkecil
+                                                        previewCanvas.style.display = 'block';
+                                                        previewImageKtp.style.display = 'none';
+                                                    };
+                                                };
+
+                                                if (file) {
+                                                    reader.readAsDataURL(file); // Membaca file yang dipilih sebagai URL data
+                                                } else {
+                                                    previewImageKtp.src = '';
+                                                    previewCanvas.style.display = 'none'; // Menyembunyikan pratinja ktp jika tidak ada file yang dipilih
+                                                }
+                                            }
+                                        </script>
+
+                                    </div>
+
+
+                                    <div class="col-12">
                                         <div class="form-group">
                                             <label for="urutan">Urutan</label>
                                             <input type="number" class="form-control" id="urutan" name="urutan"
@@ -311,6 +369,13 @@
                                                 name="afiliasi" placeholder="Masukkan Afiliasi" required>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="no_ktp_edit">No KTP</label>
+                                            <input type="text" class="form-control" id="no_ktp_edit"
+                                                name="no_ktp" placeholder="Masukkan No KTP" required>
+                                        </div>
+                                    </div>
 
 
                                     <div class="col-12">
@@ -376,8 +441,64 @@
 
                                     </div>
 
-
                                     <div class="col-6">
+                                        <div class="form-group" id="ktp_edit_container">
+                                            <label for="ktp_edit">KTP</label>
+                                            <br>
+                                            <input type="file" class="form-control" name="ktp" id="ktp_edit"
+                                                onchange="previewImageKtp_edit()">
+
+                                            <canvas id="preview_canvas_ktp_edit"
+                                                style="display: none; max-width: 100%; margin-top: 10px;"></canvas>
+                                            <img id="preview_image_ktp_edit" src="#" alt="Preview Gambar"
+                                                style="display: none; max-width: 100%; margin-top: 10px;">
+                                            <br>
+                                        </div>
+                                        <script>
+                                            function previewImageKtp_edit() {
+                                                var previewCanvasKtp_edit = document.getElementById('preview_canvas_ktp_edit');
+                                                var previewImageKtp_edit = document.getElementById('preview_image_ktp_edit');
+                                                var fileInput_edit = document.getElementById('ktp_edit'); // Mengubah id menjadi ktp_edit
+                                                var file_edit = fileInput_edit.files[0];
+                                                var reader_edit = new FileReader();
+
+                                                reader_edit.onload = function(e) {
+                                                    var img = new Image();
+                                                    img.src = e.target.result;
+
+                                                    img.onload = function() {
+                                                        var canvasContext = previewCanvasKtp_edit.getContext('2d');
+                                                        var maxWidth = 200; // Max width untuk pratinja ktp
+
+                                                        var scaleFactor = maxWidth / img.width;
+                                                        var newHeight = img.height * scaleFactor;
+
+                                                        previewCanvasKtp_edit.width = maxWidth;
+                                                        previewCanvasKtp_edit.height = newHeight;
+
+                                                        canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
+
+                                                        // Menampilkan pratinja ktp setelah diperkecil
+                                                        previewCanvasKtp_edit.style.display = 'block';
+                                                        previewImageKtp_edit.style.display = 'none';
+                                                    };
+                                                };
+
+                                                if (file_edit) {
+                                                    reader_edit.readAsDataURL(file_edit); // Membaca file yang dipilih sebagai URL data
+                                                } else {
+                                                    previewImageKtp_edit.src = '';
+                                                    previewCanvasKtp_edit.style.display =
+                                                        'none'; // Menyembunyikan pratinja ktp jika tidak ada file yang dipilih
+                                                }
+                                            }
+                                        </script>
+
+                                    </div>
+
+
+
+                                    <div class="col-12">
                                         <div class="form-group">
                                             <label for="urutan_edit">Urutan</label>
                                             <input type="number" class="form-control" id="urutan_edit" name="urutan"
@@ -502,11 +623,15 @@
                         $('#deskripsi_edit').val(data.deskripsi);
                         $('#alamat_edit').val(data.alamat);
                         $('#afiliasi_edit').val(data.afiliasi);
+                        $('#no_ktp_edit').val(data.no_ktp);
                         $('#urutan_edit').val(data.urutan);
 
                         // Hapus gambar yang ada sebelum menambahkan gambar yang baru
                         $('#gambar_edit_container img').remove();
                         $('#gambar_edit_container a').remove();
+
+                        $('#ktp_edit_container img').remove();
+                        $('#ktp_edit_container a').remove();
 
                         // Tambahkan logika untuk menampilkan gambar bukti pada formulir edit
                         if (data.gambar) {
@@ -516,6 +641,15 @@
                                 '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
                             $('#gambar_edit_container').append(gambarImg + '<br>' +
                                 gambarStatus);
+                        }
+
+                        if (data.ktp) {
+                            var ktpImg = '<img src="/upload/kurir/' + data.ktp +
+                                '" style="max-width: 200px; max-height: 200px;">';
+                            var ktpStatus = '<a href="/upload/kurir/' + data.ktp +
+                                '" target="_blank"><i class="fa fa-eye"></i> Lihat KTP</a>';
+                            $('#ktp_edit_container').append(ktpImg + '<br>' +
+                                ktpStatus);
                         }
 
                         $('#modal-edit').modal('show');
