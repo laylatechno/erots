@@ -233,18 +233,18 @@
             @foreach ($berita as $p)
                 <!-- Single Blog Card -->
                 <div class="col-12 col-md-8 col-lg-7 col-xl-6">
-                    <div class="card shadow-sm blog-list-card">
-                        <div class="d-flex align-items-center">
+                    <div class="card shadow-sm blog-list-card" style="min-height: 300px;">
+                        <div class="d-flex align-items-start">
                             <div class="card-blog-img position-relative"
-                                style="background-image: url('/upload/berita/{{ $p->gambar }}')">
+                                style="background-image: url('/upload/berita/{{ $p->gambar }}'); width: 100px; height: 100px; background-size: cover; background-position: center; margin-right: 15px;">
                                 <span
                                     class="badge bg-warning text-dark position-absolute card-badge">{{ $p->kategoriBerita->nama_kategori_berita }}</span>
                             </div>
-                            <div class="card-blog-content">
+                            <div class="card-blog-content" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;">
                                 <span
                                     class="badge bg-danger rounded-pill mb-2 d-inline-block">{{ $p->tanggal_posting }}</span>
                                     <br>
-                                <a class="blog-title  mb-3 text-dark" title="{{ $p->judul_berita }}"
+                                <a class="blog-title mb-3 text-dark" title="{{ $p->judul_berita }}"
                                     href="{{ route('informasi.informasi_detail', $p->slug) }}">{{ $p->judul_berita }}</a>
                                 <a class="btn btn-primary btn-sm"
                                     href="{{ route('informasi.informasi_detail', $p->slug) }}">Selengkapnya</a>
@@ -255,6 +255,7 @@
             @endforeach
         </div>
     </div>
+
     <div class="pb-3"></div>
     <div class="container direction-rtl">
         <div class="card mb-3">
