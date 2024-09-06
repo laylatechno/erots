@@ -81,7 +81,7 @@ class HomeController extends Controller
 
         $produk_diskon = Produk::with(['kategoriProduk'])
             ->where('status_diskon', 'Aktif')
-            ->orderBy('urutan')
+            ->orderBy('urutan', 'desc')
             ->take(6)
             ->get();
 
@@ -92,7 +92,7 @@ class HomeController extends Controller
         $kategori_produk = KategoriProduk::all();
         // Ambil kategori dengan urutan pertama yang tersedia
         $kategori_pertama = KategoriProduk::orderBy('urutan', 'asc')
-            ->whereNotNull('urutan')
+            ->whereNotNull('urutan', 'desc')
             ->first();
 
         $produk_kategori_pertama = Produk::where('status', 'Aktif')
@@ -101,12 +101,12 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan')
+            ->orderBy('urutan', 'desc')
             ->take(9)
             ->get();
 
         $kategori_kedua = KategoriProduk::orderBy('urutan', 'asc')
-            ->whereNotNull('urutan')
+            ->whereNotNull('urutan', 'desc')
             ->skip(1) // Melewati urutan pertama
             ->first();
 
@@ -117,14 +117,14 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan')
+            ->orderBy('urutan', 'desc')
             ->take(9)
             ->get();
 
 
         // Mengambil kategori dengan urutan terbesar ketiga
         $kategori_ketiga = KategoriProduk::orderBy('urutan', 'asc')
-            ->whereNotNull('urutan')
+            ->whereNotNull('urutan', 'desc')
             ->skip(2) // Lewati dua kategori pertama
             ->first();
 
@@ -135,7 +135,7 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan')
+            ->orderBy('urutan', 'desc')
             ->take(9)
             ->get();
 
