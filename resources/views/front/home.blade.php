@@ -311,7 +311,88 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <div class="pb-3"></div>
-    
+
+    <div class="container">
+        <div class="card bg-warning mb-3 bg-img"
+            style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
+            <div class="card-body direction-rtl p-4">
+                <h2 class="text-white">Promo Menarik</h2>
+                <p class="mb-4 text-white">Jangan lewatkan berbagai PROMO MENARIK dari para pelapak di
+                    {{ $profil->nama_perusahaan }}. Terjangkau harganya, memuaskan kualitasnya  </p>
+                {{-- <a class="btn btn-warning" href="{{ asset('themplete/front') }}/pages.html">All Pages</a> --}}
+            </div>
+        </div>
+    </div>
+    <!-- Top Products -->
+    <div class="top-products-area">
+        <div class="container">
+            <div class="row g-3">
+
+                @foreach ($produk_diskon as $p)
+                    <!-- Single Top Product Card -->
+                    <div class="col-6 col-sm-4 col-lg-3">
+                        <div class="card single-product-card border">
+                            <div class="card-body p-3">
+                                <!-- Product Thumbnail -->
+                                <a class="product-thumbnail d-block position-relative"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
+                                    style="display: block; position: relative;">
+                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}"
+                                        style="width: 100%; height: auto; display: block;">
+                                    @if ($p->status_diskon == 'Aktif')
+                                        <span class="badge bg-danger"
+                                            style="color: white; position: absolute; bottom: 10px; right: 10px;
+                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                            {{ $p->kategoriProduk->nama_kategori_produk }}
+                                        </span>
+                                    @else
+                                        <span class="badge bg-warning"
+                                            style="color: black; position: absolute; bottom: 10px; right: 10px;
+                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
+                                            {{ $p->kategoriProduk->nama_kategori_produk }}
+                                        </span>
+                                    @endif
+                                </a>
+
+
+                                <!-- Product Title -->
+                                <a class="product-title d-block" title="{{ $p->nama_produk }}"
+                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">{{ $p->nama_produk }}</a>
+                                <!-- Product Description -->
+                                @if ($p->status_diskon == 'Aktif')
+                                    <p class="sale-price price-wrapper">
+                                        Rp. {{ number_format($p->harga_jual_diskon, 0, ',', '.') }}
+                                        <br>
+                                        <span class="original-price">
+                                            Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}
+                                        </span>
+                                    </p>
+                                @else
+                                    <p class="sale-price price-wrapper">
+                                        Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}
+                                    </p>
+                                @endif
+                                <a href="{{ route('toko.toko_detail', $p->user->user) }}">
+                                    <p class="mb-2">@ {{ $p->user->user }}</p>
+                                </a>
+                                <form class="add-to-cart-form" data-product-id="{{ $p->id }}">
+                                    @csrf
+                                    <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to
+                                        Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pb-3"></div>
+
     <div class="container">
         <div class="card bg-success mb-3 bg-img"
             style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
@@ -532,86 +613,7 @@
 
 
 
-    <div class="container">
-        <div class="card bg-warning mb-3 bg-img"
-            style="background-image: url('{{ asset('themplete/front') }}/img/core-img/1.png')">
-            <div class="card-body direction-rtl p-4">
-                <h2 class="text-white">Promo Harian</h2>
-                <p class="mb-4 text-white">Jangan lewatkan berbagai PROMO HARIAN menarik dari
-                    {{ $profil->nama_perusahaan }}. Terjangkau harganya namun dengan kualitas memuaskan </p>
-                {{-- <a class="btn btn-warning" href="{{ asset('themplete/front') }}/pages.html">All Pages</a> --}}
-            </div>
-        </div>
-    </div>
-    <!-- Top Products -->
-    <div class="top-products-area">
-        <div class="container">
-            <div class="row g-3">
 
-                @foreach ($produk_diskon as $p)
-                    <!-- Single Top Product Card -->
-                    <div class="col-6 col-sm-4 col-lg-3">
-                        <div class="card single-product-card border">
-                            <div class="card-body p-3">
-                                <!-- Product Thumbnail -->
-                                <a class="product-thumbnail d-block position-relative"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}"
-                                    style="display: block; position: relative;">
-                                    <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}"
-                                        style="width: 100%; height: auto; display: block;">
-                                    @if ($p->status_diskon == 'Aktif')
-                                        <span class="badge bg-danger"
-                                            style="color: white; position: absolute; bottom: 10px; right: 10px;
-                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}
-                                        </span>
-                                    @else
-                                        <span class="badge bg-warning"
-                                            style="color: black; position: absolute; bottom: 10px; right: 10px;
-                                                  padding: 2px 6px; font-size: 10px; font-weight: bold; border-radius: 3px;">
-                                            {{ $p->kategoriProduk->nama_kategori_produk }}
-                                        </span>
-                                    @endif
-                                </a>
-
-
-                                <!-- Product Title -->
-                                <a class="product-title d-block" title="{{ $p->nama_produk }}"
-                                    href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">{{ $p->nama_produk }}</a>
-                                <!-- Product Description -->
-                                @if ($p->status_diskon == 'Aktif')
-                                    <p class="sale-price price-wrapper">
-                                        Rp. {{ number_format($p->harga_jual_diskon, 0, ',', '.') }}
-                                        <br>
-                                        <span class="original-price">
-                                            Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}
-                                        </span>
-                                    </p>
-                                @else
-                                    <p class="sale-price price-wrapper">
-                                        Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}
-                                    </p>
-                                @endif
-                                <a href="{{ route('toko.toko_detail', $p->user->user) }}">
-                                    <p class="mb-2">@ {{ $p->user->user }}</p>
-                                </a>
-                                <form class="add-to-cart-form" data-product-id="{{ $p->id }}">
-                                    @csrf
-                                    <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to
-                                        Cart</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-
-
-
-            </div>
-        </div>
-    </div>
-
-    <div class="pb-3"></div>
 
     <div class="container">
         <div class="card mb-0">
