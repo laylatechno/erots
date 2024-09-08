@@ -284,6 +284,12 @@
                                      class="d-block w-100"
                                      alt="Slide {{ $index + 1 }}"
                                      style="height: 200px; object-fit: cover;">
+                                <!-- Centered Button inside the carousel-item -->
+                                <a href="{{ $p->link }}">
+                                    <button class="carousel-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 20px; border-radius: 5px; z-index: 5; font-size: 16px;">
+                                        Selengkapnya
+                                    </button>
+                                </a>
                             </div>
                         @endforeach
                     </div>
@@ -300,19 +306,11 @@
                             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" style="background-color: #000;"></li>
                         @endforeach
                     </ol>
-                    @foreach ($iklan as $index => $p)
-                    <!-- Centered Button -->
-                    <a href="{{ $p->link }}">
-                        <button class="carousel-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 20px; border-radius: 5px; z-index: 5; font-size: 16px;">
-                            Selengkapnya
-                        </button>
-                    </a>
-                    @endforeach
-
                 </div>
             </div>
         </div>
     </div>
+
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <div class="pb-3"></div>

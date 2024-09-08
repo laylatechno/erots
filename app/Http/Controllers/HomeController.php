@@ -118,7 +118,7 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan', 'desc')
+            ->orderBy('urutan_lain', 'desc')
             ->take(12)
             ->get();
 
@@ -136,7 +136,7 @@ class HomeController extends Controller
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan', 'desc')
+            ->orderBy('urutan_lain', 'desc')
             ->take(12)
             ->get();
 
@@ -190,7 +190,9 @@ class HomeController extends Controller
 
         // Ambil query awal produk aktif dengan eager loading
         $query = Produk::with('kategoriProduk')
-            ->where('produk.status', 'Aktif');
+        ->where('produk.status', 'Aktif')
+        ->inRandomOrder(); // Mengurutkan secara acak
+
 
         // Proses pencarian berdasarkan keyword
         if ($request->has('keyword')) {
