@@ -300,10 +300,15 @@
                             <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}" style="background-color: #000;"></li>
                         @endforeach
                     </ol>
+                    @foreach ($iklan as $index => $p)
                     <!-- Centered Button -->
-                    <button class="carousel-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 20px; border-radius: 5px; z-index: 5; font-size: 16px;">
-                        Selengkapnya
-                    </button>
+                    <a href="{{ $p->link }}">
+                        <button class="carousel-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.5); color: white; border: none; padding: 10px 20px; border-radius: 5px; z-index: 5; font-size: 16px;">
+                            Selengkapnya
+                        </button>
+                    </a>
+                    @endforeach
+
                 </div>
             </div>
         </div>
