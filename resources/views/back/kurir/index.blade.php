@@ -220,6 +220,7 @@
                                             <img id="preview_image_ktp" src="#" alt="Preview Gambar"
                                                 style="display: none; max-width: 100%; margin-top: 10px;">
                                         </div>
+
                                         <script>
                                             function previewImageKtp() {
                                                 var previewCanvas = document.getElementById('preview_canvas_ktp');
@@ -372,8 +373,8 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="no_ktp_edit">No KTP</label>
-                                            <input type="text" class="form-control" id="no_ktp_edit"
-                                                name="no_ktp" placeholder="Masukkan No KTP" required>
+                                            <input type="text" class="form-control" id="no_ktp_edit" name="no_ktp"
+                                                placeholder="Masukkan No KTP" required>
                                         </div>
                                     </div>
 

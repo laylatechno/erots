@@ -423,9 +423,11 @@
     {{-- PERINTAH EDIT DATA --}}
     <script>
         $(document).ready(function() {
-            $('.btn-edit').click(function(e) {
+            $('#example1').on('click', '.btn-edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
+
+                
                 $.ajax({
                     method: 'GET',
                     url: '/slider/' + id + '/edit',

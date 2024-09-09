@@ -316,6 +316,75 @@ class KurirController extends Controller
             }
         }
 
+        if ($request->hasFile('ktp')) {
+            // Hapus ktp sebelumnya jika ada
+            $oldPictureFileName = $kurir->ktp;
+            if ($oldPictureFileName) {
+                $oldFilePath = public_path('upload/kurir/' . $oldPictureFileName);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            $image = $request->file('ktp');
+            $destinationPath = 'upload/kurir/';
+
+            // Mengambil nama file asli dan ekstensinya
+            $originalFileName = $image->getClientOriginalName();
+
+            // Membaca tipe MIME dari file ktp
+            $imageMimeType = $image->getMimeType();
+
+            // Menyaring hanya tipe MIME ktp yang didukung (misalnya, image/jpeg, image/png, dll.)
+            if (strpos($imageMimeType, 'image/') === 0) {
+                // Menggabungkan waktu dengan nama file asli
+                $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName);
+
+                // Simpan ktp asli ke tujuan yang diinginkan
+                $image->move($destinationPath, $imageName);
+
+                // Path ktp asli
+                $sourceImagePath = public_path($destinationPath . $imageName);
+
+                // Path untuk menyimpan ktp WebP
+                $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+
+                // Membaca ktp asli dan mengonversinya ke WebP jika tipe MIME-nya didukung
+                switch ($imageMimeType) {
+                    case 'image/jpeg':
+                        $sourceImage = @imagecreatefromjpeg($sourceImagePath);
+                        break;
+                    case 'image/png':
+                        $sourceImage = @imagecreatefrompng($sourceImagePath);
+                        break;
+                        // Tambahkan jenis MIME lain jika diperlukan
+                    default:
+                        // Jenis MIME tidak didukung, tangani kasus ini sesuai kebutuhan Anda
+                        // Misalnya, tampilkan pesan kesalahan atau lakukan tindakan yang sesuai
+                        break;
+                }
+
+                // Jika ktp asli berhasil dibaca
+                if ($sourceImage !== false) {
+                    // Membuat ktp baru dalam format WebP
+                    imagewebp($sourceImage, $webpImagePath);
+
+                    // Hapus ktp asli dari memori
+                    imagedestroy($sourceImage);
+
+                    // Hapus file asli setelah konversi selesai
+                    @unlink($sourceImagePath);
+
+                    // Simpan hanya nama file ktp ke dalam atribut kurir
+                    $input['ktp'] = pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+                } else {
+                    // Gagal membaca ktp asli, tangani kasus ini sesuai kebutuhan Anda
+                }
+            } else {
+                // Tipe MIME ktp tidak didukung, tangani kasus ini sesuai kebutuhan Anda
+            }
+        }
+
         // Membuat kurir baru dan mendapatkan data pengguna yang baru dibuat
         $kurir = Kurir::findOrFail($id);
 

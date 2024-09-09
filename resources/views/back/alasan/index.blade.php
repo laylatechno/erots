@@ -34,7 +34,7 @@
                                     <td>{{ $i }}</td>
                                     <td>{{ $p->nama_alasan }}</td>
                                     <td>{{ $p->deskripsi }}</td>
-                                    
+
                                     <td><a href="/upload/alasan/{{ $p->gambar }}" target="_blank"><img
                                                 style="max-width:100px; max-height:100px"
                                                 src="/upload/alasan/{{ $p->gambar }}" alt=""></a></td>
@@ -93,7 +93,7 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    
+
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="nama_alasan">Nama Alasan</label>
@@ -101,8 +101,8 @@
                                                 placeholder="Masukkan Nama Alasan" required>
                                         </div>
                                     </div>
-                                   
-                                  
+
+
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="deskripsi">Deskripsi</label>
@@ -110,7 +110,7 @@
                                                 placeholder="Masukkan Deskripsi">
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="gambar">Gambar Alasan</label>
@@ -176,7 +176,7 @@
                                                 placeholder="Masukkan Urutan">
                                         </div>
                                     </div>
-                                   
+
                                 </div>
 
                                 <div class="card-footer">
@@ -233,7 +233,7 @@
                             <!-- Input hidden untuk menyimpan ID -->
                             <div class="card-body">
                                 <div class="row">
-                                    
+
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="nama_alasan_edit">Nama Alasan</label>
@@ -241,8 +241,8 @@
                                                 placeholder="Masukkan Nama Alasan" required>
                                         </div>
                                     </div>
-                                   
-                                  
+
+
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="deskripsi_edit">Deskripsi</label>
@@ -250,7 +250,7 @@
                                                 placeholder="Masukkan Deskripsi">
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-4">
                                         <div class="form-group" id="gambar_edit_container">
                                             <label for="gambar_edit">Gambar</label>
@@ -271,29 +271,29 @@
                                                 var fileInput_edit = document.getElementById('gambar_edit'); // Mengubah id menjadi gambar_edit
                                                 var file_edit = fileInput_edit.files[0];
                                                 var reader_edit = new FileReader();
-    
+
                                                 reader_edit.onload = function(e) {
                                                     var img = new Image();
                                                     img.src = e.target.result;
-    
+
                                                     img.onload = function() {
                                                         var canvasContext = previewCanvas_edit.getContext('2d');
                                                         var maxWidth = 200; // Max width untuk pratinja gambar
-    
+
                                                         var scaleFactor = maxWidth / img.width;
                                                         var newHeight = img.height * scaleFactor;
-    
+
                                                         previewCanvas_edit.width = maxWidth;
                                                         previewCanvas_edit.height = newHeight;
-    
+
                                                         canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
-    
+
                                                         // Menampilkan pratinja gambar setelah diperkecil
                                                         previewCanvas_edit.style.display = 'block';
                                                         previewImage_edit.style.display = 'none';
                                                     };
                                                 };
-    
+
                                                 if (file_edit) {
                                                     reader_edit.readAsDataURL(file_edit); // Membaca file yang dipilih sebagai URL data
                                                 } else {
@@ -320,7 +320,7 @@
                                                 placeholder="Masukkan Urutan">
                                         </div>
                                     </div>
-                                   
+
                                 </div>
 
                                 <!-- /.card-body -->
@@ -351,15 +351,15 @@
 
 @endsection
 
- 
+
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    
-    
-    
 
-    
+
+
+
+
 
     {{-- PERINTAH SIMPAN DATA --}}
     <script>
@@ -422,9 +422,11 @@
     {{-- PERINTAH EDIT DATA --}}
     <script>
         $(document).ready(function() {
-            $('.btn-edit').click(function(e) {
+            $('#example1').on('click', '.btn-edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
+
+
                 $.ajax({
                     method: 'GET',
                     url: '/alasan/' + id + '/edit',
@@ -436,11 +438,11 @@
                         $('#deskripsi_edit').val(data.deskripsi);
                         $('#link_edit').val(data.link);
                         $('#urutan_edit').val(data.urutan);
-    
+
                         // Hapus gambar yang ada sebelum menambahkan gambar yang baru
                         $('#gambar_edit_container img').remove();
                         $('#gambar_edit_container a').remove();
-    
+
                         // Tambahkan logika untuk menampilkan gambar bukti pada formulir edit
                         if (data.gambar) {
                             var gambarImg = '<img src="/upload/alasan/' + data.gambar +
@@ -449,7 +451,7 @@
                                 '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
                             $('#gambar_edit_container').append(gambarImg + '<br>' + gambarLink);
                         }
-    
+
                         $('#modal-edit').modal('show');
                     },
                     error: function(xhr) {
@@ -458,7 +460,7 @@
                     }
                 });
             });
-    
+
             // Mengosongkan gambar saat modal ditutup
             $('#modal-edit').on('hidden.bs.modal', function() {
                 $('#gambar_edit_container img').remove();
@@ -466,7 +468,7 @@
             });
         });
     </script>
-    
+
     {{-- PERINTAH EDIT DATA --}}
 
 
@@ -535,7 +537,7 @@
     {{-- PERINTAH DELETE DATA --}}
     <script>
         $(document).ready(function() {
-            $('.dataTable tbody').on('click', 'td .btn-hapus', function(e) {
+            $('#example1 tbody').on('click', 'td .btn-hapus', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
 

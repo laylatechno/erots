@@ -382,29 +382,29 @@
                                                 var fileInput_edit = document.getElementById('gambar_edit'); // Mengubah id menjadi gambar_edit
                                                 var file_edit = fileInput_edit.files[0];
                                                 var reader_edit = new FileReader();
-    
+
                                                 reader_edit.onload = function(e) {
                                                     var img = new Image();
                                                     img.src = e.target.result;
-    
+
                                                     img.onload = function() {
                                                         var canvasContext = previewCanvas_edit.getContext('2d');
                                                         var maxWidth = 200; // Max width untuk pratinja gambar
-    
+
                                                         var scaleFactor = maxWidth / img.width;
                                                         var newHeight = img.height * scaleFactor;
-    
+
                                                         previewCanvas_edit.width = maxWidth;
                                                         previewCanvas_edit.height = newHeight;
-    
+
                                                         canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
-    
+
                                                         // Menampilkan pratinja gambar setelah diperkecil
                                                         previewCanvas_edit.style.display = 'block';
                                                         previewImage_edit.style.display = 'none';
                                                     };
                                                 };
-    
+
                                                 if (file_edit) {
                                                     reader_edit.readAsDataURL(file_edit); // Membaca file yang dipilih sebagai URL data
                                                 } else {
@@ -622,9 +622,10 @@
     {{-- PERINTAH EDIT DATA --}}
     <script>
         $(document).ready(function() {
-            $('.btn-edit').click(function(e) {
+            $('#example1').on('click', '.btn-edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
+                
                 $.ajax({
                     method: 'GET',
                     url: '/berita/' + id + '/edit',
@@ -742,7 +743,7 @@
     {{-- PERINTAH DELETE DATA --}}
     <script>
         $(document).ready(function() {
-            $('.dataTable tbody').on('click', 'td .btn-hapus', function(e) {
+            $('#example1 tbody').on('click', 'td .btn-hapus', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
 

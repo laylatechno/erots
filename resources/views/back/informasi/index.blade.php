@@ -445,9 +445,12 @@
     {{-- PERINTAH EDIT DATA --}}
     <script>
         $(document).ready(function() {
-            $('.btn-edit').click(function(e) {
+            $('#example1').on('click', '.btn-edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
+
+
+
                 $.ajax({
                     method: 'GET',
                     url: '/info/' + id + '/edit',
@@ -559,7 +562,7 @@
     {{-- PERINTAH DELETE DATA --}}
     <script>
         $(document).ready(function() {
-            $('.dataTable tbody').on('click', 'td .btn-hapus', function(e) {
+            $('#example1 tbody').on('click', 'td .btn-hapus', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
 

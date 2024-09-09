@@ -21,7 +21,7 @@
                                 <th>No</th>
                                 <th>Kategori Galeri</th>
                                 <th>Nama Galeri</th>
-                         
+
                                 <th width="10%">Gambar</th>
                                 <th width="15%">Aksi</th>
                             </tr>
@@ -35,7 +35,7 @@
                                     <td>{{ $i }}</td>
                                     <td>{{ $p->kategoriGaleri->nama_kategori_galeri }}</td>
                                     <td>{{ $p->nama_galeri }}</td>
-                                    
+
                                     <td><a href="/upload/galeri/{{ $p->gambar }}" target="_blank"><img
                                                 style="max-width:100px; max-height:100px"
                                                 src="/upload/galeri/{{ $p->gambar }}" alt=""></a></td>
@@ -115,8 +115,8 @@
                                                 placeholder="Masukkan Nama Galeri" required>
                                         </div>
                                     </div>
-                                   
-                                  
+
+
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="deskripsi">Deskripsi</label>
@@ -124,7 +124,7 @@
                                                 placeholder="Masukkan Deskripsi">
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="gambar">Gambar Galeri</label>
@@ -190,7 +190,7 @@
                                                 placeholder="Masukkan Urutan">
                                         </div>
                                     </div>
-                                   
+
                                 </div>
 
                                 <div class="card-footer">
@@ -268,8 +268,8 @@
                                                 placeholder="Masukkan Nama Galeri" required>
                                         </div>
                                     </div>
-                                   
-                                  
+
+
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="deskripsi_edit">Deskripsi</label>
@@ -277,7 +277,7 @@
                                                 placeholder="Masukkan Deskripsi">
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-4">
                                         <div class="form-group" id="gambar_edit_container">
                                             <label for="gambar_edit">Gambar</label>
@@ -298,29 +298,29 @@
                                                 var fileInput_edit = document.getElementById('gambar_edit'); // Mengubah id menjadi gambar_edit
                                                 var file_edit = fileInput_edit.files[0];
                                                 var reader_edit = new FileReader();
-    
+
                                                 reader_edit.onload = function(e) {
                                                     var img = new Image();
                                                     img.src = e.target.result;
-    
+
                                                     img.onload = function() {
                                                         var canvasContext = previewCanvas_edit.getContext('2d');
                                                         var maxWidth = 200; // Max width untuk pratinja gambar
-    
+
                                                         var scaleFactor = maxWidth / img.width;
                                                         var newHeight = img.height * scaleFactor;
-    
+
                                                         previewCanvas_edit.width = maxWidth;
                                                         previewCanvas_edit.height = newHeight;
-    
+
                                                         canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
-    
+
                                                         // Menampilkan pratinja gambar setelah diperkecil
                                                         previewCanvas_edit.style.display = 'block';
                                                         previewImage_edit.style.display = 'none';
                                                     };
                                                 };
-    
+
                                                 if (file_edit) {
                                                     reader_edit.readAsDataURL(file_edit); // Membaca file yang dipilih sebagai URL data
                                                 } else {
@@ -347,7 +347,7 @@
                                                 placeholder="Masukkan Urutan">
                                         </div>
                                     </div>
-                                   
+
                                 </div>
 
                                 <!-- /.card-body -->
@@ -393,7 +393,7 @@
     <!-- Memuat skrip JavaScript Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-    
+
     <!-- Inisialisasi Select2 -->
     <script>
         $(document).ready(function() {
@@ -404,7 +404,7 @@
         });
     </script>
 
-    
+
 
     {{-- PERINTAH SIMPAN DATA --}}
     <script>
@@ -467,9 +467,11 @@
     {{-- PERINTAH EDIT DATA --}}
     <script>
         $(document).ready(function() {
-            $('.btn-edit').click(function(e) {
+            $('#example1').on('click', '.btn-edit', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
+
+                
                 $.ajax({
                     method: 'GET',
                     url: '/galeri/' + id + '/edit',
@@ -481,11 +483,11 @@
                         $('#deskripsi_edit').val(data.deskripsi);
                         $('#link_edit').val(data.link);
                         $('#urutan_edit').val(data.urutan);
-    
+
                         // Hapus gambar yang ada sebelum menambahkan gambar yang baru
                         $('#gambar_edit_container img').remove();
                         $('#gambar_edit_container a').remove();
-    
+
                         // Tambahkan logika untuk menampilkan gambar bukti pada formulir edit
                         if (data.gambar) {
                             var gambarImg = '<img src="/upload/galeri/' + data.gambar +
@@ -494,7 +496,7 @@
                                 '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
                             $('#gambar_edit_container').append(gambarImg + '<br>' + gambarLink);
                         }
-    
+
                         $('#modal-edit').modal('show');
                     },
                     error: function(xhr) {
@@ -503,7 +505,7 @@
                     }
                 });
             });
-    
+
             // Mengosongkan gambar saat modal ditutup
             $('#modal-edit').on('hidden.bs.modal', function() {
                 $('#gambar_edit_container img').remove();
@@ -511,7 +513,7 @@
             });
         });
     </script>
-    
+
     {{-- PERINTAH EDIT DATA --}}
 
 
@@ -580,7 +582,7 @@
     {{-- PERINTAH DELETE DATA --}}
     <script>
         $(document).ready(function() {
-            $('.dataTable tbody').on('click', 'td .btn-hapus', function(e) {
+            $('#example1 tbody').on('click', 'td .btn-hapus', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
 
