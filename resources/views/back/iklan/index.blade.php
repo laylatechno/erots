@@ -567,7 +567,7 @@
     {{-- PERINTAH DELETE DATA --}}
     <script>
         $(document).ready(function() {
-            $('.dataTable tbody').on('click', 'td .btn-hapus', function(e) {
+            $('#example1 tbody').on('click', 'td .btn-hapus', function(e) {
                 e.preventDefault();
                 var id = $(this).data('id');
 
