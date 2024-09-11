@@ -50,17 +50,49 @@ class HomeController extends Controller
 
         // Gunakan eager loading untuk produk dan produk_diskon
         // Ambil produk berdasarkan urutan
+        // $produk = Produk::with(['kategoriProduk'])
+        //     ->where('status', 'Aktif')
+        //     ->where(function ($query) {
+        //         $query->where('status_diskon', 'Non Aktif')
+        //             ->orWhereNull('status_diskon');
+        //     })
+        //     ->orderBy('urutan', 'desc')
+        //     ->take(12) // Ambil maksimal 12 produk
+        //     ->get();
+
+        // // Jika produk yang diambil kurang dari 12, ambil produk lain dengan ID yang lebih kecil
+        // if ($produk->count() < 12) {
+        //     $remaining = 12 - $produk->count();
+
+        //     $extraProduk = Produk::with(['kategoriProduk'])
+        //         ->where('status', 'Aktif')
+        //         ->where(function ($query) {
+        //             $query->where('status_diskon', 'Non Aktif')
+        //                 ->orWhereNull('status_diskon');
+        //         })
+        //         ->whereNotIn('id', $produk->pluck('id')) // Exclude produk yang sudah diambil
+        //         ->orderBy('id', 'desc') // Urutkan berdasarkan ID untuk ambil produk dengan ID lebih kecil
+        //         ->take($remaining) // Ambil produk untuk melengkapi jumlah menjadi 12
+        //         ->get();
+
+        //     // Gabungkan kedua koleksi produk
+        //     $produk = $produk->merge($extraProduk);
+        // }
+
+
+
+
         $produk = Produk::with(['kategoriProduk'])
             ->where('status', 'Aktif')
             ->where(function ($query) {
                 $query->where('status_diskon', 'Non Aktif')
                     ->orWhereNull('status_diskon');
             })
-            ->orderBy('urutan', 'desc')
+            ->inRandomOrder() // Tampilkan produk secara acak
             ->take(12) // Ambil maksimal 12 produk
             ->get();
 
-        // Jika produk yang diambil kurang dari 12, ambil produk lain dengan ID yang lebih kecil
+        // Jika produk yang diambil kurang dari 12, ambil produk lain dengan ID yang berbeda secara acak
         if ($produk->count() < 12) {
             $remaining = 12 - $produk->count();
 
@@ -71,13 +103,14 @@ class HomeController extends Controller
                         ->orWhereNull('status_diskon');
                 })
                 ->whereNotIn('id', $produk->pluck('id')) // Exclude produk yang sudah diambil
-                ->orderBy('id', 'desc') // Urutkan berdasarkan ID untuk ambil produk dengan ID lebih kecil
+                ->inRandomOrder() // Ambil produk secara acak
                 ->take($remaining) // Ambil produk untuk melengkapi jumlah menjadi 12
                 ->get();
 
             // Gabungkan kedua koleksi produk
             $produk = $produk->merge($extraProduk);
         }
+
 
 
         $produk_diskon = Produk::with(['kategoriProduk'])
@@ -140,16 +173,16 @@ class HomeController extends Controller
             ->take(12)
             ->get();
 
-            $berita = Berita::with('kategoriBerita')
+        $berita = Berita::with('kategoriBerita')
             ->where('status', 'Aktif') // Filter status 'Aktif'
             ->orderBy('urutan', 'asc') // Urutkan berdasarkan kolom 'urutan' secara ascending
             ->get();
 
-            $iklan = Iklan::orderBy('urutan', 'asc')->get();
+        $iklan = Iklan::orderBy('urutan', 'asc')->get();
 
 
 
-        return view('front.home', compact('slider','iklan', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga', 'berita'));
+        return view('front.home', compact('slider', 'iklan', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon', 'kategori_pertama', 'produk_kategori_pertama', 'kategori_kedua', 'produk_kategori_kedua', 'kategori_ketiga', 'produk_kategori_ketiga', 'berita'));
     }
 
     public function informasi()
@@ -190,8 +223,8 @@ class HomeController extends Controller
 
         // Ambil query awal produk aktif dengan eager loading
         $query = Produk::with('kategoriProduk')
-        ->where('produk.status', 'Aktif')
-        ->inRandomOrder(); // Mengurutkan secara acak
+            ->where('produk.status', 'Aktif')
+            ->inRandomOrder(); // Mengurutkan secara acak
 
 
         // Proses pencarian berdasarkan keyword
