@@ -57,7 +57,8 @@
                                         data-bs-toggle="modal" data-bs-target="#modal-edit"
                                         data-id="{{ $p->id }}">{{ $p->nama_kurir }}</a>
                                     <a class="btn btn-success btn-sm"
-                                        href="https://wa.me/{{$p->no_wa }}" target="_blank">
+                                        href="https://wa.me/{{ $p->no_wa }}?data=action=send-message&amp;phone={{ $p->no_wa }}&amp;app_id=com.whatsapp.waba"
+                                        target="_blank">
                                         <i class="bi bi-whatsapp me-1"></i> Hubungi Kurir
                                     </a>
 
@@ -131,7 +132,8 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="button" class="btn btn-danger float-end" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger float-end"
+                                    data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -153,64 +155,73 @@
     {{-- PERINTAH EDIT DATA --}}
     <script>
         $(document).ready(function() {
-    $('.btn-edit').click(function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        $.ajax({
-            method: 'GET',
-            url: '/kurir_page/' + id,
-            success: function(data) {
-                // Mengisi data pada form modal
-                $('#nama_kurir_edit').text(data.nama_kurir);
-                $('#tempat_lahir_edit').text(data.tempat_lahir);
+            $('.btn-edit').click(function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.ajax({
+                    method: 'GET',
+                    url: '/kurir_page/' + id,
+                    success: function(data) {
+                        // Mengisi data pada form modal
+                        $('#nama_kurir_edit').text(data.nama_kurir);
+                        $('#tempat_lahir_edit').text(data.tempat_lahir);
 
-                // Format tanggal lahir
-                var tanggalLahir = new Date(data.tanggal_lahir);
-                var options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-                var formattedTanggalLahir = tanggalLahir.toLocaleDateString('id-ID', options);
-                $('#tanggal_lahir_edit').text(formattedTanggalLahir);
+                        // Format tanggal lahir
+                        var tanggalLahir = new Date(data.tanggal_lahir);
+                        var options = {
+                            weekday: 'long',
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        };
+                        var formattedTanggalLahir = tanggalLahir.toLocaleDateString('id-ID',
+                            options);
+                        $('#tanggal_lahir_edit').text(formattedTanggalLahir);
 
-                // Menghitung umur
-                var today = new Date();
-                var age = today.getFullYear() - tanggalLahir.getFullYear();
-                var monthDiff = today.getMonth() - tanggalLahir.getMonth();
-                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < tanggalLahir.getDate())) {
-                    age--;
-                }
-                $('#umur_edit').text(age);
+                        // Menghitung umur
+                        var today = new Date();
+                        var age = today.getFullYear() - tanggalLahir.getFullYear();
+                        var monthDiff = today.getMonth() - tanggalLahir.getMonth();
+                        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < tanggalLahir
+                                .getDate())) {
+                            age--;
+                        }
+                        $('#umur_edit').text(age);
 
-                $('#alamat_edit').text(data.alamat);
-                $('#no_wa_edit').text(data.no_wa);
-                $('#afiliasi_edit').text(data.afiliasi);
-                $('#deskripsi_edit').text(data.deskripsi);
+                        $('#alamat_edit').text(data.alamat);
+                        $('#no_wa_edit').text(data.no_wa);
+                        $('#afiliasi_edit').text(data.afiliasi);
+                        $('#deskripsi_edit').text(data.deskripsi);
 
-                // Hapus gambar yang ada sebelum menambahkan gambar yang baru
+                        // Hapus gambar yang ada sebelum menambahkan gambar yang baru
+                        $('#gambar_edit_container img').remove();
+                        $('#gambar_edit_container a').remove();
+
+                        // Tambahkan logika untuk menampilkan gambar bukti pada formulir edit
+                        if (data.gambar) {
+                            var gambarImg = '<img src="/upload/kurir/' + data.gambar +
+                                '" style="max-width: 200px; max-height: 200px;">';
+                            var gambarStatus = '<a href="/upload/kurir/' + data.gambar +
+                                '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
+                            $('#gambar_edit_container').append(gambarImg + '<br>' +
+                                gambarStatus);
+                        }
+
+                        $('#modal-edit').modal('show');
+                    },
+                    error: function(xhr) {
+                        // Tangani kesalahan jika ada
+                        alert('Error: ' + xhr.statusText);
+                    }
+                });
+            });
+
+            // Mengosongkan gambar saat modal ditutup
+            $('#modal-edit').on('hidden.bs.modal', function() {
                 $('#gambar_edit_container img').remove();
                 $('#gambar_edit_container a').remove();
-
-                // Tambahkan logika untuk menampilkan gambar bukti pada formulir edit
-                if (data.gambar) {
-                    var gambarImg = '<img src="/upload/kurir/' + data.gambar + '" style="max-width: 200px; max-height: 200px;">';
-                    var gambarStatus = '<a href="/upload/kurir/' + data.gambar + '" target="_blank"><i class="fa fa-eye"></i> Lihat Gambar</a>';
-                    $('#gambar_edit_container').append(gambarImg + '<br>' + gambarStatus);
-                }
-
-                $('#modal-edit').modal('show');
-            },
-            error: function(xhr) {
-                // Tangani kesalahan jika ada
-                alert('Error: ' + xhr.statusText);
-            }
+            });
         });
-    });
-
-    // Mengosongkan gambar saat modal ditutup
-    $('#modal-edit').on('hidden.bs.modal', function() {
-        $('#gambar_edit_container img').remove();
-        $('#gambar_edit_container a').remove();
-    });
-});
-
     </script>
 
     {{-- PERINTAH EDIT DATA --}}
