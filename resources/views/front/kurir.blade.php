@@ -57,7 +57,7 @@
                                         data-bs-toggle="modal" data-bs-target="#modal-edit"
                                         data-id="{{ $p->id }}">{{ $p->nama_kurir }}</a>
                                     <a class="btn btn-success btn-sm"
-                                        href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $p->no_wa) }}" target="_blank">
+                                        href="https://wa.me/{{$p->no_wa }}" target="_blank">
                                         <i class="bi bi-whatsapp me-1"></i> Hubungi Kurir
                                     </a>
 
