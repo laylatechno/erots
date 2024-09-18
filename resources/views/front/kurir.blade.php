@@ -56,11 +56,7 @@
                                     <a class="blog-title d-block mb-3 text-dark btn-edit" href="#"
                                         data-bs-toggle="modal" data-bs-target="#modal-edit"
                                         data-id="{{ $p->id }}">{{ $p->nama_kurir }}</a>
-                                    <a class="btn btn-success btn-sm"
-                                        href="https://wa.me/{{ $p->no_wa }}?data=action=send-message&amp;phone={{ $p->no_wa }}&amp;app_id=com.whatsapp.waba"
-                                        target="_blank">
-                                        <i class="bi bi-whatsapp me-1"></i> Hubungi Kurir
-                                    </a>
+                                        <a href="whatsapp://send?phone={{$p->no_wa }}&text=Halo,%20saya%20ingin%20menanyakan%20info%20kurir.&amp;app_id=com.whatsapp.waba">Hubungi Kurir</a>
 
                                     </a>
                                 </div>
